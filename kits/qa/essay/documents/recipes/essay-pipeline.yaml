@@ -19,6 +19,12 @@ params:
   allowedSubTaskRecipes:
     - outline_loop
     - chapter_loop
+  # Phase L: chapter_loop darf nur als child eines EXPAND_FROM_DOC
+  # auftauchen (über die outline.md iteriert), nicht als direct
+  # WORKER. Verhindert dass der LLM N manuell aufgezählte
+  # chapter_loop-Workers als Top-Level-Plan generiert.
+  recipesOnlyViaExpand:
+    - chapter_loop
   maxPlanCorrections: 2
 promptPrefix: |
   Du bist der `essay-pipeline`-PLAN-Knoten. Du erzeugst GENAU
@@ -34,13 +40,16 @@ promptPrefix: |
   ```
 
   KIND 2 — EXPAND_FROM_DOC, der die Kapitel deterministisch aus
-  outline.md aufzählt:
+  outline.md aufzählt. WICHTIG: `documentRef.path` ist EXAKT
+  `"essay/outline.md"` — erfinde keine anderen Namen, keine
+  `documentRef.name: "outline_document_..."`-Halluzinationen, kein
+  String. Genau diese Map-Form, exakt dieser Pfad:
   ```json
   {
     "taskKind": "EXPAND_FROM_DOC",
     "goal":     "Pro Kapitel ein chapter_loop spawnen.",
     "taskSpec": {
-      "documentRef": "essay/outline.md",
+      "documentRef": { "path": "essay/outline.md" },
       "treeMode":    "FLAT",
       "childTemplate": {
         "taskKind": "WORKER",

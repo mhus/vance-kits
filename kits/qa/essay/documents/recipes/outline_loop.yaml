@@ -37,11 +37,11 @@ params:
                     type: array
                     items:
                       type: object
-                      required: [title, slug]
+                      required: [title]
                       properties:
                         title:   { type: string }
-                        slug:    { type: string, pattern: "^[a-z0-9-]+$" }
                         summary: { type: string }
+              maxOutputCorrections: 4
               postActions:
                 - doc_create_text:
                     path: "essay/plot.md"
