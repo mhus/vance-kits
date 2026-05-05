@@ -19,18 +19,38 @@ params:
   allowedSubTaskRecipes:
     - outline_loop
     - chapter_loop
+    - aggregator_run
   # Phase L: chapter_loop darf nur als child eines EXPAND_FROM_DOC
   # auftauchen (über die outline.md iteriert), nicht als direct
   # WORKER. Verhindert dass der LLM N manuell aufgezählte
   # chapter_loop-Workers als Top-Level-Plan generiert.
   recipesOnlyViaExpand:
     - chapter_loop
+  # Phase M: schließt das documentRef-Hallucination-Loch. Der LLM
+  # darf für EXPAND_FROM_DOC.documentRef.path NUR diese verbatim
+  # Strings benutzen — alles andere (z.B. "story_outline.md",
+  # "tasks/.../output.md") wird vom Validator zurückgewiesen.
+  allowedExpandDocumentRefPaths:
+    - essay/outline.md
+  # Phase O.1: childTemplate.recipeParams Pflicht-Keys pro Recipe.
+  # Ohne chapterIndex/chapterTitle haben die Chapter-Writer keine
+  # Referenz und produzieren Slug-Müll wie "kapitel-titel-fehlt".
+  requiredChildTemplateRecipeParams:
+    chapter_loop:
+      - chapterIndex
+      - chapterTitle
+  # Phase O.2: AGGREGATE-Kind ist verboten — der LLM soll stattdessen
+  # einen WORKER mit recipe=aggregator_run spawnen, der via
+  # postActions essay/final-essay.md erzeugt und eine Inbox-
+  # Notification absetzt.
+  disallowedTaskKinds:
+    - AGGREGATE
   maxPlanCorrections: 2
 promptPrefix: |
   Du bist der `essay-pipeline`-PLAN-Knoten. Du erzeugst GENAU
-  ZWEI Children in dieser Reihenfolge:
+  DREI Children in dieser Reihenfolge:
 
-  KIND 1 — WORKER outline_loop:
+  KIND 1 — WORKER outline_loop (erzeugt plot.md, cast.md, outline.md):
   ```json
   {
     "taskKind": "WORKER",
@@ -64,21 +84,34 @@ promptPrefix: |
   }
   ```
 
+  KIND 3 — WORKER aggregator_run (concatenates die Kapitel zu
+  essay/final-essay.md und postet eine Inbox-Notification):
+  ```json
+  {
+    "taskKind": "WORKER",
+    "goal":     "Kapitel zusammenführen und Notification senden.",
+    "taskSpec": { "recipe": "aggregator_run" }
+  }
+  ```
+
   ABSOLUT VERBOTEN — diese Pläne werden abgelehnt:
    - chapter_loop direkt als WORKER-Children am Top-Level (statt
      im EXPAND_FROM_DOC childTemplate).
-   - Mehr als 2 Children am Top-Level. (Die Kapitel werden im
+   - Mehr als 3 Children am Top-Level. (Die Kapitel werden im
      EXPAND-Knoten generiert, NICHT manuell.)
    - WORKER-Children mit anderen Recipes als `outline_loop` /
-     `chapter_loop`.
+     `chapter_loop` / `aggregator_run`.
+   - `taskKind: AGGREGATE` für die Zusammenführung — benutze
+     stattdessen den WORKER `aggregator_run` (KIND 3).
 
   Erkenne wenn der LLM-Drang besteht "ich erzeuge gleich N
   Kapitel-Knoten" — das ist falsch. EXPAND_FROM_DOC macht das
   später deterministisch aus outline.md.
 
-  Output-Vertrag (Marvin-Schema), nur diese zwei Children:
+  Output-Vertrag (Marvin-Schema), nur diese drei Children:
 
       {"children": [
          <KIND 1 oben>,
-         <KIND 2 oben>
+         <KIND 2 oben>,
+         <KIND 3 oben>
       ]}
