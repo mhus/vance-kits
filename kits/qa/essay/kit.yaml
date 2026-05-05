@@ -1,0 +1,16 @@
+name: essay
+description: |
+  Workflow-Kit zur Generierung einer Kurzgeschichte im Stil von
+  Douglas Adams. Erzeugt einen Plot mit Personenbeschreibungen und
+  einer Kapitel-Outline (kind: list), schreibt jedes Kapitel
+  einzeln, und konsolidiert das Ergebnis in ein Gesamtdokument.
+  Ein Lector-Loop (Vogon) prüft pro Phase die Qualität und steuert
+  Re-Iterationen via strukturiertem Score (0..1).
+
+  Verbraucht: marvin (top-level), vogon (lector-loops), ford (worker).
+  Top-level Recipe: essay-pipeline.
+
+  Tools im Worker-Mix: doc_create_text, doc_create_kind, list_*,
+  doc_read, doc_concat, inbox_post.
+version: "1.0"
+hasEncryptedSecrets: false

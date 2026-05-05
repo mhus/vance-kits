@@ -1,0 +1,50 @@
+name: essay-pipeline
+description: |
+  Top-Level-Recipe der Essay-Pipeline. Spawnt einen Marvin-Process,
+  dessen Wurzel ein PLAN-Knoten ist; der Plan zerfällt in
+   1. WORKER outline_loop  — Plot + Outline mit Lector-Review
+   2. EXPAND_FROM_DOC node — pro Item in outline.md ein chapter_loop
+   3. WORKER aggregator    — doc_concat + inbox_post
+
+  Aufruf: process_create(engine="marvin", recipe="essay-pipeline").
+engine: marvin
+params:
+  rootTaskKind: PLAN
+  manualPaths:
+    - manuals/essay/
+promptPrefix: |
+  Du bist der `essay-pipeline`-PLAN-Knoten. Lies zuerst
+  `manuals/essay/HOW_TO.md` (`manual_read`), dann generiere
+  GENAU diese drei Sub-Knoten in der angegebenen Reihenfolge:
+
+   1. taskKind: WORKER
+      recipe: outline_loop
+      goal: "Plot, Personenliste und Kapitel-Outline erzeugen,
+             vom Lector freigegeben."
+
+   2. taskKind: EXPAND_FROM_DOC
+      taskSpec:
+        documentRef: essay/outline.md
+        treeMode: FLAT
+        childTemplate:
+          taskKind: WORKER
+          recipe: chapter_loop
+          goal: "Kapitel {{index1}}: {{item.title}}"
+          recipeParams:
+            chapterIndex: "{{index1}}"
+            chapterTitle: "{{item.title}}"
+            chapterSlug:  "{{item.slug}}"
+
+   3. taskKind: WORKER
+      recipe: aggregator
+      goal: "Alle Kapitel zu final-essay.md zusammenfügen und
+             Inbox-Notification senden."
+
+  Output-Vertrag (Marvin-Schema):
+
+      {"outcome": "NEEDS_SUBTASKS", "newTasks": [
+         {…task 1…}, {…task 2…}, {…task 3…}
+      ]}
+
+  Keine zusätzlichen Knoten, keine andere Reihenfolge. Du bist
+  ein deterministischer Plan-Generator.

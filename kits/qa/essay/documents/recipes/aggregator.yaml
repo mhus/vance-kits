@@ -1,0 +1,36 @@
+name: aggregator
+description: |
+  Letzte Pipeline-Phase. Liest die Outline-Liste, fügt alle
+  Kapitel-Documents verbatim mit `doc_concat` zu
+  `essay/final-essay.md` zusammen und schickt eine Inbox-
+  Notification mit Link aufs Endergebnis.
+engine: ford
+params:
+  model: default:fast
+  temperature: 0.0
+  validation: false
+  manualPaths:
+    - manuals/essay/
+promptPrefix: |
+  Du bist der `aggregator`-Worker. Pflicht-Schritte in genau
+  dieser Reihenfolge:
+
+  1. Lies `essay/outline.md` (`doc_read`) und sammle pro Item den
+     erwarteten Pfad `essay/chapters/<NN-slug>.md`. Die Items
+     stehen in der Reihenfolge der Kapitel.
+  2. Rufe `doc_concat` mit:
+       - `sources`: die Liste der Kapitel-Pfade in Reihenfolge
+       - `target`: `essay/final-essay.md`
+       - `header`: lies `essay/plot.md` und nimm den Plot-Text
+         als Kopfzeile (mit Leerzeile danach)
+       - `separator`: `\n\n---\n\n` (Markdown-HR zwischen Kapiteln)
+       - `title`: ein menschenlesbarer Titel der Geschichte
+  3. Rufe `inbox_post` mit:
+       - `type`: NOTICE
+       - `title`: "Geschichte fertig"
+       - `body`: kurzer Markdown-Text mit Pfad-Link auf
+         `essay/final-essay.md`
+       - `criticality`: LOW
+
+  Reply mit einer Ein-Satz-Bestätigung. Kein neuer LLM-generierter
+  Inhalt — du bist deterministischer Concat-Step.

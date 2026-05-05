@@ -1,0 +1,54 @@
+name: chapter_loop
+description: |
+  Vogon-Sub-Strategy für Kapitel-Schreiben + Lector-Review.
+  Spawned per Kapitel von Marvin's EXPAND_FROM_DOC. Caller-Params:
+   - chapterIndex: int  (1-basiert)
+   - chapterTitle: str
+   - chapterSlug:  str  (für den Datei-Namen)
+engine: vogon
+params:
+  manualPaths:
+    - manuals/essay/
+  strategyPlanYaml: |
+    name: chapter-loop
+    description: Kapitel schreiben + Lector-Review.
+    version: "1"
+    phases:
+      - name: review-loop
+        loop:
+          maxIterations: 3
+          onMaxReached: exit_ok
+          until:
+            requiresAny:
+              - lector_approved
+              - review_loop_max_iterations_reached
+          subPhases:
+            - name: writer
+              worker: writer
+              workerInput: |
+                Schreibe Kapitel ${params.chapterIndex}: ${params.chapterTitle}.
+                Datei: essay/chapters/${params.chapterSlug}.md
+                Falls Issues vorliegen, adressiere sie:
+                ${flags.lector_issues}
+              gate: { requires: [writer_completed] }
+            - name: lector
+              worker: lector
+              workerInput: |
+                Bewerte Kapitel ${params.chapterIndex} aus
+                essay/chapters/${params.chapterSlug}.md. Ende mit
+                JSON {score, summary, issues}.
+              gate: { requires: [lector_completed] }
+              scorer:
+                storeAs: lector
+                schema:
+                  score: float
+                  summary: string
+                cases:
+                  - when: { scoreAtLeast: 0.7 }
+                    do:
+                      - setFlag: lector_approved
+                      - exitLoop: ok
+                  - when: { default: true }
+                    do:
+                      - setFlag: lector_revision_needed
+                maxCorrections: 1

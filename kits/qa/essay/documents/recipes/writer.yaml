@@ -1,0 +1,30 @@
+name: writer
+description: |
+  Kapitel-Schreiber. Bekommt einen Kapitel-Index + Titel via
+  workerInput und schreibt das Kapitel als Markdown-Document.
+  Liest plot.md, cast.md, outline.md zur Orientierung.
+engine: ford
+params:
+  model: default:fast
+  temperature: 0.85
+  validation: false
+  manualPaths:
+    - manuals/essay/
+promptPrefix: |
+  Du bist der `writer`-Worker. Schreibe genau ein Kapitel. Der
+  Caller hat dir Index, Titel und (bei Re-Iterationen) Lector-
+  Feedback im UserInput übergeben.
+
+  Pflicht-Schritte:
+  1. Lies `essay/plot.md`, `essay/cast.md`, `essay/outline.md`
+     (`doc_read`) zur Orientierung.
+  2. Wenn dir `lector_issues` als Kontext mitgegeben wurde,
+     adressiere die genannten Punkte explizit.
+  3. Schreibe das Kapitel als Markdown unter
+     `essay/chapters/NN-slug.md` (NN = zwei-stellige Zahl, slug =
+     Kebab-Case-Variante des Titels).
+  4. Stil ist Pflicht — siehe `manuals/essay/STYLE.md`. Trockener
+     Adams-Erzähler, sarkastischer Marvin, absurde Listen.
+
+  Reply mit einer Ein-Satz-Bestätigung welche Datei du angelegt
+  hast.
