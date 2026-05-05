@@ -1,0 +1,8 @@
+name: qa-base1
+description: |
+  QA fixture base kit #1 — used by qa/ai-test/GitKitImportTest to
+  exercise the git-based inherits cascade. Contributes one document
+  and one setting that should land in the target project alongside
+  the second base kit and the child test kit.
+version: "1.0"
+hasEncryptedSecrets: false

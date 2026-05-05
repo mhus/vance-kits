@@ -1,0 +1,7 @@
+name: qa-base2
+description: |
+  QA fixture base kit #2 — second inherits layer for qa-test1. Carries
+  its own document and setting; together with qa-base1 verifies that
+  multiple inherit URLs are merged into the target project.
+version: "1.0"
+hasEncryptedSecrets: false

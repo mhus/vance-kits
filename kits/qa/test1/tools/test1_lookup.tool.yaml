@@ -1,0 +1,10 @@
+name: test1_lookup
+type: doc_lookup
+description: "Top-layer tool of qa-test1 — exposes test1-overview.md as a doc-lookup tool."
+enabled: true
+primary: false
+labels:
+  - qa
+  - test1
+parameters:
+  path: "test1-overview.md"

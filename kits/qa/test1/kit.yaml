@@ -1,0 +1,14 @@
+name: qa-test1
+description: |
+  QA fixture child kit — used by qa/ai-test/GitKitImportTest. Inherits
+  qa-base1 and qa-base2 from the same git repo at different sub-paths,
+  so install via the public mhus/vance-kits repo brings five artefacts
+  into the target project: this kit's two own files plus base1's and
+  base2's contributions, plus the auto-generated kit-manifest.yaml.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: "https://github.com/mhus/vance-kits.git"
+    path: "kits/qa/base1"
+  - url: "https://github.com/mhus/vance-kits.git"
+    path: "kits/qa/base2"
