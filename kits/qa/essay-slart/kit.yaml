@@ -1,0 +1,14 @@
+name: essay-slart
+description: |
+  Slartibartfast-Test-Kit. Enthält ausschließlich Manuals — keine
+  Recipes oder Strategies, weil die generiert Slartibartfast selbst
+  zur Laufzeit. Dient dem ai-test SlartibartfastFramingLlmTest +
+  späteren Erweiterungen für GATHERING / DECOMPOSING.
+
+  Die Manuals sind absichtlich domain-orientiert (was ist ein
+  Adams-Essay, welche Output-Conventions gelten), nicht
+  pipeline-orientiert. Slartibartfast soll daraus seine
+  acceptanceCriteria + Subgoals ableiten — das hand-authored
+  essay-kit mit fertigen Recipes ist die Vergleichs-Baseline.
+version: "1.0"
+hasEncryptedSecrets: false
