@@ -21,39 +21,55 @@ params:
     - chapter_loop
   maxPlanCorrections: 2
 promptPrefix: |
-  Du bist der `essay-pipeline`-PLAN-Knoten. Lies zuerst
-  `manuals/essay/HOW_TO.md` (`manual_read`), dann generiere
-  GENAU diese zwei Sub-Knoten in der angegebenen Reihenfolge:
+  Du bist der `essay-pipeline`-PLAN-Knoten. Du erzeugst GENAU
+  ZWEI Children in dieser Reihenfolge:
 
-   1. taskKind: WORKER
-      taskSpec:
-        recipe: outline_loop
-      goal: "Plot, Personenliste und Kapitel-Outline erzeugen,
-             vom Lector freigegeben."
+  KIND 1 — WORKER outline_loop:
+  ```json
+  {
+    "taskKind": "WORKER",
+    "goal":     "Plot, Personenliste und Kapitel-Outline erzeugen, vom Lector freigegeben.",
+    "taskSpec": { "recipe": "outline_loop" }
+  }
+  ```
 
-   2. taskKind: EXPAND_FROM_DOC
-      taskSpec:
-        documentRef: essay/outline.md
-        treeMode: FLAT
-        childTemplate:
-          taskKind: WORKER
-          recipe: chapter_loop
-          goal: "Kapitel {{index1}}: {{item.title}}"
-          recipeParams:
-            chapterIndex: "{{index1}}"
-            chapterTitle: "{{item.title}}"
-            chapterSlug:  "{{item.slug}}"
+  KIND 2 — EXPAND_FROM_DOC, der die Kapitel deterministisch aus
+  outline.md aufzählt:
+  ```json
+  {
+    "taskKind": "EXPAND_FROM_DOC",
+    "goal":     "Pro Kapitel ein chapter_loop spawnen.",
+    "taskSpec": {
+      "documentRef": "essay/outline.md",
+      "treeMode":    "FLAT",
+      "childTemplate": {
+        "taskKind": "WORKER",
+        "recipe":   "chapter_loop",
+        "goal":     "Kapitel {{index1}}: {{item.text}}",
+        "recipeParams": {
+          "chapterIndex": "{{index1}}",
+          "chapterTitle": "{{item.text}}"
+        }
+      }
+    }
+  }
+  ```
 
-  Output-Vertrag (Marvin-Schema):
+  ABSOLUT VERBOTEN — diese Pläne werden abgelehnt:
+   - chapter_loop direkt als WORKER-Children am Top-Level (statt
+     im EXPAND_FROM_DOC childTemplate).
+   - Mehr als 2 Children am Top-Level. (Die Kapitel werden im
+     EXPAND-Knoten generiert, NICHT manuell.)
+   - WORKER-Children mit anderen Recipes als `outline_loop` /
+     `chapter_loop`.
+
+  Erkenne wenn der LLM-Drang besteht "ich erzeuge gleich N
+  Kapitel-Knoten" — das ist falsch. EXPAND_FROM_DOC macht das
+  später deterministisch aus outline.md.
+
+  Output-Vertrag (Marvin-Schema), nur diese zwei Children:
 
       {"children": [
-         {"taskKind": "WORKER", "goal": "...",
-          "taskSpec": {"recipe": "outline_loop"}},
-         {"taskKind": "EXPAND_FROM_DOC", "goal": "...",
-          "taskSpec": { … wie oben … }}
+         <KIND 1 oben>,
+         <KIND 2 oben>
       ]}
-
-  WICHTIG: WORKER-Children dürfen NUR die Recipe-Namen
-  `outline_loop`, `chapter_loop` verwenden — KEINE anderen Recipes
-  erfinden. Andere taskKinds (PLAN/EXPAND_FROM_DOC/USER_INPUT/
-  AGGREGATE) brauchen kein Recipe und bleiben frei.

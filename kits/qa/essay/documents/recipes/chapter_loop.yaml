@@ -25,7 +25,8 @@ params:
               worker: writer
               workerInput: |
                 Schreib Kapitel ${params.chapterIndex}: ${params.chapterTitle}.
-                Slug: ${params.chapterSlug}. Liefere JSON
+                Generiere selbst einen slug aus dem Titel
+                (kebab-case, keine Umlaute). Liefere JSON
                 {chapterText, slug, title}.
                 ${flags.lector_summary}
               outputSchema:
@@ -44,8 +45,8 @@ params:
             - name: lector
               worker: lector
               workerInput: |
-                Bewerte das Kapitel ${params.chapterIndex} aus
-                essay/chapters/${params.chapterIndex}-${flags.lector_slug}.md.
+                Bewerte das Kapitel ${params.chapterIndex} aus dem
+                writer-output (phase phases.review_loop_writer.output).
                 Score 0..1, JSON {score, summary, issues}.
               gate: { requires: [lector_completed] }
               scorer:
