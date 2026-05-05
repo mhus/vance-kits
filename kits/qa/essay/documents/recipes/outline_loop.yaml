@@ -1,19 +1,15 @@
 name: outline_loop
 description: |
-  Vogon-Sub-Strategy für den Outline-Review-Loop. Wechselt
-  zwischen `creative_writer` (Plot + Outline) und `lector`,
-  bis der Lector-Score ≥ 0.7 oder maxIterations=3 erreicht ist.
-
-  Aufruf-Konvention: spawnt sich als child unter dem Marvin-
-  Top-Level-Process. Schreibt seine Artefakte ins selbe Project,
-  Lector-Score landet als flag.lector_score auf dem Vogon-State.
+  Outline-Phase: creative_writer liefert Plot+Cast+Chapter-Liste
+  als strukturierten Output, Vogon persistiert per postActions in
+  essay/plot.md, essay/cast.md, essay/outline.md (kind:list).
+  Lector-Loop folgt; Score >= 0.7 schließt die Phase ab.
 engine: vogon
 params:
   manualPaths:
     - manuals/essay/
   strategyPlanYaml: |
     name: outline-loop
-    description: Plot + outline mit Lector-Loop.
     version: "1"
     phases:
       - name: review-loop
@@ -28,15 +24,45 @@ params:
             - name: writer
               worker: creative_writer
               workerInput: |
-                Erzeuge plot.md, cast.md und outline.md gemäß HOW_TO.md.
-                Falls Issues vorliegen, adressiere sie:
-                ${flags.lector_issues}
+                Liefere Plot, Cast und Outline als JSON gemäß
+                Recipe-Schema. Falls bereits ein Lector-Feedback
+                vorliegt, adressiere die Punkte: ${flags.lector_summary}
+              outputSchema:
+                type: object
+                required: [plot, cast, chapters]
+                properties:
+                  plot:    { type: string, minLength: 50 }
+                  cast:    { type: string, minLength: 30 }
+                  chapters:
+                    type: array
+                    items:
+                      type: object
+                      required: [title, slug]
+                      properties:
+                        title:   { type: string }
+                        slug:    { type: string, pattern: "^[a-z0-9-]+$" }
+                        summary: { type: string }
+              postActions:
+                - doc_create_text:
+                    path: "essay/plot.md"
+                    title: "Plot"
+                    content: "${output.plot}"
+                - doc_create_text:
+                    path: "essay/cast.md"
+                    title: "Cast"
+                    content: "${output.cast}"
+                - doc_create_kind:
+                    path: "essay/outline.md"
+                    kind: "list"
+                    title: "Kapitel-Outline"
+                    itemsFromOutput: "chapters"
               gate: { requires: [writer_completed] }
             - name: lector
               worker: lector
               workerInput: |
-                Bewerte den Outline-Stand (plot.md + cast.md + outline.md).
-                Ende mit JSON {score, summary, issues}.
+                Bewerte den Outline-Stand (essay/plot.md, essay/cast.md,
+                essay/outline.md). Score 0.0..1.0. Beende mit JSON
+                {score, summary, issues}.
               gate: { requires: [lector_completed] }
               scorer:
                 storeAs: lector

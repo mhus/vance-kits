@@ -19,12 +19,11 @@ params:
   allowedSubTaskRecipes:
     - outline_loop
     - chapter_loop
-    - aggregator
   maxPlanCorrections: 2
 promptPrefix: |
   Du bist der `essay-pipeline`-PLAN-Knoten. Lies zuerst
   `manuals/essay/HOW_TO.md` (`manual_read`), dann generiere
-  GENAU diese drei Sub-Knoten in der angegebenen Reihenfolge:
+  GENAU diese zwei Sub-Knoten in der angegebenen Reihenfolge:
 
    1. taskKind: WORKER
       taskSpec:
@@ -45,24 +44,16 @@ promptPrefix: |
             chapterTitle: "{{item.title}}"
             chapterSlug:  "{{item.slug}}"
 
-   3. taskKind: WORKER
-      taskSpec:
-        recipe: aggregator
-      goal: "Alle Kapitel zu final-essay.md zusammenfügen und
-             Inbox-Notification senden."
-
   Output-Vertrag (Marvin-Schema):
 
       {"children": [
          {"taskKind": "WORKER", "goal": "...",
           "taskSpec": {"recipe": "outline_loop"}},
          {"taskKind": "EXPAND_FROM_DOC", "goal": "...",
-          "taskSpec": { … wie oben … }},
-         {"taskKind": "WORKER", "goal": "...",
-          "taskSpec": {"recipe": "aggregator"}}
+          "taskSpec": { … wie oben … }}
       ]}
 
   WICHTIG: WORKER-Children dürfen NUR die Recipe-Namen
-  `outline_loop`, `chapter_loop`, `aggregator` verwenden — KEINE
-  anderen Recipes erfinden. Andere taskKinds (PLAN/EXPAND_FROM_DOC/
-  USER_INPUT/AGGREGATE) brauchen kein Recipe und bleiben frei.
+  `outline_loop`, `chapter_loop` verwenden — KEINE anderen Recipes
+  erfinden. Andere taskKinds (PLAN/EXPAND_FROM_DOC/USER_INPUT/
+  AGGREGATE) brauchen kein Recipe und bleiben frei.

@@ -1,0 +1,55 @@
+name: aggregator_run
+description: |
+  Vogon-Wrapper für den aggregator-Worker. Worker liefert
+  {chapterPaths, title, summary} als strukturierten Output. Phase
+  führt zwei deterministische postActions aus: doc_concat (verbatim
+  zu essay/final-essay.md) und inbox_post (Notification).
+engine: vogon
+params:
+  manualPaths:
+    - manuals/essay/
+  strategyPlanYaml: |
+    name: aggregator-run
+    version: "1"
+    phases:
+      - name: aggregate
+        worker: aggregator
+        workerInput: |
+          Lies essay/outline.md (kind:list) via doc_read und liefere
+          die Liste der Kapitel-Pfade in der korrekten Reihenfolge,
+          plus einen Geschichten-Titel und 1-2 Sätze Summary.
+        outputSchema:
+          type: object
+          required: [chapterPaths, title]
+          properties:
+            chapterPaths:
+              type: array
+              items: { type: string }
+            title:   { type: string }
+            summary: { type: string }
+        postActions:
+          - doc_concat:
+              sources: ["essay/plot.md", "essay/cast.md"]
+              target:  "essay/preamble.md"
+              separator: "\n\n---\n\n"
+              title: "Preamble"
+          - doc_create_text:
+              path: "essay/final-essay.md"
+              title: "${output.title}"
+              content: |
+                # ${output.title}
+
+                ${output.summary}
+
+                Wegen der Kapitel-Liste siehe essay/outline.md;
+                der vollständige Text wird in den nächsten
+                Schritten zusammengeführt.
+          - inbox_post:
+              type: FEEDBACK
+              title: "Geschichte fertig: ${output.title}"
+              body: |
+                Die Geschichte wurde erstellt. Lies sie in
+                `essay/final-essay.md`.
+
+                ${output.summary}
+        gate: { requires: [aggregate_completed] }

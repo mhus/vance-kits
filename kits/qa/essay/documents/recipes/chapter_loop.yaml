@@ -1,17 +1,15 @@
 name: chapter_loop
 description: |
-  Vogon-Sub-Strategy für Kapitel-Schreiben + Lector-Review.
-  Spawned per Kapitel von Marvin's EXPAND_FROM_DOC. Caller-Params:
-   - chapterIndex: int  (1-basiert)
-   - chapterTitle: str
-   - chapterSlug:  str  (für den Datei-Namen)
+  Pro Kapitel: writer liefert {chapterText, slug, title} als
+  strukturierten Output, Vogon persistiert via postActions
+  deterministisch unter essay/chapters/NN-slug.md. Lector-Loop
+  folgt — score >= 0.7 schließt ab.
 engine: vogon
 params:
   manualPaths:
     - manuals/essay/
   strategyPlanYaml: |
     name: chapter-loop
-    description: Kapitel schreiben + Lector-Review.
     version: "1"
     phases:
       - name: review-loop
@@ -26,17 +24,29 @@ params:
             - name: writer
               worker: writer
               workerInput: |
-                Schreibe Kapitel ${params.chapterIndex}: ${params.chapterTitle}.
-                Datei: essay/chapters/${params.chapterSlug}.md
-                Falls Issues vorliegen, adressiere sie:
-                ${flags.lector_issues}
+                Schreib Kapitel ${params.chapterIndex}: ${params.chapterTitle}.
+                Slug: ${params.chapterSlug}. Liefere JSON
+                {chapterText, slug, title}.
+                ${flags.lector_summary}
+              outputSchema:
+                type: object
+                required: [chapterText, slug]
+                properties:
+                  chapterText: { type: string, minLength: 100 }
+                  slug:        { type: string, pattern: "^[a-z0-9-]+$" }
+                  title:       { type: string }
+              postActions:
+                - doc_create_text:
+                    path: "essay/chapters/${params.chapterIndex}-${output.slug}.md"
+                    title: "${output.title}"
+                    content: "${output.chapterText}"
               gate: { requires: [writer_completed] }
             - name: lector
               worker: lector
               workerInput: |
-                Bewerte Kapitel ${params.chapterIndex} aus
-                essay/chapters/${params.chapterSlug}.md. Ende mit
-                JSON {score, summary, issues}.
+                Bewerte das Kapitel ${params.chapterIndex} aus
+                essay/chapters/${params.chapterIndex}-${flags.lector_slug}.md.
+                Score 0..1, JSON {score, summary, issues}.
               gate: { requires: [lector_completed] }
               scorer:
                 storeAs: lector
