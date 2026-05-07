@@ -1,0 +1,13 @@
+name: qa-local-rest-tools
+description: |
+  QA fixture kit for the REST-API tool-pack pipeline. Carries one
+  rest_api tool pack pointing at a localhost mock OpenAPI server
+  (port 18099) so end-to-end tests can verify the full path from
+  kit-install through ServerToolFactory materialisation through
+  HTTP dispatch — without depending on any external service.
+
+  The mock server is spun up by the test harness on the matching
+  port; production usage of this kit would point parameters.specUrl
+  at a real API.
+version: "1.0"
+hasEncryptedSecrets: false

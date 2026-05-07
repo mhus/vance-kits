@@ -1,0 +1,22 @@
+name: qa_localrest
+type: rest_api
+description: "QA fixture: REST-API pack against a localhost mock OpenAPI server (port 18099)."
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - qa
+  - external
+  - rest:qa_localrest
+parameters:
+  specUrl: "http://localhost:18099/openapi.json"
+  # No auth — mock server doesn't enforce any. Production packs would
+  # set auth.type + auth.token = "{{secret:my.api.token}}" here.
+  include:
+    - "*"
+  methodLabels:
+    GET:
+      - read-only
+    POST:
+      - write
+      - side-effect
