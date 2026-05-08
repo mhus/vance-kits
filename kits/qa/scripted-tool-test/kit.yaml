@@ -1,0 +1,33 @@
+name: scripted-tool-test
+description: |
+  QA-Fixture für ScriptedToolKitTest. Verifiziert, dass ein Kit mit
+  einem `type: scripted`-Tool installiert werden kann und das resul-
+  tierende Tool via ToolDispatcher tatsächlich JavaScript ausführt.
+
+  Inhalt:
+    tool `qa_add_numbers`     — inline-source-Variante. inputs a + b
+                                 (number), source 'a + b'. Erwartetes
+                                 Ergebnis bei (a=5, b=7): value=12.
+    tool `qa_double_via_path` — scriptPath-Variante. input x (number),
+                                 lädt `scripts/doubler.js` aus dem
+                                 Document-Cascade (Project-Layer nach
+                                 Kit-Install). Erwartetes Ergebnis bei
+                                 (x=21): value=42.
+    tool `qa_no_inputs`       — leere inputs-Liste. source liefert
+                                 einen festen Marker-String — testet
+                                 dass paramsSchema ohne 'required:'
+                                 entsteht und dass das Tool ohne
+                                 Argumente aufrufbar ist.
+
+  Designentscheidungen:
+  - Drei Tools, damit ein Lauf alle drei Validierungspfade des
+    Factory-Codes (inline / scriptPath / leere inputs) abdeckt.
+  - Marker-Strings sind eindeutig, damit Tests die Tool-Identität
+    aus dem Output ableiten können.
+  - Kein LLM nötig: der Test ruft die Tools direkt über den
+    ToolDispatcher auf — es geht ums Tool-Pipeline, nicht um
+    LLM-Verhalten.
+
+  Test-Suite: qa/ai-test/.../ScriptedToolKitTest.java.
+version: "1.0"
+hasEncryptedSecrets: false

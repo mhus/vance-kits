@@ -1,0 +1,14 @@
+name: qa_no_inputs
+type: scripted
+description: "QA fixture — no-arg scripted tool. Returns a fixed marker so the test can identify it."
+enabled: true
+primary: false
+labels:
+  - qa
+  - scripted
+parameters:
+  engine: javascript
+  timeoutMs: 1000
+  inputs: []
+  source: |
+    "QA-MARKER-NO-INPUTS-7Z9X"

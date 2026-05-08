@@ -1,0 +1,16 @@
+name: qa_double_via_path
+type: scripted
+description: "QA fixture — double a number via a script loaded from documents/scripts/doubler.js."
+enabled: true
+primary: false
+labels:
+  - qa
+  - scripted
+parameters:
+  engine: javascript
+  timeoutMs: 1000
+  inputs:
+    - name: x
+      type: number
+      description: Number to double
+  scriptPath: scripts/doubler.js

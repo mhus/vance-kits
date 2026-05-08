@@ -1,0 +1,20 @@
+name: qa_add_numbers
+type: scripted
+description: "QA fixture — add two numbers via inline JavaScript. Returns a + b."
+enabled: true
+primary: false
+labels:
+  - qa
+  - scripted
+parameters:
+  engine: javascript
+  timeoutMs: 1000
+  inputs:
+    - name: a
+      type: number
+      description: First operand
+    - name: b
+      type: number
+      description: Second operand
+  source: |
+    a + b
