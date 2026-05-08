@@ -1,0 +1,20 @@
+name: basic
+description: |
+  Foundation-Kit für das Pattern „kurzer Skill-Body + Manuals on
+  demand". Inspiriert von Claude Code's Skill-Architektur, aber an
+  Vance' Engine-Push-Modell angepasst: Trigger aktivieren den Skill,
+  Skill-Body listet Manuals als Speisekarte, Modell zieht via
+  manual_read die Detail-Tiefe nach.
+
+  Erster Skill: decision-frame — Entscheidungsstruktur mit
+  Manual-driven Detail-Tiefe (Vollprotokoll, Kriterien-Katalog).
+  Plus shared-Manuals für skill-übergreifende Konventionen
+  (when-to-stop).
+
+  Verbraucht Brain-Erweiterungen aus planning/kit-skill-manual-pattern.md:
+  Skill-eigene manualPaths (additive zu Recipe), ON_DEMAND-Refs als
+  Listing-Block (heute nicht genutzt, der Skill listet Manuals
+  direkt im Body — bewusst minimal, damit sich auch ältere Brain-
+  Versionen am Pattern orientieren können).
+version: "1.0"
+hasEncryptedSecrets: false
