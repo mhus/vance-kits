@@ -1,0 +1,35 @@
+name: manual-pull-test
+description: |
+  QA-Fixture für ManualPullLlmTest. Verifiziert end-to-end,
+  dass das Pattern „kurzer Skill-Body + Manuals on demand"
+  echt funktioniert: bei aktivem Skill zieht das LLM via
+  `manual_read` ein Manual und gibt dessen Inhalt im Reply
+  wieder.
+
+  Inhalt:
+    skill `pull-the-manual` — Body zwingt das Modell, vor
+                              jeder Antwort `manual_read`
+                              mit name='announcement' zu
+                              rufen und das Announcement
+                              wörtlich zu zitieren.
+    manual `announcement`   — enthält einen einzigartigen
+                              Marker-Token. Wenn der Token
+                              im LLM-Reply landet, hat das
+                              Pattern den vollen Loop
+                              durchgemacht (Skill-Body →
+                              manualPaths → manual_read →
+                              Reply).
+
+  Designentscheidungen:
+  - Skill-`manualPaths` zeigt auf manuals/pull-test, das
+    der Skill selbst beisteuert (testet Schritt A der
+    Brain-Erweiterungen).
+  - Marker-Token ist eindeutig genug, dass false-positive
+    durch Modell-Sprache ausgeschlossen ist.
+  - Skill-Body ist autoritär formuliert („CRITICAL RULE:
+    you MUST call manual_read"), damit der Test nicht an
+    Modell-Schwankung scheitert.
+
+  Test-Suite: qa/ai-test/.../ManualPullLlmTest.java.
+version: "1.0"
+hasEncryptedSecrets: false
