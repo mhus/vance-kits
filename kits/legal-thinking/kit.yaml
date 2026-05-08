@@ -1,0 +1,48 @@
+name: legal-thinking
+description: |
+  Legal-thinking Kit — Strukturen für Legal-Texte und
+  Streitfälle, KEINE Rechtsberatung. Inherits von basic.
+
+    contract-reading        — Verträge als Layperson lesen
+    tos-and-policy-parsing  — AGB / Privacy Policy / ToS
+                              prüfen vor "Akzeptieren"
+    dispute-framing         — Konflikt vorbereiten,
+                              Doku-Disziplin
+    legal-question-routing  — Was ist Layperson-Frage,
+                              was braucht Anwalt
+
+  ## Wichtig: KEINE Rechtsberatung
+
+  Vance ist Think-Tool, kein Anwalt. Diese Skills helfen
+  dir, Legal-Texte zu verstehen und Streitfälle zu
+  strukturieren. Sie ersetzen keinen Rechtsanwalt, keine
+  Steuerberatung, keine spezifische rechtliche Empfehlung
+  für deine Jurisdiktion und Situation.
+
+  Skills haben harte Regeln:
+  - Keine Auslegungen von Gesetzen als verbindlich.
+  - Keine jurisdiktion-spezifischen Claims.
+  - Keine Strategie für aktive Litigation.
+  - Bei substantiellen rechtlichen Fragen / aktivem
+    Verfahren / drohender Klage / Festnahme / Vollzug:
+    direkt zu lizensiertem Anwalt in deiner Jurisdiktion.
+
+  Domain-frei: persönliche Verträge, Mietverträge, ToS /
+  Privacy, kleine Geschäfts-Verträge. Nicht designed für
+  Corporate-Legal oder spezifische Litigation-Strategie.
+
+  Specifically NOT covered:
+  - Strafrecht (egal welche Seite).
+  - Immigration.
+  - Steuerstrategie.
+  - Familien-Rechts-Litigation.
+  - Patent / Trademark / IP-Strategie.
+  - Anything involving police / arrest / charges.
+
+  Für all diese: spezialisierter Anwalt. Sofort.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main
