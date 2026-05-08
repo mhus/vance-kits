@@ -1,0 +1,29 @@
+name: code-development
+description: |
+  Coding-Kit für Software-Entwicklung. Erbt vom basic-Kit
+  (decision-frame, stuck, rubber-duck, review-output) und ergänzt
+  fünf code-spezifische Skills:
+
+    code-review   — Pull-Request- und Diff-Reviews
+    debug         — systematisches Bug-Hunting
+    refactor      — Refactoring-Strategie
+    test-craft    — Tests schreiben (TDD-freundlich, aber nicht
+                    dogmatisch)
+    commit-craft  — gute Commits, Message-Conventions
+
+  Pattern wie basic: Skill-Body kurz (≤ ~70 Zeilen),
+  Detail-Wissen lebt in Manuals on demand. Sprachunabhängig
+  formuliert — Java/TS/Python/Rust haben gemeinsame
+  Denkmuster, sprachspezifische Konventionen kommen separat.
+
+  Inherit-Reihenfolge: basic-Skills bleiben erreichbar, das
+  Coding-Kit fügt nur hinzu. decision-frame greift bei
+  „refactor vs. rewrite", stuck bei zähen Debug-Sessions,
+  review-output ist der generische Vorgänger von
+  code-review (specialised here for code).
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main

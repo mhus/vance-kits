@@ -1,0 +1,38 @@
+name: research
+description: |
+  Research-Kit. Vier Skills für Recherche, Synthese und
+  Verifikation: source-evaluation, synthesis, note-taking,
+  claim-verification. Inherits von basic — decision-frame
+  hilft bei "welche Quelle gewichten", stuck bei
+  Recherche-Sackgassen, rubber-duck beim Strukturieren von
+  Lärm zu Verständnis.
+
+    source-evaluation  — Quellen einschätzen (Credibility-
+                         Ladder, Trust-Signale, Bias)
+    synthesis          — N Claims aggregieren, Widersprüche
+                         handhaben, mit Quellen-Verankerung
+                         schreiben
+    note-taking        — Zettelkasten-Basics, Progressive
+                         Summarisation, Retrieval-Cues
+    claim-verification — Citation-Chasing, Fact-Checking-
+                         Protokoll, Bullshit erkennen
+
+  Domain-frei: funktioniert für akademische Recherche,
+  Journalismus, Markt-Analyse, Hintergrund für Schreibarbeit
+  (siehe writing-Kit), Due-Diligence. Code-Recherche
+  ("welche Library für X") profitiert auch.
+
+  Synergie zum writing-Kit: Recherche liefert das Material,
+  writing strukturiert die Ausgabe. Wer beide installiert,
+  hat einen kompletten Recherche-zu-Veröffentlichung-Loop.
+
+  Hinweis: Skills denken über Recherche-Strukturen, nicht
+  über fachspezifische Methoden (klinische Studien,
+  rechtliche Recherche, OSINT-spezifische Tools). Solche
+  Spezialisierungen kommen über Domain-Sub-Kits.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main

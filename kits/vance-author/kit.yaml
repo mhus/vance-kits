@@ -1,0 +1,33 @@
+name: vance-author
+description: |
+  Meta-Kit für Vance-Konfigurations-Authoring: Recipes und Skills
+  schreiben für Vance selbst. Inherits von basic — die
+  Decision-Frame / Stuck / Rubber-Duck / Review-Output Skills
+  helfen auch beim Authoring (z.B. „decision-frame" wenn man
+  zwischen Engine-Optionen schwankt, „review-output" zum Review
+  eines Recipe-Drafts).
+
+  Zwei Skills:
+    recipe-author — Recipes schreiben: welche Engine, welche
+                    params, welcher promptPrefix. Manuals
+                    decken Engine-Cheatsheet, Param-Reference,
+                    Recipe-Patterns ab.
+    skill-author  — Skills schreiben (meta!): Frontmatter,
+                    Body-Format, Trigger-Design, Manual-
+                    Strukturierung. Self-applying — der Skill
+                    erklärt das Format, das er selbst nutzt.
+
+  Zielgruppe: Vance-Power-User und Tenant-Admins, die das
+  Verhalten anpassen. Nicht für Endbenutzer.
+
+  Hinweis: Diese Skills werden Brain-intern interessant, weil
+  ihr Wissen aus den Brain-Sources stammt (specification/
+  recipes.md, specification/skills.md, vance-defaults). Bei
+  Brain-Changes sind die Manuals die ersten, die updaten
+  müssen.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main

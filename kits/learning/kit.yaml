@@ -1,0 +1,37 @@
+name: learning
+description: |
+  Learning-Kit. Vier Skills für Verstehen-und-Behalten:
+  Feynman-Methode (durch Erklären verstehen), Active
+  Recall (durch Abrufen festigen), Spaced Repetition
+  (durch Intervalle behalten), Reading Strategies
+  (Lesen für Behalten, nicht für Volumen).
+
+  Inherits von basic — rubber-duck überlappt mit Feynman
+  (beides ist „erklären um zu finden, was du nicht
+  verstehst"); decision-frame hilft bei "was lernen vs.
+  was nicht"; stuck wenn Lernen festhängt.
+
+    feynman-method            — explain-to-find-gaps
+    active-recall             — Retrieval-Praxis
+    spaced-repetition-design  — Karten und Intervalle
+    reading-strategies        — Lesen für Lernen
+
+  Domain-frei: funktioniert für akademisches Lernen,
+  Berufs-Skill-Aufbau, Sprachenlernen, Selbststudium,
+  Vorbereitung auf Vorträge oder Prüfungen.
+
+  Synergie zu rubber-duck (basic): die Erklären-Technik
+  ist der Kern beider — der learning-Skill rahmt sie als
+  Lernmethode, basic/rubber-duck als Debug-für-eigene-
+  Verständnis.
+
+  Synergie zu research-Kit: progressive-summarisation
+  (notes) und retrieval-cues sind Lern-Werkzeuge, die in
+  research für Note-Taking eingesetzt werden. Wer beide
+  Kits installiert, hat parallele Sicht.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main

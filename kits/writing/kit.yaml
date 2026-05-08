@@ -1,0 +1,32 @@
+name: writing
+description: |
+  Schreib-Kit. Vier Skills entlang der typischen
+  Schreibphasen: drafting → structural-edit → copy-edit →
+  tone-and-voice. Inherits von basic — decision-frame und
+  stuck sind beim Schreiben oft nützlich (welche Variante?
+  blank-page-stuck), rubber-duck hilft beim Klären eines
+  unklaren Gedankens, review-output hat einen
+  schreibbaren Output-Review.
+
+    drafting        — vom leeren Blatt zum ersten Entwurf
+    structural-edit — Inhalte umstellen, Outline aus Draft
+                      ziehen, kürzen
+    copy-edit       — Satz-Ebene, Klarheit, schwache Wörter
+    tone-and-voice  — Audience-Fit, Register, Stimm-
+                      konsistenz
+
+  Domain-frei: funktioniert für Essays, Reports,
+  Marketingtexte, Mails, Artikel, Buchkapitel. Code-
+  Kommentare oder Spec-Texte profitieren auch — copy-edit
+  greift dort ebenso.
+
+  Hinweis: Skills decken Denkmuster ab, nicht Genre-
+  Konventionen. Wer fiction / academic-writing /
+  technical-docs spezifisch braucht, kann darüber einen
+  Spezial-Kit bauen, der von writing erbt.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main

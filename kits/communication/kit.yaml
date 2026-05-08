@@ -1,0 +1,35 @@
+name: communication
+description: |
+  Communication-Kit. Vier Skills für die Stellen, an denen
+  Kommunikation typisch reibt: schwierige Gespräche,
+  Feedback (geben und nehmen), schriftliche Kommunikation.
+  Inherits von basic — decision-frame greift bei
+  Konflikten („Was sind die Optionen?"), stuck wenn ein
+  Gespräch festhängt, rubber-duck beim Vorbereiten dessen,
+  was man eigentlich sagen will.
+
+    difficult-conversation — high-stakes Gespräche planen
+                             und führen
+    feedback-giving        — direkt, fair, brauchbar
+                             feedbacken
+    feedback-receiving     — Kritik trennen von ihrer
+                             Verpackung; was tun damit
+    written-comms          — Mails, Slack, async — wo
+                             Mimik und Stimmlage fehlen
+
+  Domain-frei: Arbeit, Teams, persönliche Beziehungen,
+  Verhandlungen. Vance ist Think-Tool — diese Skills
+  helfen vor und nach den Gesprächen, ersetzen weder
+  Therapie noch professionelle Mediation. Bei
+  hochpersönlichen Themen ist der Hinweis auf
+  professionelle Hilfe Teil des Skill-Body.
+
+  Synergie zum writing-Kit: written-comms überlappt mit
+  tone-and-voice (Audience-Fit ist beides). Communication
+  ergänzt writing um die zwischenmenschliche Schicht.
+version: "1.0"
+hasEncryptedSecrets: false
+inherits:
+  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+    path: kits/basic
+    branch: main
