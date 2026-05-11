@@ -108,6 +108,56 @@ The body is appended to the system prompt when the skill
 activates. It IS the skill's runtime behaviour. Treat it
 as instructions to the model; not as docs to a reader.
 
+### Pebble templating
+
+Skill bodies are Pebble templates — same engine as
+`promptPrefix` in recipes and the engine-default prompts.
+Use `{% if … %}` / `{{ … }}` for tier-, mode-, or
+provider-specific variants instead of forking the whole
+skill.
+
+Available variables (same context the engine's own prompt
+sees):
+
+- `tier` — `"small"` or `"large"` (model size).
+- `model` — resolved model name, e.g. `"claude-sonnet-4-6"`.
+  Useful with `is matching("…")` for regex.
+- `provider` — `"anthropic"`, `"google"`, `"openai"`, …
+- `mode` — process mode: `"NORMAL"`, `"EXPLORING"`,
+  `"PLANNING"`, `"EXECUTING"`.
+- `profile` — connection profile: `"foot"`, `"web"`,
+  `"default"`.
+- `recipe` — current recipe name.
+- `engine` — engine name (`"ford"`, …).
+- `lang` — chat language (`"de"`, `"en"`; may be empty).
+- `params` — recipe params map, e.g. `{{ params.maxIterations }}`.
+
+Example:
+
+```markdown
+[One paragraph: what mode the user is in, what your job is.]
+
+## Default protocol
+
+{% if tier == "small" %}
+Three steps. Be terse.
+{% else %}
+1. First step with explanation.
+2. Second step with rationale.
+3. Third step with caveats.
+{% endif %}
+```
+
+**Reference docs are NOT Pebble-rendered.** A reference doc
+that contains literal `{% %}` text round-trips unchanged
+(e.g. when the doc itself teaches Pebble syntax).
+Skill-body Pebble lives only in the body.
+
+**Broken Pebble → skill skipped.** A skill with a syntax
+error in its body is dropped with a `WARN` log; the rest
+of the active-skill list composes normally. Test your
+templates in a real session before shipping.
+
 ### Recommended body structure (≤ ~70 lines)
 
 ```markdown

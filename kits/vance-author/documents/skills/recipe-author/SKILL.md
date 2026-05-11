@@ -46,10 +46,11 @@ than YAML syntax — surface engine-fit before debating fields.
    answer picks the engine.
 2. **Pick the engine.** Recipe is engine-bound; pick first.
    See `engine-cheatsheet`.
-3. **Set the model + size variant.** `params.model` references
+3. **Set the model + tier variant.** `params.model` references
    an alias (`default:fast`, `default:analyze`); `promptPrefix`
-   for big models, optional `promptPrefixSmall` for haiku/flash
-   tier.
+   is a Pebble template — use `{% if tier == "small" %}` for
+   the haiku/flash branch inside the same field. See
+   `params-reference`.
 4. **Define the prompt.** What persona / behaviour does the
    process embody? Distinguish what the *engine* needs (its
    structural prompt) from what the *recipe* adds.

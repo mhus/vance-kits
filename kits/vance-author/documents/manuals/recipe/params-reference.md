@@ -103,10 +103,33 @@ params:
 
 - `AUTO` reads the model's tier from the `ai-models.yaml`
   catalog.
-- `SMALL` forces `promptPrefixSmall` if defined.
-- `LARGE` forces `promptPrefix`.
+- `SMALL` / `LARGE` set the `tier` Pebble variable so
+  `{% if tier == "small" %}` branches in your prompt fire
+  regardless of the catalog classification.
 - Useful when you want a haiku-tier model with the full
   prompt anyway, or vice versa.
+
+### `planMode`
+
+Engine-param read by Arthur and Eddie to gate the Plan-Mode
+action vocabulary (`START_PLAN` / `PROPOSE_PLAN` /
+`START_EXECUTION` / `TODO_UPDATE`):
+
+```yaml
+params:
+  planMode: auto       # or disabled
+```
+
+- `auto` (default): engine decides when to plan, based on
+  task complexity and explicit user requests. See the
+  `plan-mode` brain manual via `manual_read plan-mode`.
+- `disabled`: `START_PLAN` is rejected with a hint to pick
+  a different action. Use for answer-only recipes (FAQ,
+  pure-research assistant, voice-first hub for one-shot
+  questions).
+
+Other engines (Ford, Vogon, Marvin) ignore the param —
+they have no Plan-Mode by design.
 
 ## Engine-specific params (highlights)
 
@@ -240,15 +263,27 @@ allowedSkills:
 ```yaml
 promptPrefix: |
   You are X, doing Y.
-promptPrefixSmall: |
-  You are X. Output Y.   # tighter for haiku/flash
+  {% if tier == "small" %}
+  Output a single line. No headings.
+  {% else %}
+  Output structured Markdown with sections and rationale.
+  {% endif %}
 promptMode: APPEND   # default; OVERWRITE replaces engine default
 ```
 
 - `APPEND`: engine default first, then your prefix.
 - `OVERWRITE`: your prefix is the whole prompt.
-- `promptPrefixSmall`: optional tighter version for
-  `ModelSize.SMALL` models.
+- **`promptPrefix` is a Pebble template** — same engine the
+  engine-default prompts and skill bodies use. Branch on
+  `tier`, `model`, `provider`, `mode`, `profile`, `lang`,
+  `engine`, or read `{{ params.* }}` directly. There is no
+  separate `promptPrefixSmall` field — write the
+  small-model variant as a `{% if tier == "small" %}` branch
+  inside `promptPrefix`.
+- Pebble syntax-error fails the recipe at load-time
+  (fail-fast). Use `{% if model is matching("gemini-.*flash.*") %}`
+  for regex tests; `elseif` (not Jinja2's `elif`); `{% raw %}…{% endraw %}`
+  to escape literal `{% %}` text.
 
 ## Lock & visibility
 
