@@ -1,0 +1,14 @@
+name: school-essay-slart
+description: |
+  Slartibartfast-Kit für den klassischen Schul-Aufsatz (Klasse 9-10,
+  Mittelstufe bis Sek-II). Enthält ausschließlich Manuals — die
+  Pipeline (Outline → Rohdraft → Verfeinerung → Lektorat) wird
+  zur Laufzeit von Slartibartfast aus den Manuals als
+  Vogon-Strategy synthetisiert.
+
+  Im Unterschied zum essay-slart-Kit (literarischer Adams-Stil)
+  zielt school-essay-slart auf sachliche Sachtexte mit
+  Quellenbelegen — Pro/Contra-Essays, Erörterungen, Themen-Aufsätze,
+  wie sie in Deutsch oder Politik abgegeben werden.
+version: "1.0"
+hasEncryptedSecrets: false
