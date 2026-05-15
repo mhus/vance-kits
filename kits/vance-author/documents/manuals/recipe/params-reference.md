@@ -128,6 +128,39 @@ params:
   pure-research assistant, voice-first hub for one-shot
   questions).
 
+### `rag.autoInject` / `rag.minScore` / `rag.topK`
+
+Project-RAG auto-inject (Variante C / Pre-Turn-Hybrid). When
+`rag.autoInject: true`, the engine embeds the current turn's
+user input against the project's `_documents` RAG and inserts
+the top-K hits above `rag.minScore` as a dynamic
+`<rag-context>` block in the system prompt. Today wired up
+for **Arthur**; other engines adopt the same pattern.
+
+```yaml
+params:
+  rag:
+    autoInject: true     # default false — opt-in per recipe
+    minScore: 0.65       # filter threshold; modellabhängig
+    topK: 5              # max hits to inject
+```
+
+- Cascade override: tenant or project can flip the master
+  toggle via the cascade setting `rag.autoInject.enabled`
+  (`true` / `false`). When set, it wins over the recipe.
+- Silent fallbacks: no `_documents` RAG (embedding provider
+  not configured) → no block. Embed call fails → warn-log,
+  no block. Empty inbox → no block.
+- The block is rendered statically by
+  `RagAutoInjectService.composeBlock` — not a Pebble
+  template. If a recipe wants a different style, that's a
+  separate refactor (`rag.template` param).
+- Use when the engine should ground answers in the project's
+  documents without the LLM having to call `rag_query`
+  manually. Skip for engines that should answer purely from
+  conversation context, or for system/auto-summary recipes
+  where RAG context just bloats the prompt.
+
 Other engines (Ford, Vogon, Marvin) ignore the param —
 they have no Plan-Mode by design.
 

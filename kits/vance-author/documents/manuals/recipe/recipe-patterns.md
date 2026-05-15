@@ -267,6 +267,54 @@ The double-defence (allow `@read-only`; remove `@write`,
 `@executive`, `@side-effect`) keeps the worker locked into
 non-modifying behaviour even if the prompt fails.
 
+
+## Pattern: project-grounded chat (arthur + RAG auto-inject)
+
+A chat recipe that automatically grounds answers in the
+project's documents. Every turn embeds the user's input
+against the `_documents` RAG and injects the top hits as a
+`<rag-context>` block in the system prompt.
+
+```yaml
+description: |
+  Chat assistant grounded in this project's documents.
+  Cites sources from documents/ before answering.
+engine: arthur
+params:
+  model: default:fast
+  planMode: auto
+  rag:
+    autoInject: true
+    minScore: 0.65
+    topK: 5
+promptPrefix: |
+  You are a project assistant. When the system prompt
+  carries a <rag-context> block, prefer its sources for
+  your answer and cite the path. When the block is absent
+  or insufficient, fall back to general knowledge and
+  acknowledge that you're not citing the project.
+```
+
+- The RAG block appears automatically when the project has a
+  `_documents` RAG and the user's question matches at least
+  one chunk above `minScore`. Silent skip otherwise (the
+  prompt is unchanged).
+- `topK: 5` is a comfortable default — small chats with one
+  matching doc keep the prompt lean, larger archives with
+  many relevant hits all fit under typical context limits.
+- Tighten `minScore` (0.75+) for noisy archives where loose
+  matches drown out the real answer; loosen (0.5) for sparse
+  archives where you'd rather see a weak hint than nothing.
+- The `rag_query` tool stays available for the LLM to dig
+  deeper if the auto-injected block leaves gaps.
+
+Variant: tenant-wide override. Set the cascade setting
+`rag.autoInject.enabled = true` at tenant/project scope and
+the chat recipe doesn't need to opt in — every Arthur recipe
+under that scope gets the block. Use this for tenants whose
+projects are all document-heavy; skip it for tenants with a
+mix of chat-only and document-heavy projects.
+
 ## Pattern: parallel fan-out (zaphod)
 
 N workers run on variations of the same input; their

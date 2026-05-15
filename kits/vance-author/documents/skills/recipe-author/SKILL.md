@@ -21,6 +21,12 @@ triggers:
       - defaultactiveskills
       - engine wählen
       - engine choose
+      - rag autoinject
+      - rag.autoinject
+      - autoinject
+      - rag im recipe
+      - rag.minscore
+      - rag.topk
 manualPaths:
   - manuals/recipe
   - manuals/shared
@@ -73,8 +79,9 @@ than YAML syntax — surface engine-fit before debating fields.
   shape and is filling in params.
 - `recipe-patterns` — recurring recipe shapes (chat
   orchestrator, worker with structured output, lector loop,
-  worker-with-postActions). Load when the user is starting
-  fresh and wants a template.
+  worker-with-postActions, **project-grounded chat with RAG
+  auto-inject**). Load when the user is starting fresh and
+  wants a template.
 
 ## Hard rules
 
