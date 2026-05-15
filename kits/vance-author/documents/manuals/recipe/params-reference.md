@@ -164,6 +164,70 @@ params:
 Other engines (Ford, Vogon, Marvin) ignore the param —
 they have no Plan-Mode by design.
 
+## LLM sampling params
+
+Wire-level knobs the engine passes to the LLM provider. Set
+on the recipe, applied per call by `EngineChatFactory`.
+Providers that don't know a field silently ignore it — the
+same YAML works across OpenAI, Anthropic, Gemini, Ollama,
+LM Studio.
+
+```yaml
+params:
+  temperature: 0.2          # 0.0–2.0; default 0.7
+  maxTokens: 4096           # null = provider default
+  topP: 0.9                 # nucleus sampling cutoff
+  topK: 40                  # top-K cutoff
+  stopSequences:            # hard-stop strings
+    - "END_OF_REPORT"
+    - "</answer>"
+  seed: 1                   # deterministic sampling
+  frequencyPenalty: 0.3     # penalty proportional to frequency
+  presencePenalty: 0.2      # penalty per token already present
+```
+
+### Provider coverage
+
+| Param | OpenAI / LM Studio | Anthropic | Gemini | Ollama |
+|---|---|---|---|---|
+| `temperature` | ✓ | ✓ | ✓ | ✓ |
+| `maxTokens` | ✓ | ✓ (required, default 4096) | ✓ | ✓ |
+| `topP` | ✓ | ✓ | ✓ | ✓ |
+| `topK` | ignored | ✓ | ✓ | ✓ |
+| `stopSequences` | ✓ | ✓ | ✓ | ✓ |
+| `seed` | ✓ | ignored | ✓ | ✓ |
+| `frequencyPenalty` | ✓ | ignored | ✓ | ignored |
+| `presencePenalty` | ✓ | ignored | ✓ | ignored |
+
+### Override semantics
+
+- **Nullable fields** (everything except `temperature`):
+  caller-set value wins; recipe only fills in null fields.
+- **`temperature`**: has a non-null default (`0.7`), so the
+  recipe always wins when set. Caller-side hard override
+  is post-`forProcess` setter.
+
+### Type tolerance
+
+YAML parsers deliver numbers as `Integer` / `Long` /
+`Double` depending on the path. The reader accepts any
+`Number` subtype and also parses strings (`"0.4"` → `0.4`).
+Bad values are dropped with a WARN log, not a crash.
+
+### When to set sampling params
+
+- **Deterministic worker** (Ford, structured output):
+  `temperature: 0.0`, `topP: 0.1`, `seed: <fixed>`,
+  `stopSequences` for the output frame.
+- **Creative long-form** (chat orchestrator, writing
+  helpers): `temperature: 0.8–1.0`, `topP: 0.9–0.95`,
+  small `frequencyPenalty` to discourage repetition.
+- **QA replay** in tests: `seed` + low `temperature`.
+- **Don't** randomly tweak `topP`/`topK` without a
+  baseline — sampling-control params interact. Pick one
+  axis (usually `temperature`) and only reach for the
+  rest when you can show a difference.
+
 ## Engine-specific params (highlights)
 
 ### Arthur

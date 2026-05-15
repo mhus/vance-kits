@@ -27,6 +27,24 @@ triggers:
       - rag im recipe
       - rag.minscore
       - rag.topk
+      - temperature
+      - maxtokens
+      - topp
+      - top_p
+      - top-p
+      - topk
+      - top_k
+      - top-k
+      - stopsequences
+      - stop sequences
+      - stop_sequences
+      - frequencypenalty
+      - presencepenalty
+      - seed
+      - sampling
+      - sampling params
+      - llm params
+      - llm-parameter
 manualPaths:
   - manuals/recipe
   - manuals/shared
@@ -74,9 +92,12 @@ than YAML syntax — surface engine-fit before debating fields.
   trillian, zaphod. Load when the engine choice is open.
 - `params-reference` — the params keys that work across
   engines (`model`, `manualPaths`, `validation`,
-  `maxIterations`, `modelSize`, `fallbackModels`) and the
-  engine-specific ones. Load when the user has a recipe
-  shape and is filling in params.
+  `maxIterations`, `modelSize`, `fallbackModels`,
+  LLM sampling knobs `temperature` / `topP` / `topK` /
+  `stopSequences` / `seed` / `frequencyPenalty` /
+  `presencePenalty` / `maxTokens`) and the engine-specific
+  ones. Load when the user has a recipe shape and is
+  filling in params.
 - `recipe-patterns` — recurring recipe shapes (chat
   orchestrator, worker with structured output, lector loop,
   worker-with-postActions, **project-grounded chat with RAG
