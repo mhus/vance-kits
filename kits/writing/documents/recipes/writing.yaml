@@ -1,0 +1,90 @@
+description: |
+  Writing-architect recipe. Wraps the Slartibartfast engine with
+  persistence-aware PROPOSING guidance: every generated Vogon recipe
+  has explicit `doc_create_text`-emitting phases for the artifacts
+  the writing-kit (and any kit inheriting from it) declares in its
+  OUTPUT.md conventions. Use this preset whenever a writing task
+  needs to leave behind actual files in the project — essays,
+  chapters, reports, multi-section docs.
+
+  Used by SKILLs that delegate substantive writing work to Slart:
+    arthur_action DELEGATE preset="writing" prompt="<user request>"
+
+  Inherits the Slartibartfast plan-architect mechanics (FRAMING →
+  CLASSIFYING → DECOMPOSING → PROPOSING → VALIDATING → EXECUTING).
+  The only addition is the kit-supplied proposingHints param which
+  Slart's PROPOSING phase appends to its system prompt verbatim.
+
+engine: slartibartfast
+params:
+  # Vogon-strategy — phased plan-and-execute (Gathering → Planning →
+  # Executing → Validating). Right shape for "structured document
+  # with chapters" intent.
+  outputSchemaType: vogon-strategy
+
+  # Slart's per-phase LLM calls benefit from a larger context — it
+  # reads many manuals at once during GATHERING.
+  model: default:analyze
+
+  # ─── Kit-provided guidance for Slart's PROPOSING phase ─────────
+  # Appended to SYSTEM_PROMPT_VOGON before the recipe-yaml is
+  # generated. This is where the writing-kit teaches Slart the
+  # one thing the generic engine prompt doesn't know: "phases that
+  # only return chat-text don't persist anything; emit explicit
+  # doc_create_text-calling phases for every artifact the kit's
+  # OUTPUT.md conventions name".
+  proposingHints: |
+    PERSISTENCE — every artifact must be written via tool-call.
+
+    The Vogon engine has NO auto-write hook. A phase whose worker
+    only returns chat-text persists nothing to the project file
+    tree — the text lives only in the worker's chat history and
+    evaporates when the spawned process closes. For any writing
+    task the kit ships an OUTPUT.md (or similar conventions doc)
+    that names the expected artifact paths (e.g. essay/chapters/
+    <NN>-<slug>.md, essay/final-essay.md, …); Slart must emit
+    phases that ACTUALLY call doc_create_text for each of them.
+
+    Pattern for a persistence phase:
+
+        - name: persist-final-essay
+          worker: ford
+          workerInput: |
+            You receive the final consolidated essay text from the
+            previous phase's reply. Call doc_create_text with:
+              path: "essay/final-essay.md"
+              content: <the full essay text, verbatim>
+            Reply with one line confirming the write. Do NOT alter
+            or summarise the content.
+          gate: { requires: [<prior-content-phase>_completed] }
+
+    Rules:
+    - Every acceptance criterion that references a tangible
+      artifact (essay text, chapter, source list, output document)
+      MUST be backed by a persistence phase. If a criterion can
+      only be checked by reading a file at a known path, the
+      recipe MUST end with a phase that creates that file.
+    - Persistence phases come AFTER the content-producing phase
+      they persist. They re-read the prior worker's chat reply
+      and pipe its content into doc_create_text. They do not
+      rewrite or polish the content.
+    - One persistence phase per output artifact is fine — don't
+      pack multiple doc_create_text calls into one workerInput
+      unless the worker can hold the full content of all of them
+      in a single LLM turn (rare).
+    - If the kit's OUTPUT.md names a directory layout like
+      essay/chapters/<NN>-<slug>.md, generate one persistence
+      phase per chapter; the chapter-producing phases write to
+      those exact paths.
+    - Phases that only "review" or "polish" don't need their own
+      persistence step — they update the same artifact via
+      doc_edit when the workerInput is written that way.
+
+    Without these persistence phases the project's expected
+    output folder stays empty, the validator fails the run, and
+    Slart will re-spawn the same broken recipe in a loop.
+
+tags:
+  - architect
+  - writing
+  - persistence-aware

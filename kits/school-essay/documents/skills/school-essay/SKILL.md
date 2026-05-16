@@ -64,7 +64,7 @@ this skill is active and the user is asking for the essay):
 ```
 arthur_action(
     type   = "DELEGATE",
-    preset = "slartibartfast",          // ← bundled Slart recipe
+    preset = "writing",          // ← persistence-aware Slart wrapper
     prompt = "<user's full essay request, verbatim,
               including the 'Wert lege ich auf:' criteria>",
     // message OMITTED → silent spawn; Slart will report when done
@@ -72,22 +72,33 @@ arthur_action(
 )
 ```
 
-The `slartibartfast` recipe runs the architect engine with
+The `writing` recipe is a thin wrapper around the
+Slartibartfast architect engine. It carries the same
 `outputSchemaType: vogon-strategy` (phased plan-and-execute,
-the right shape for multi-chapter essays). Arthur's DELEGATE
-handler passes your `prompt` straight into the spawned
-process's `goal` — Slart picks that up as the user
-description when no explicit `userDescription` param is set.
+the right shape for multi-chapter essays) and adds kit-side
+guidance for Slart's PROPOSING phase: "emit explicit
+`doc_create_text`-calling phases for every artifact the kit's
+OUTPUT.md names". Without that the Vogon-recipe Slart
+generates would run all chapters in-chat and never persist a
+file — the project's `essay/` folder would stay empty. Arthur's
+DELEGATE handler passes your `prompt` straight into the spawned
+process's `goal`; Slart picks that up as the user description
+when no explicit `userDescription` param is set.
 
 Common mistakes to avoid:
 - **`preset="school-essay"`** — *wrong*. `school-essay` is
   the **kit / skill** name, not a recipe name. The strict
   resolver returns *Unknown recipe 'school-essay'* + a
-  suggestion list. Use `slartibartfast` instead.
+  suggestion list. Use `writing` instead.
+- **`preset="slartibartfast"`** — works, but skips the
+  persistence-aware PROPOSING guidance. The bundled Slart
+  recipe is generic; for writing tasks the kit-supplied
+  `writing` recipe ensures the generated Vogon plan actually
+  writes the essay to disk.
 - **`DELEGATE` without `preset`** — the selector falls back
   to Marvin for substantial creative tasks, and Marvin
   without specific sub-recipes for the essay shape stalls.
-  Always pass `preset="slartibartfast"` for this skill.
+  Always pass `preset="writing"` for this skill.
 - Setting `message` on the action — keep it silent; Slart
   takes 10-20 minutes and you'll relay its result via
   `arthur_action type="RELAY"` once it terminates.
