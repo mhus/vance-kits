@@ -205,8 +205,10 @@ the failure modes the protocol doesn't.]
   when no such manual exists. Causes the model to call
   `manual_read('protocol')` and fail.
 - **Imperatives that conflict with the engine** — "Spawn
-  a worker via process_create" when the skill is for an
-  arthur-engine that uses `process_create_delegate`. The
+  a worker via `process_create(recipe='X')`" when the skill
+  is for an arthur-engine that intentionally lets the
+  selector route (i.e. calls `process_create` *without* a
+  recipe param so the LLM-backed selector can pick). The
   skill should fit the engine's conventions.
 
 ## Cross-skill design

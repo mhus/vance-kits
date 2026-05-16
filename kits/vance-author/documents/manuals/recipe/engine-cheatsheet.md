@@ -16,7 +16,8 @@ authoritative.
   delegates chaotically.
 - **What it does:** main session-chat orchestrator. Talks to
   the user, delegates real work to worker-recipes via
-  `process_create_delegate`, synthesises results back into
+  `process_create` (in selector-routed mode, i.e. without an
+  explicit `recipe` param), synthesises results back into
   the conversation.
 - **Pick when:** you need a conversational top-level entry
   point. Default for `engine: arthur` recipes.

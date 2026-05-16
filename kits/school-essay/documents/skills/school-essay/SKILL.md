@@ -58,41 +58,45 @@ generates a Vogon recipe with phases per chapter + editorial
 `essay/final-essay.md` plus the per-chapter drafts under
 `essay/chapters/`.
 
-**Exact tool call shape** (this is what Arthur should emit
-when this skill is active and the user is asking for the
-essay; *do not* pass `preset=school-essay` — that name does
-not exist as a recipe):
+**Exact action shape** (this is what Arthur should emit when
+this skill is active and the user is asking for the essay):
 
 ```
-process_create(
-    name = "essay-slart",
-    engineName = "slartibartfast",          // ← engine, NOT preset
-    goal = "<user's original request>",
-    engineParams = {
-        "userDescription": "<user's full essay request,
-                           verbatim, including the
-                           'Wert lege ich auf:' criteria>",
-        "outputSchemaType": "vogon-strategy"
-        // planOnly defaults to false → Slart auto-executes
-    }
+arthur_action(
+    type   = "DELEGATE",
+    preset = "slartibartfast",          // ← bundled Slart recipe
+    prompt = "<user's full essay request, verbatim,
+              including the 'Wert lege ich auf:' criteria>",
+    // message OMITTED → silent spawn; Slart will report when done
+    reason = "<one-line why this skill fits>"
 )
 ```
 
+The `slartibartfast` recipe runs the architect engine with
+`outputSchemaType: vogon-strategy` (phased plan-and-execute,
+the right shape for multi-chapter essays). Arthur's DELEGATE
+handler passes your `prompt` straight into the spawned
+process's `goal` — Slart picks that up as the user
+description when no explicit `userDescription` param is set.
+
 Common mistakes to avoid:
 - **`preset="school-essay"`** — *wrong*. `school-essay` is
-  the **kit / skill** name, not a recipe name. The recipe
-  resolver will return *Unknown recipe 'school-essay'* and
-  the spawn fails.
-- **`engineName="slart"`** — *wrong*. The full engine name
-  is `slartibartfast`.
-- **`DELEGATE` without an engine hint** — the selector may
-  route to Ford or Marvin instead of Slart. For school-essay
-  work spawn Slart explicitly via `process_create`.
+  the **kit / skill** name, not a recipe name. The strict
+  resolver returns *Unknown recipe 'school-essay'* + a
+  suggestion list. Use `slartibartfast` instead.
+- **`DELEGATE` without `preset`** — the selector falls back
+  to Marvin for substantial creative tasks, and Marvin
+  without specific sub-recipes for the essay shape stalls.
+  Always pass `preset="slartibartfast"` for this skill.
+- Setting `message` on the action — keep it silent; Slart
+  takes 10-20 minutes and you'll relay its result via
+  `arthur_action type="RELAY"` once it terminates.
 
-After spawn, monitor the child via `process_observe`. Slart
-runs ~10-20 minutes for a full plan-execute-validate cycle.
-Report progress back to the user when `essay/final-essay.md`
-appears.
+After spawn, Slart's terminal-DONE event lands in Arthur's
+inbox via the parent-notification listener. Arthur then
+emits `RELAY` (or `ANSWER` with a short note) to surface
+`essay/final-essay.md` to the user. Slart runs ~10-20
+minutes for a full plan-execute-validate cycle.
 
 When NOT to delegate to Slart:
 - The user wants to write the essay themselves, just needs

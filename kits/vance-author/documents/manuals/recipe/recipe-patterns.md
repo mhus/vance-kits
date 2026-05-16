@@ -35,7 +35,7 @@ modes:
   NORMAL:
     allowedToolsDefer:             # listed but hidden from LLM
       - doc_read
-      - process_create_delegate
+      - process_create
       - ...
   EXPLORING:
     allowedToolsRemove:
@@ -64,8 +64,10 @@ promptPrefix: |
 ## Pattern: single-shot worker (ford)
 
 A worker that takes input, does one thing, returns
-structured output. The orchestrator (arthur or marvin) calls
-this via `process_create_delegate`.
+structured output. The orchestrator (arthur or marvin) spawns
+it via `process_create` — either explicitly by name (`recipe:
+"my-worker"`) or via the selector-routed mode when the
+orchestrator only knows the task.
 
 ```yaml
 description: |
