@@ -51,14 +51,48 @@ finding.
 ## Default approach
 
 The right move for a non-trivial Schul-Aufsatz is to
-**delegate to Slartibartfast**: a free-text request like
-"schreib mir einen Schul-Aufsatz zu X" maps cleanly onto
-Slart's plan-and-execute contract. Slart reads the three
-genre manuals as evidence (STRUCTURE / STYLE / OUTPUT),
+**spawn Slartibartfast** as a child process. Slart reads the
+three genre manuals as evidence (STRUCTURE / STYLE / OUTPUT),
 generates a Vogon recipe with phases per chapter + editorial
 + final consolidation, and runs the recipe to produce
 `essay/final-essay.md` plus the per-chapter drafts under
 `essay/chapters/`.
+
+**Exact tool call shape** (this is what Arthur should emit
+when this skill is active and the user is asking for the
+essay; *do not* pass `preset=school-essay` — that name does
+not exist as a recipe):
+
+```
+process_create(
+    name = "essay-slart",
+    engineName = "slartibartfast",          // ← engine, NOT preset
+    goal = "<user's original request>",
+    engineParams = {
+        "userDescription": "<user's full essay request,
+                           verbatim, including the
+                           'Wert lege ich auf:' criteria>",
+        "outputSchemaType": "vogon-strategy"
+        // planOnly defaults to false → Slart auto-executes
+    }
+)
+```
+
+Common mistakes to avoid:
+- **`preset="school-essay"`** — *wrong*. `school-essay` is
+  the **kit / skill** name, not a recipe name. The recipe
+  resolver will return *Unknown recipe 'school-essay'* and
+  the spawn fails.
+- **`engineName="slart"`** — *wrong*. The full engine name
+  is `slartibartfast`.
+- **`DELEGATE` without an engine hint** — the selector may
+  route to Ford or Marvin instead of Slart. For school-essay
+  work spawn Slart explicitly via `process_create`.
+
+After spawn, monitor the child via `process_observe`. Slart
+runs ~10-20 minutes for a full plan-execute-validate cycle.
+Report progress back to the user when `essay/final-essay.md`
+appears.
 
 When NOT to delegate to Slart:
 - The user wants to write the essay themselves, just needs
