@@ -109,6 +109,36 @@ emits `RELAY` (or `ANSWER` with a short note) to surface
 `essay/final-essay.md` to the user. Slart runs ~10-20
 minutes for a full plan-execute-validate cycle.
 
+## Before delegating — check if it's already done
+
+Slart runs are slow and expensive. Before emitting another
+`DELEGATE preset="writing"`, ALWAYS check whether the essay
+already exists in the project. The classic failure mode is
+re-spawning Slart on top of a finished run because the new
+parent-event looks "fresh" — that produces zombie children
+and burns LLM budget.
+
+Use `doc_find` or `doc_list` to look for the expected
+artifacts BEFORE the DELEGATE action:
+
+- `essay/final-essay.md` exists and is non-trivial
+  (≥ 3000 chars) → the previous run finished. Emit
+  `RELAY` (pointing at it) or `ANSWER` summarising
+  what's there. **Do NOT delegate again** unless the
+  user explicitly asks for a rewrite.
+- `essay/chapters/0X-*.md` exists but `final-essay.md`
+  is missing → previous run got most of the way but
+  didn't consolidate. Spawn ONE worker via
+  `process_create(recipe="writing", goal="Consolidate
+  the existing essay/chapters/ into essay/final-
+  essay.md, no rewrite")` — not another full Slart.
+- Nothing matching → genuinely a fresh request, emit
+  `DELEGATE preset="writing"`.
+
+The same check applies to inbox-events from Slart's
+parent-notification: if you receive a DONE event and the
+artifact exists, RELAY and stop. Don't loop.
+
 When NOT to delegate to Slart:
 - The user wants to write the essay themselves, just needs
   outline help → use `structural-edit` from writing.

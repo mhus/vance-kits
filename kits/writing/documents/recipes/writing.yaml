@@ -76,6 +76,30 @@ params:
       essay/chapters/<NN>-<slug>.md, generate one persistence
       phase per chapter; the chapter-producing phases write to
       those exact paths.
+
+    PATH DISCIPLINE — use the OUTPUT.md paths VERBATIM:
+    - When OUTPUT.md says `essay/final-essay.md`, the doc_create_text
+      call MUST use that exact string as the path. Not `essay.md`,
+      not `final-essay-fast-fashion.md`, not `documents/essay/
+      final.md`, not any variant you find clearer. The validator
+      and downstream tooling expect the EXACT path the conventions
+      doc declares — inventing alternatives means an empty `essay/`
+      folder and a re-spawn loop.
+    - The path you write into the recipe is a VERBATIM CONSTANT,
+      not a template. Do NOT prefix `documents/`, do NOT append
+      the topic slug, do NOT pluralise, do NOT translate.
+    - If OUTPUT.md uses a placeholder pattern like
+      `essay/chapters/<NN>-<slug>.md`, you substitute <NN> with
+      the two-digit chapter number (01, 02, …) and <slug> with the
+      kebab-case chapter title, but you DO keep the `essay/chapters/`
+      prefix and the `.md` suffix exactly as written. The slug must
+      stay short (2-5 lowercase words, ASCII, hyphens). Avoid topic-
+      specific suffixes — `01-einleitung.md`, not `01-einleitung-
+      genetic-engineering.md`.
+    - If your evidence (claims extracted during CLASSIFYING) carries
+      a path like `essay/sources.md`, use that exact path in the
+      persistence phase. Treat evidence paths as the source of
+      truth, not as suggestions.
     - Phases that only "review" or "polish" don't need their own
       persistence step — they update the same artifact via
       doc_edit when the workerInput is written that way.
