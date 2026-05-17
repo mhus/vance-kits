@@ -1,7 +1,7 @@
 description: |
   Writing-architect recipe. Wraps the Slartibartfast engine with
   persistence-aware PROPOSING guidance: every generated Vogon recipe
-  has explicit `doc_create_text`-emitting phases for the artifacts
+  has explicit `doc_write_text`-emitting phases for the artifacts
   the writing-kit (and any kit inheriting from it) declares in its
   OUTPUT.md conventions. Use this preset whenever a writing task
   needs to leave behind actual files in the project — essays,
@@ -31,7 +31,7 @@ params:
   # generated. This is where the writing-kit teaches Slart the
   # one thing the generic engine prompt doesn't know: "phases that
   # only return chat-text don't persist anything; emit explicit
-  # doc_create_text-calling phases for every artifact the kit's
+  # doc_write_text-calling phases for every artifact the kit's
   # OUTPUT.md conventions name".
   proposingHints: |
     PHASE CHAINING — Vogon auto-injects a `<phases>` discovery block:
@@ -79,7 +79,14 @@ params:
     `essay/final-essay.md`, `essay/chapters/<NN>-<slug>.md`) are
     SEPARATE — Vogon does not auto-mirror drafts to those paths.
     For every artifact OUTPUT.md names, the recipe MUST include a
-    phase whose worker calls doc_create_text with that path verbatim.
+    phase whose worker calls doc_write_text with that path verbatim.
+
+    Use doc_write_text (NOT doc_create_text) for persistence phases.
+    Slart re-spawns the strategy on recovery loops, and a second run
+    against an existing file is the common case — doc_create_text
+    refuses to overwrite and the worker stalls. doc_write_text has
+    upsert semantics: create on first run, overwrite on retries.
+    Use the same tool name verbatim in every persist phase you emit.
 
     Pattern for a persistence phase (KEEP IT MINIMAL — exactly
     two tool calls, then respond and stop):
@@ -91,7 +98,7 @@ params:
             and then stops:
               1. doc_read on the predecessor's draft path (see the
                  <phases> block for the exact path).
-              2. doc_create_text with:
+              2. doc_write_text with:
                    path: "essay/final-essay.md"
                    content: <the full text from step 1, verbatim>
               3. Respond with the one-line confirmation
@@ -102,7 +109,7 @@ params:
                  previous phase.
 
             Ford's per-turn tool-iteration cap is 8. A persist
-            phase that goes beyond doc_read + doc_create_text +
+            phase that goes beyond doc_read + doc_write_text +
             respond will exhaust the budget and the phase will
             terminate as FAILED, killing the whole strategy.
           gate: { requires: [final-review-and-format_completed] }
@@ -112,13 +119,13 @@ params:
       artifact (essay text, chapter, source list, output document)
       MUST be backed by a persistence phase. If a criterion can
       only be checked by reading a file at a known path, the
-      recipe MUST end with a phase that creates that file.
+      recipe MUST end with a phase that writes that file.
     - Persistence phases come AFTER the content-producing phase
       they persist. They re-read the prior worker's chat reply
-      and pipe its content into doc_create_text. They do not
+      and pipe its content into doc_write_text. They do not
       rewrite or polish the content.
     - One persistence phase per output artifact is fine — don't
-      pack multiple doc_create_text calls into one workerInput
+      pack multiple doc_write_text calls into one workerInput
       unless the worker can hold the full content of all of them
       in a single LLM turn (rare).
     - If the kit's OUTPUT.md names a directory layout like
@@ -127,7 +134,7 @@ params:
       those exact paths.
 
     PATH DISCIPLINE — use the OUTPUT.md paths VERBATIM:
-    - When OUTPUT.md says `essay/final-essay.md`, the doc_create_text
+    - When OUTPUT.md says `essay/final-essay.md`, the doc_write_text
       call MUST use that exact string as the path. Not `essay.md`,
       not `final-essay-fast-fashion.md`, not `documents/essay/
       final.md`, not any variant you find clearer. The validator
