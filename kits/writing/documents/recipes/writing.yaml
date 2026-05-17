@@ -34,29 +34,66 @@ params:
   # doc_create_text-calling phases for every artifact the kit's
   # OUTPUT.md conventions name".
   proposingHints: |
-    PERSISTENCE — every artifact must be written via tool-call.
+    PHASE CHAINING — Vogon auto-injects a `<phases>` discovery block:
 
-    The Vogon engine has NO auto-write hook. A phase whose worker
-    only returns chat-text persists nothing to the project file
-    tree — the text lives only in the worker's chat history and
-    evaporates when the spawned process closes. For any writing
-    task the kit ships an OUTPUT.md (or similar conventions doc)
-    that names the expected artifact paths (e.g. essay/chapters/
-    <NN>-<slug>.md, essay/final-essay.md, …); Slart must emit
-    phases that ACTUALLY call doc_create_text for each of them.
+    Before each phase's worker runs, Vogon prepends a block to the
+    workerInput listing every completed predecessor phase + the
+    path to its captured output (always under
+    `_vogon-drafts/<process>/<phase>.md`, written automatically
+    after each phase DONEs). The block looks like:
+
+        <phases>
+        Already-completed phases — read full text with doc_read,
+        or doc_summary for a 1-3-sentence recap:
+        - research-sources: _vogon-drafts/<pid>/research-sources.md
+        - create-outline:   _vogon-drafts/<pid>/create-outline.md
+        </phases>
+
+        <current-phase>draft-chapters</current-phase>
+
+        <your-instructions>
+        <your workerInput goes here>
+        </your-instructions>
+
+    Consequence for the recipe YAML you emit:
+
+    - DO NOT use `${phases.X.result}` or `${phases.X.draftPath}`
+      substitutions in workerInputs. They still work mechanically,
+      but they bloat the prompt by inlining the prior phase's full
+      reply on every call, and they bypass the doc_summary recap
+      shortcut. Let the worker discover via the injected block and
+      pull only what it needs.
+    - DO write workerInput as a focused per-phase instruction.
+      Reference predecessor outputs by phase name and let the
+      worker fetch them: "Use doc_summary on `create-outline` and
+      doc_read on `research-sources` to ground the draft."
+    - DO NOT write Prosa references like "use the outline from the
+      previous phase" without naming the phase. The worker can't
+      guess which `<phases>` entry you meant.
+
+    PERSISTENCE — every kit-declared artifact still needs an
+    explicit tool-call:
+
+    The phase-chaining block above is for Vogon-internal continuity.
+    User-facing artifacts named in the kit's OUTPUT.md (e.g.
+    `essay/final-essay.md`, `essay/chapters/<NN>-<slug>.md`) are
+    SEPARATE — Vogon does not auto-mirror drafts to those paths.
+    For every artifact OUTPUT.md names, the recipe MUST include a
+    phase whose worker calls doc_create_text with that path verbatim.
 
     Pattern for a persistence phase:
 
         - name: persist-final-essay
           worker: ford
           workerInput: |
-            You receive the final consolidated essay text from the
-            previous phase's reply. Call doc_create_text with:
+            doc_summary on `final-review-and-format` to confirm the
+            essay is ready, then doc_read its full text. Call
+            doc_create_text with:
               path: "essay/final-essay.md"
               content: <the full essay text, verbatim>
             Reply with one line confirming the write. Do NOT alter
             or summarise the content.
-          gate: { requires: [<prior-content-phase>_completed] }
+          gate: { requires: [final-review-and-format_completed] }
 
     Rules:
     - Every acceptance criterion that references a tangible
