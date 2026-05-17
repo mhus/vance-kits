@@ -81,18 +81,30 @@ params:
     For every artifact OUTPUT.md names, the recipe MUST include a
     phase whose worker calls doc_create_text with that path verbatim.
 
-    Pattern for a persistence phase:
+    Pattern for a persistence phase (KEEP IT MINIMAL — exactly
+    two tool calls, then respond and stop):
 
         - name: persist-final-essay
           worker: ford
           workerInput: |
-            doc_summary on `final-review-and-format` to confirm the
-            essay is ready, then doc_read its full text. Call
-            doc_create_text with:
-              path: "essay/final-essay.md"
-              content: <the full essay text, verbatim>
-            Reply with one line confirming the write. Do NOT alter
-            or summarise the content.
+            STRICT BUDGET — this phase uses EXACTLY two tool calls
+            and then stops:
+              1. doc_read on the predecessor's draft path (see the
+                 <phases> block for the exact path).
+              2. doc_create_text with:
+                   path: "essay/final-essay.md"
+                   content: <the full text from step 1, verbatim>
+              3. Respond with the one-line confirmation
+                 "wrote essay/final-essay.md (<N> chars)". DO NOT
+                 verify the write with another doc_read. DO NOT
+                 call any further tools. DO NOT edit / polish /
+                 summarise the content — that happened in the
+                 previous phase.
+
+            Ford's per-turn tool-iteration cap is 8. A persist
+            phase that goes beyond doc_read + doc_create_text +
+            respond will exhaust the budget and the phase will
+            terminate as FAILED, killing the whole strategy.
           gate: { requires: [final-review-and-format_completed] }
 
     Rules:
