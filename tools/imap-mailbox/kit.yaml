@@ -1,0 +1,34 @@
+name: tools-imap-mailbox
+description: |
+  Read-only IMAP mailbox tool — drei Sub-Tools (list_folders /
+  list_messages / get_message) gegen einen einzelnen IMAP-Server mit
+  user+password-Auth (Plain oder App-Password). Funktioniert mit Zoho,
+  Gmail (App-Password), Outlook (App-Password), und generischen
+  on-prem IMAP-Servern.
+
+  Template-Kit: trägt eine sibling-`template.yaml` mit Input-Schema
+  (host, port, tls, user, password, defaultFolder). Über den Tool-
+  Templates-Catalog installierbar — Web-UI-Wizard oder Chat-Agent-Tools.
+
+  Was das Kit nach erfolgreichem Apply anlegt:
+
+    documents/server-tools/imap.yaml          — imap_mailbox-Pack
+                                                (host/port/tls/user/folder
+                                                eingesetzt, password als
+                                                Setting-Referenz)
+    setting imap.password                     — encrypted im
+                                                Apply-Ziel-Projekt
+
+  **Was du brauchst** (vor dem Apply):
+
+    - Den IMAP-Host (z.B. imap.zoho.com, imap.gmail.com)
+    - Deine Email-Adresse als Username
+    - Ein **App-spezifisches Passwort** (NICHT dein Login-Passwort —
+      Provider mit 2FA verlangen ein dediziertes App-Password):
+        * Zoho:    https://accounts.zoho.com/home#security/app_passwords
+        * Gmail:   https://myaccount.google.com/apppasswords
+        * Outlook: https://account.live.com/proofs/AppPassword
+
+version: "1.0"
+artifact: true
+hasEncryptedSecrets: false

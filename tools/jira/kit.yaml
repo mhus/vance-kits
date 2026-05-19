@@ -4,35 +4,36 @@ description: |
   Config in einem Drop. Funktioniert mit jedem Atlassian-Cloud-Account
   (Standard-Plan reicht), kein Rovo / kein MCP nötig.
 
-  Was das Kit anlegt:
+  Template-Kit: trägt eine sibling-`template.yaml` mit Input-Schema
+  (clientId + clientSecret) und ist über den Tool-Templates-Catalog
+  (`_tenant/config/tool-templates.yaml`) plus den Web-UI-Wizard / die
+  Chat-Agent-Tools `tool_template_*` installierbar. Sieht der Pfad
+  über `kit_install` / direkt-curl auch noch, dann mit hartem
+  Fehler — `{{var:clientId}}` muss substituiert werden.
 
-    documents/oauth/atlassian.yaml          — OAuth 3LO Provider
-                                              (Platzhalter-clientId,
-                                               echte muss nach Apply
-                                               eingetragen werden)
-    documents/server-tools/jira_rest.yaml   — REST Pack mit 7 curated
-                                              Operationen
-                                              (getCurrentUser, JQL-
-                                              search, getIssue,
+  Was das Kit anlegt (nach erfolgreichem `tool_template_apply`):
+
+    documents/oauth/atlassian.yaml          — OAuth 3LO Provider mit
+                                              echter clientId
+    documents/server-tools/jira_rest.yaml   — REST-Pack: 7 curated
+                                              Operationen (getCurrentUser,
+                                              JQL-search, getIssue,
                                               createIssue, editIssue,
                                               addComment, searchProjects)
 
-  **Was das Kit NICHT macht:**
+    setting oauth.atlassian.client_secret   — encrypted im _tenant-Projekt
 
-    - Es legt keine Atlassian-App an — die musst du in
-      https://developer.atlassian.com/console/myapps/ manuell
-      registrieren (siehe readme/jira-via-rest-setup.md §2).
-    - Es enthält kein clientSecret. Nach Apply muss der Tenant-Admin
-      das Secret als PASSWORD-Setting setzen (Web-UI "OAuth Providers"
-      oder REST PUT mit clientSecret-Feld).
-    - Es ist ein **artifact** — keine kit-manifest-Spur, kein
-      `update`/`export`. Nur `apply` ist erlaubt. Re-Import erstellt
-      die Documents identisch neu.
+  **Voraussetzungen für den User:**
 
-  Detailliertes Setup-Recipe inkl. Atlassian-Console-Schritten,
-  Token-Test und Troubleshooting: workbench `readme/jira-via-rest-setup.md`.
+    - Atlassian-App registriert auf developer.atlassian.com (mit den
+      sechs Scopes der Provider-Config + Callback-URL passend zum
+      Deployment).
+
+  Detailliertes Setup-Recipe (inkl. Atlassian-Console-Schritten,
+  Token-Test und Troubleshooting): workbench `readme/jira-via-rest-setup.md`.
   Architektur-Hintergrund (warum REST und nicht MCP):
   workbench `readme/jira-via-atlassian-mcp.md`.
-version: "1.0"
+
+version: "1.1"
 artifact: true
 hasEncryptedSecrets: false

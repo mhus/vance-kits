@@ -1,0 +1,61 @@
+name: smtp-sender
+title: "SMTP sender"
+description: |
+  Outbound transactional mail via SMTP. One sub-tool — send_message —
+  with plain-text + optional HTML alternative. The auth password is
+  stored encrypted in the apply-target project's settings.
+
+icon: mail
+
+inputs:
+  - name: host
+    type: string
+    label: "SMTP host"
+    help: "e.g. smtp.zoho.com, smtp.gmail.com, smtp.office365.com"
+    default: "smtp.zoho.com"
+    required: true
+
+  - name: port
+    type: integer
+    label: "Port"
+    help: "587 = STARTTLS (default), 465 = implicit TLS, 25 = plain (rare)"
+    default: "587"
+    required: false
+
+  - name: tls
+    type: boolean
+    label: "Implicit TLS"
+    help: "true for port 465. false (default) + starttls=true for port 587."
+    default: "false"
+    required: false
+
+  - name: starttls
+    type: boolean
+    label: "STARTTLS upgrade"
+    help: "true (default) for port 587. Set false when using implicit TLS on 465."
+    default: "true"
+    required: false
+
+  - name: user
+    type: string
+    label: "Login"
+    help: "Usually your full email address."
+    required: true
+
+  - name: password
+    type: password
+    label: "App-specific password"
+    help: >
+      App-password for accounts with 2FA, or the regular password
+      for legacy IMAP-enabled accounts. Encrypted at rest.
+    required: true
+    target:
+      kind: setting
+      scope: project
+      key: smtp.password
+
+  - name: from
+    type: string
+    label: "Default From address"
+    help: "Used when send_message doesn't specify a from. Usually same as Login."
+    required: true

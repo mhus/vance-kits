@@ -1,0 +1,41 @@
+name: jira
+title: "Atlassian Jira"
+description: |
+  Connect Vance to your Atlassian Jira workspace via OAuth 2.0 (3LO)
+  + REST API. Works with any Atlassian Cloud account (Standard plan
+  reaches), no Rovo / no MCP required.
+
+  After apply:
+    1. Set the client secret as the tenant-PASSWORD setting
+       `oauth.atlassian.client_secret` (or use the input below — the
+       template stores it for you encrypted at rest).
+    2. Web-UI → Connected Accounts → atlassian → "Connect".
+
+icon: atlassian
+
+inputs:
+  - name: clientId
+    type: string
+    label: "OAuth Client ID"
+    help: "From developer.atlassian.com/console → your app → Settings"
+    required: true
+
+  - name: clientSecret
+    type: password
+    label: "OAuth Client Secret"
+    help: "Encrypted at rest. Stored as tenant-setting oauth.atlassian.client_secret."
+    required: true
+    target:
+      kind: setting
+      scope: project
+      project: _tenant
+      key: oauth.atlassian.client_secret
+
+postInstall:
+  kind: oauth-connect
+  provider: atlassian
+  message: >
+    Final step: open Connected Accounts in the Web-UI and click "Connect"
+    next to atlassian. That runs the OAuth 3LO dance and stores your
+    access + refresh tokens in your user-settings, after which the
+    Jira REST tools are usable.

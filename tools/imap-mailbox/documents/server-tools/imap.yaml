@@ -1,0 +1,41 @@
+# IMAP mailbox tool — read-only.
+#
+# Auth: user + app-specific-password. The password is referenced via
+# {{secret:project:imap.password}} — the template applier persisted it
+# in this project's settings during apply, encrypted at rest.
+#
+# Sub-tools emitted by ImapMailboxToolFactory:
+#   imap__list_folders
+#   imap__list_messages(folder?, limit?, unread_only?, since?)
+#   imap__get_message(messageRef, folder?)
+
+name: imap
+type: imap_mailbox
+description: "IMAP inbox: list folders, search by since/unread, read messages."
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - mail
+  - imap
+parameters:
+  host: {{var:host}}
+  port: {{var:port}}
+  tls: {{var:tls}}
+  user: {{var:user}}
+  password: "{{secret:project:imap.password}}"
+  defaultFolder: {{var:defaultFolder}}
+  timeoutSeconds: 30
+promptHint: |
+  ## IMAP mailbox
+
+  Read-only access to an IMAP mailbox. Available sub-tools (call via
+  `find_tools(query="imap")` → `invoke_tool`):
+
+  - `imap__list_folders` — no args; returns folder names
+  - `imap__list_messages` — args: `folder` (default INBOX), `limit`
+    (1–500), `unread_only` (bool), `since` (ISO-8601 instant). Returns
+    headers only (subject/from/date/seen).
+  - `imap__get_message` — args: `messageRef` (folder index or
+    Message-ID), optional `folder`. Returns headers + the text/plain
+    body (HTML stripped to text; attachments are ignored in v1).

@@ -1,35 +1,21 @@
 # OAuth 3LO provider for Atlassian Jira / Confluence.
 #
-# AFTER APPLY:
-#   1. Replace clientId below with the value from your developer.atlassian.com
-#      app (https://developer.atlassian.com/console/myapps/ → Settings).
-#   2. Set the client secret as a tenant PASSWORD setting:
-#        Key:    oauth.atlassian.client_secret
-#        Scope:  project=_tenant
-#        Type:   PASSWORD
-#      Web-UI: "OAuth Providers" page → atlassian → Set Secret.
-#      REST: PUT /brain/{tenant}/admin/oauth/providers/atlassian with
-#            {"yaml":"...","clientSecret":"<your-secret>"}
+# clientId comes from the template input at apply time. The client
+# secret is persisted as a tenant-PASSWORD setting by the template
+# applier (see template.yaml#inputs[clientSecret].target) — the
+# AtlassianOAuthProvider bean looks it up by convention from
+# oauth.atlassian.client_secret.
 #
-# The callback URL Atlassian must accept (configure in Authorization tab
-# of the app): http://localhost:9900/brain/<tenant>/oauth/atlassian/callback
-# (replace host:port for production deployments).
+# Callback URL the Atlassian developer console must accept (for
+# local dev):
+#   http://localhost:9900/brain/<tenant>/oauth/atlassian/callback
+# In production replace host:port with the reverse-proxy hostname.
 #
-# All six scopes are required:
-#   - read:jira-work, read:jira-user, write:jira-work  (Jira API)
-#   - read:me, read:account                            (User identity API)
-#   - offline_access                                   (token refresh)
-#
-# Atlassian-specific quirks the AtlassianOAuthProvider handles:
-#   - audience=api.atlassian.com is appended to /authorize automatically.
-#   - prompt=consent is appended so scope changes propagate on reconnect.
-#   - After token exchange, /oauth/token/accessible-resources is called
-#     and cloud_id / site_url / site_name are persisted as flat user-
-#     STRING settings so tool configs can reference them with
-#     {{secret:user:oauth.atlassian.cloud_id}}.
+# All six scopes are required for the curated REST pack to work
+# end-to-end (read+write Jira, user identity, refresh).
 
 type: atlassian
-clientId: REPLACE_ME_AFTER_INSTALL
+clientId: {{var:clientId}}
 authorizeUrl: https://auth.atlassian.com/authorize
 tokenUrl: https://auth.atlassian.com/oauth/token
 scopes:

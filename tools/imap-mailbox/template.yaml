@@ -1,0 +1,56 @@
+name: imap-mailbox
+title: "IMAP Mailbox (read-only)"
+description: |
+  Read-only IMAP-mailbox tool. After apply you can list folders,
+  list message headers (filtered by unread / since), and fetch
+  individual messages. Auth is user+app-password. The password
+  is stored encrypted in the apply-target project's settings.
+
+icon: mail
+
+inputs:
+  - name: host
+    type: string
+    label: "IMAP host"
+    help: "e.g. imap.zoho.com, imap.gmail.com, outlook.office365.com"
+    default: "imap.zoho.com"
+    required: true
+
+  - name: port
+    type: integer
+    label: "Port"
+    help: "993 = implicit TLS (default), 143 = plain / STARTTLS"
+    default: "993"
+    required: false
+
+  - name: tls
+    type: boolean
+    label: "Implicit TLS"
+    help: "true = TLS from byte 1 (port 993). false → use STARTTLS on 143."
+    default: "true"
+    required: false
+
+  - name: user
+    type: string
+    label: "Login / Email address"
+    help: "Usually your full email address — mike@mhus.de, alice@example.com, …"
+    required: true
+
+  - name: password
+    type: password
+    label: "App-specific password"
+    help: >
+      Get from your provider's app-password page (Zoho, Gmail with 2FA,
+      Outlook with MFA). Encrypted at rest in this project's settings.
+    required: true
+    target:
+      kind: setting
+      scope: project
+      key: imap.password
+
+  - name: defaultFolder
+    type: string
+    label: "Default folder"
+    help: "Folder used when list_messages / get_message don't specify one"
+    default: "INBOX"
+    required: false

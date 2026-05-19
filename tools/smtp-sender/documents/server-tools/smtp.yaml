@@ -1,0 +1,38 @@
+# SMTP sender — single send_message sub-tool.
+#
+# Auth: user + app-password. The password is referenced via
+# {{secret:project:smtp.password}} — the template applier persisted it
+# in this project's settings during apply, encrypted at rest.
+
+name: smtp
+type: smtp_sender
+description: "SMTP send_message tool — plain-text or multipart/alternative mail."
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - mail
+  - smtp
+parameters:
+  host: {{var:host}}
+  port: {{var:port}}
+  tls: {{var:tls}}
+  starttls: {{var:starttls}}
+  user: {{var:user}}
+  password: "{{secret:project:smtp.password}}"
+  from: {{var:from}}
+  timeoutSeconds: 30
+promptHint: |
+  ## SMTP sender
+
+  Outbound transactional mail. Sub-tool: `smtp__send_message`. Args:
+
+  - `to` (array of addresses, required)
+  - `subject` (required), `body` (plain-text required)
+  - `cc`, `bcc` (arrays, optional)
+  - `html` (optional — sends as multipart/alternative; body stays plain fallback)
+  - `from` (optional — overrides pack default)
+  - `replyTo` (optional, single address)
+
+  Returns: {messageId, from, to, subject}. Use sparingly — every call
+  delivers an actual email.

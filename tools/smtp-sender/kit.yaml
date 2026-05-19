@@ -1,0 +1,29 @@
+name: tools-smtp-sender
+description: |
+  Outbound SMTP — ein Sub-Tool (`<pack>__send_message`) zum Versenden
+  von Plain-Text- oder Multipart/Alternative-Mails. Funktioniert mit
+  jedem SMTP-Provider (Zoho, Gmail, Office365, AWS SES, on-prem).
+
+  Template-Kit: trägt eine sibling-`template.yaml` mit Input-Schema
+  (host, port, tls/starttls, user, password, from). Über den Tool-
+  Templates-Catalog installierbar — Web-UI-Wizard oder Chat-Agent.
+
+  Was das Kit nach erfolgreichem Apply anlegt:
+
+    documents/server-tools/smtp.yaml          — smtp_sender-Pack
+                                                (host/port/tls/user/from
+                                                eingesetzt, password als
+                                                Setting-Referenz)
+    setting smtp.password                     — encrypted im
+                                                Apply-Ziel-Projekt
+
+  **Was du brauchst** (vor dem Apply):
+
+    - SMTP-Host + Port (z.B. smtp.zoho.com:587, smtp.gmail.com:587)
+    - Login (meist Email-Adresse)
+    - App-Password (NICHT das Login-Passwort wenn 2FA an ist)
+    - Default-From-Adresse (kann gleich dem Login-User sein)
+
+version: "1.0"
+artifact: true
+hasEncryptedSecrets: false
