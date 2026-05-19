@@ -1,0 +1,38 @@
+name: tools-jira
+description: |
+  Atlassian Jira als REST-Tool — OAuth-Provider-Config + ServerTool-
+  Config in einem Drop. Funktioniert mit jedem Atlassian-Cloud-Account
+  (Standard-Plan reicht), kein Rovo / kein MCP nötig.
+
+  Was das Kit anlegt:
+
+    documents/oauth/atlassian.yaml          — OAuth 3LO Provider
+                                              (Platzhalter-clientId,
+                                               echte muss nach Apply
+                                               eingetragen werden)
+    documents/server-tools/jira_rest.yaml   — REST Pack mit 7 curated
+                                              Operationen
+                                              (getCurrentUser, JQL-
+                                              search, getIssue,
+                                              createIssue, editIssue,
+                                              addComment, searchProjects)
+
+  **Was das Kit NICHT macht:**
+
+    - Es legt keine Atlassian-App an — die musst du in
+      https://developer.atlassian.com/console/myapps/ manuell
+      registrieren (siehe readme/jira-via-rest-setup.md §2).
+    - Es enthält kein clientSecret. Nach Apply muss der Tenant-Admin
+      das Secret als PASSWORD-Setting setzen (Web-UI "OAuth Providers"
+      oder REST PUT mit clientSecret-Feld).
+    - Es ist ein **artifact** — keine kit-manifest-Spur, kein
+      `update`/`export`. Nur `apply` ist erlaubt. Re-Import erstellt
+      die Documents identisch neu.
+
+  Detailliertes Setup-Recipe inkl. Atlassian-Console-Schritten,
+  Token-Test und Troubleshooting: workbench `readme/jira-via-rest-setup.md`.
+  Architektur-Hintergrund (warum REST und nicht MCP):
+  workbench `readme/jira-via-atlassian-mcp.md`.
+version: "1.0"
+artifact: true
+hasEncryptedSecrets: false
