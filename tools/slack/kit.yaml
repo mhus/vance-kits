@@ -1,0 +1,44 @@
+name: tools-slack
+description: |
+  Slack Web API via OAuth 2.0 v2 + user-token (xoxp-). Vance acts on
+  behalf of the connecting user — `chat.postMessage` posts as the user,
+  `conversations.history` reads what the user sees, scope filtering
+  happens via the Slack consent screen.
+
+  v2 template-kit: ships a sibling `template.yaml` with a `features`
+  multi-select (messaging / channels / users / files / search /
+  reactions) plus a `derived: oauth_scopes` union and a `documents:`
+  filter overlay. Apply via Web-UI Wizard, anus, or chat-agent tools
+  `tool_template_*`.
+
+  What lands after a successful apply (depending on feature selection):
+
+    documents/oauth/slack.yaml          — OAuth provider with the
+                                          chosen user-scopes
+    documents/server-tools/slack_rest.yaml — REST pack: curated subset
+                                              of the ~150 Slack Web API
+                                              methods (chat / conversations /
+                                              users / files / search /
+                                              reactions)
+
+    setting oauth.slack.client_secret   — encrypted on _tenant
+
+  **Prerequisite for the user:**
+
+    Slack app registered at https://api.slack.com/apps with:
+      - OAuth & Permissions: redirect URL matching this deployment,
+        i.e. `http://<brain-host>:<brain-port>/brain/<tenant>/oauth/slack/callback`
+      - User-scopes (xoxp-): whatever the template requests via
+        oauth_scopes — the consent screen lists them at connect-time.
+        v1 of this kit only requests user-scopes; bot installs would
+        need `extra.botScopes` on the provider yaml.
+
+  Architecture: the brain's SlackOAuthProvider extracts
+  `authed_user.access_token` from Slack's v2 token response (xoxp-)
+  and stores the bot-token + team-id in extra-claims for tools that
+  explicitly want them. See specification/llm-resource-management.md
+  §oauth for the per-user secret-resolver pattern.
+
+version: "1.0"
+artifact: true
+hasEncryptedSecrets: false

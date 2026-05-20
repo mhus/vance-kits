@@ -1,0 +1,97 @@
+name: slack
+title: "Slack (Web API)"
+description: |
+  Connect Vance to a Slack workspace via OAuth 2.0 v2 + user-token
+  (xoxp-). Tools post as the connecting user — `chat.postMessage`,
+  `conversations.history`, etc. Pick which feature areas you want; only
+  the matching scopes are requested at the Slack consent screen and
+  only the matching sub-tools are installed.
+
+  After apply: open Web-UI → Connected Accounts → slack → "Connect" to
+  run the OAuth handshake.
+
+icon: slack
+
+inputs:
+  - name: features
+    type: multiselect
+    label: "Slack feature areas"
+    help: >
+      Pick at least one. Each feature drives an OAuth-scope bundle plus
+      the matching sub-tools in the REST pack. You can re-apply this
+      template later to add more — re-Connect in Connected Accounts so
+      Slack updates the consent.
+    required: true
+    choices:
+      - { value: messaging, label: "Messaging (read + write)", default: true }
+      - { value: channels,  label: "Channels & DMs (list, info, members)", default: true }
+      - { value: users,     label: "Users directory (lookup by id / email)", default: true }
+      - { value: files,     label: "Files (upload, read)",         default: false }
+      - { value: search,    label: "Search (messages)",            default: false }
+      - { value: reactions, label: "Reactions (add, remove, read)", default: false }
+
+  - name: clientId
+    type: string
+    label: "OAuth Client ID"
+    help: "From api.slack.com/apps → your app → Basic Information → App Credentials"
+    required: true
+
+  - name: clientSecret
+    type: password
+    label: "OAuth Client Secret"
+    help: "Encrypted at rest. Stored as tenant-setting oauth.slack.client_secret."
+    required: true
+    target:
+      kind: setting
+      scope: project
+      project: _tenant
+      key: oauth.slack.client_secret
+
+derived:
+  # User-scopes (xoxp-) — the brain's SlackOAuthProvider moves these from
+  # `scope=` to `user_scope=` on the authorize URL so the consenting user
+  # mints a user-token (not just a bot install). Bot installs are opt-in
+  # via extra.botScopes on the provider yaml.
+  - name: oauth_scopes
+    kind: union
+    from: features
+    base:
+      - users:read
+    perChoice:
+      messaging:
+        - chat:write
+        - channels:history
+        - groups:history
+        - mpim:history
+        - im:history
+      channels:
+        - channels:read
+        - groups:read
+        - mpim:read
+        - im:read
+      users:
+        - users:read.email
+      files:
+        - files:read
+        - files:write
+      search:
+        - search:read
+      reactions:
+        - reactions:read
+        - reactions:write
+
+# All documents in this kit are installed unconditionally — the feature
+# multiselect drives OAuth scopes (via derived) and which operationIds
+# the user has access to call at runtime. There's no need for a
+# documents-overlay (which would split the REST pack into per-feature
+# files); the granularity is at the OAuth-scope level.
+
+postInstall:
+  kind: oauth-connect
+  provider: slack
+  message: >
+    Final step: open Connected Accounts in the Web-UI and click "Connect"
+    next to slack. That runs the OAuth v2 dance and stores your
+    user-access-token + refresh-token in your user-settings, after
+    which `slack__chat.postMessage`, `slack__conversations.history`,
+    etc. become callable for your chat sessions.

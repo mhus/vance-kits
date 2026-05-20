@@ -1,0 +1,29 @@
+# OAuth 2.0 v2 provider for Slack Web API.
+#
+# clientId comes from the template input at apply time. The client
+# secret is persisted as a tenant-PASSWORD setting by the template
+# applier (see template.yaml#inputs[clientSecret].target) — the
+# SlackOAuthProvider bean looks it up by convention from
+# oauth.slack.client_secret.
+#
+# Callback URL the Slack-app's "OAuth & Permissions → Redirect URLs"
+# config must accept (for local dev):
+#   http://localhost:9900/brain/<tenant>/oauth/slack/callback
+# In production replace host:port with the reverse-proxy hostname.
+#
+# Scopes come from the template's `features` multi-select via
+# `derived: oauth_scopes` — the brain's SlackOAuthProvider override of
+# decorateAuthorizeParams moves them from `scope=` to `user_scope=`
+# (mints xoxp-user-tokens, not xoxb-bot-tokens). Bot installs are
+# opt-in: add `extra.botScopes: [chat:write, …]` to this yaml and
+# re-Connect.
+#
+# usePkce: true is supported by Slack OAuth v2 (S256 challenge).
+
+type: slack
+clientId: {{var:clientId}}
+authorizeUrl: https://slack.com/oauth/v2/authorize
+tokenUrl: https://slack.com/api/oauth.v2.access
+scopes: {{var:oauth_scopes}}
+extra:
+  usePkce: true

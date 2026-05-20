@@ -1,0 +1,149 @@
+# Slack Web API pack — works with the user's OAuth v2 token.
+#
+# Requires the `oauth/slack.yaml` provider (sibling file in this kit)
+# to be configured AND the user to have completed the Connect flow in
+# Web-UI → Connected Accounts → slack. Per-user state lives in
+# user-settings under oauth.slack.* (access_token, refresh_token if
+# Token Rotation is enabled, scope, team_id, authed_user_id,
+# bot_access_token when bot-scopes are also requested).
+#
+# Slack Web API conventions worth knowing:
+#   - All methods are POST against https://slack.com/api/<method>
+#     (a handful accept GET; the OpenAPI spec marks them).
+#   - Auth header: `Authorization: Bearer xoxp-…` (the user-token).
+#   - Successful HTTP-200 responses always carry `{"ok": true, ...}`;
+#     business errors return HTTP-200 with `{"ok": false, "error": "..."}`.
+#     v1 of the rest_api invoker surfaces the body as-is — the LLM
+#     sees the error string and can react.
+#   - operationIds in the spec use snake_case (dot-method becomes
+#     `chat_postMessage` etc.). Adjust the include list below if the
+#     spec rev changes the naming.
+
+name: slack_rest
+type: rest_api
+description: >
+  Slack Web API via REST + OAuth 2.0 v2 user-token (xoxp-).
+  Curated subset of chat / conversations / users / files / search /
+  reactions — call surface controlled by the OAuth scopes the user
+  granted at Connect time. The user token comes from user-settings
+  oauth.slack.access_token.
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - slack
+  - chat
+  - rest
+parameters:
+  # Slack publishes a generated OpenAPI for their Web API. Pinned URL —
+  # if upstream rotates the path, swap to `specInline` with a vendored
+  # copy of the JSON checked into _vance/specs/ to stop relying on
+  # network access at brain-boot.
+  specUrl: "https://api.slack.com/specs/openapi/v2/slack_web.json"
+  baseUrl: "https://slack.com/api"
+  auth:
+    type: bearer
+    token: "{{secret:user:oauth.slack.access_token}}"
+  # Curated operationIds. Slack has ~150 methods; this set covers the
+  # 90% of Vance-flavoured tasks (post + read messages, list channels
+  # / users, search, attach files). To expand: read the spec's
+  # `operationId` fields and add them here. Globs work but the full
+  # ~150 is almost always too many for an LLM tool manifest.
+  include:
+    # ─── chat
+    - "chat_postMessage"
+    - "chat_update"
+    - "chat_delete"
+    - "chat_scheduleMessage"
+    - "chat_postEphemeral"
+    # ─── conversations (channels, DMs, MPIMs)
+    - "conversations_list"
+    - "conversations_info"
+    - "conversations_history"
+    - "conversations_replies"
+    - "conversations_members"
+    - "conversations_open"
+    # ─── users directory
+    - "users_info"
+    - "users_list"
+    - "users_lookupByEmail"
+    # ─── files
+    - "files_info"
+    - "files_list"
+    - "files_upload"
+    # ─── search
+    - "search_messages"
+    # ─── reactions
+    - "reactions_add"
+    - "reactions_remove"
+    - "reactions_get"
+  # Slack's read endpoints are GET-but-not-quite — most use POST with a
+  # body even for pure-lookups. Without overrides, conversational
+  # engines bucket them into deferred (because POST → write by
+  # default). The labelOverrides mark the pure read ones as read-only
+  # so they ship in the primary tool manifest.
+  labelOverrides:
+    conversations_list:
+      - read-only
+    conversations_info:
+      - read-only
+    conversations_history:
+      - read-only
+    conversations_replies:
+      - read-only
+    conversations_members:
+      - read-only
+    users_info:
+      - read-only
+    users_list:
+      - read-only
+    users_lookupByEmail:
+      - read-only
+    files_info:
+      - read-only
+    files_list:
+      - read-only
+    search_messages:
+      - read-only
+    reactions_get:
+      - read-only
+  timeoutSeconds: 30
+promptHint: |
+  ## Slack (Web API)
+
+  A Slack workspace is connected via the user's xoxp-token. Calls
+  appear as the user in Slack's audit log. Available tools (call via
+  `find_tools(query="slack")` then `invoke_tool`):
+
+  Messaging:
+  - `slack_rest__chat_postMessage` — body: `{"channel":"C…|@user|#name",
+    "text":"…","blocks":[…]}` (text or blocks; not both is fine, both
+    works too with text as fallback). For DMs use the user's "U…" id
+    or call `conversations_open` first.
+  - `slack_rest__chat_update` — body: `{"channel":"C…","ts":"…","text":"…"}`
+  - `slack_rest__chat_delete` — body: `{"channel":"C…","ts":"…"}`
+  - `slack_rest__chat_scheduleMessage` — like postMessage + `post_at` (unix-seconds).
+  - `slack_rest__chat_postEphemeral` — only the named user sees the message; body: `{"channel":"C…","user":"U…","text":"…"}`.
+
+  Channels & DMs (`conversations.*` covers everything: public/private/MPIMs/DMs):
+  - `slack_rest__conversations_list` — body: `{"types":"public_channel,private_channel,im,mpim","limit":200}`. Returns paginated; use `cursor` for next page.
+  - `slack_rest__conversations_info` — `{"channel":"C…"}`
+  - `slack_rest__conversations_history` — read messages: `{"channel":"C…","limit":50,"oldest":"<ts>","latest":"<ts>"}`
+  - `slack_rest__conversations_replies` — thread replies: `{"channel":"C…","ts":"<parent-ts>"}`
+  - `slack_rest__conversations_members` — `{"channel":"C…"}`
+  - `slack_rest__conversations_open` — open a DM: `{"users":"U1,U2"}`; returns the `channel.id` to post into.
+
+  Users directory:
+  - `slack_rest__users_info` — `{"user":"U…"}`
+  - `slack_rest__users_list` — paginated list of workspace members
+  - `slack_rest__users_lookupByEmail` — `{"email":"user@example.com"}`
+
+  Files: upload, info, list (only if the `files` feature was selected at template apply).
+  Search: `slack_rest__search_messages` — JQL-like: `{"query":"is:unread from:@alice"}` (only if `search` feature was selected).
+  Reactions: add/remove/get — body needs `channel` + `timestamp` of the target message + emoji name (no colons).
+
+  Conventions:
+  - Channel id `C…` is what Slack stores; `#channel-name` works for posting but is name-resolution-after-the-fact.
+  - User id `U…` resolves to the real human; pass `@username` only as a last resort (Slack discourages it).
+  - Timestamps (`ts`) are the unique identifier of a single message — a stringified float, e.g. "1726502400.001234". Save them when you post if you want to update/delete later.
+  - Empty `text` is rejected; if you only have blocks/attachments, set `text` to a short summary that screen-readers + push-notifications can use.
