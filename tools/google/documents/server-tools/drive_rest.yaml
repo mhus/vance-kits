@@ -12,7 +12,9 @@ description: >
   read content of files the app has access to, create/update,
   manage sharing permissions.
 enabled: true
-primary: false
+# See gmail_rest.yaml — primary=true so per-tool descriptions +
+# promptHint reach the LLM each turn.
+primary: true
 defaultDeferred: false
 labels:
   - drive
