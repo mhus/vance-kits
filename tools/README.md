@@ -16,6 +16,7 @@ Currently included:
 | `smtp-sender/` | Outbound SMTP (user + app-password) |
 | `foot-daemon/` | Register a remote foot daemon as a project-scoped tool provider (shell exec + FS on the daemon's host). The daemon process runs separately. |
 | `slack/` | Slack Web API via OAuth 2.0 v2 + user-token. Multi-select feature picker (messaging/channels/users/files/search/reactions). |
+| `google/` | Google Workspace via OAuth 2.0 (3LO). Tier 1: Gmail + Calendar + Drive (planned Tier 2: Docs/Sheets/Tasks/Contacts — see `planning/google-workspace-tools.md`). |
 
 ## Template DSL — what `template.yaml` can carry
 

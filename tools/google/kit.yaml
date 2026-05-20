@@ -1,0 +1,42 @@
+name: tools-google
+description: |
+  Google Workspace integration via OAuth 2.0 (3LO) + REST. Vance acts
+  on behalf of the connecting user — `gmail.users.messages.send`
+  posts as the user, `calendar.events.insert` lands in their primary
+  calendar, `drive.files.create` creates in their Drive.
+
+  v1 ships Tier 1 — the three features 80% of users want: Mail,
+  Calendar, Drive. Tier 2 (Docs, Sheets, Tasks, Contacts) is planned
+  in `planning/google-workspace-tools.md` §5 and lands as a separate
+  template-version update.
+
+  After apply:
+
+    documents/oauth/google.yaml                — provider with the
+                                                  chosen user-scopes
+    documents/server-tools/gmail_rest.yaml     — requires: mail
+    documents/server-tools/calendar_rest.yaml  — requires: calendar
+    documents/server-tools/drive_rest.yaml     — requires: drive
+
+    setting oauth.google.client_secret         — encrypted on _tenant
+
+  **Prerequisites for the user:**
+
+    - Google Cloud Project at https://console.cloud.google.com.
+    - OAuth consent screen configured (Internal for Workspace,
+      External for personal accounts — External needs Production
+      mode or a published test-user list).
+    - Per service: enable the API in the Cloud project before connecting:
+        Gmail API, Calendar API, Drive API.
+    - OAuth Client ID (Web application) with redirect URL matching
+      this deployment, e.g.:
+        http://localhost:9900/brain/<tenant>/oauth/google/callback
+
+  Architecture: the brain's GoogleOAuthProvider handles the
+  access_type=offline dance (required for refresh tokens), PKCE,
+  and the OIDC-or-OAuth2 split. Same OAuth provider, one token, all
+  three Google APIs use it.
+
+version: "1.0"
+artifact: true
+hasEncryptedSecrets: false

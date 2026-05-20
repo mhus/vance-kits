@@ -1,0 +1,37 @@
+# OAuth 2.0 provider for Google Workspace.
+#
+# clientId comes from the template input at apply time. The client
+# secret is persisted as a tenant-PASSWORD setting by the template
+# applier (see template.yaml#inputs[clientSecret].target) — the
+# GoogleOAuthProvider bean looks it up by convention from
+# oauth.google.client_secret.
+#
+# Callback URL the Google Cloud Console must accept (for local dev):
+#   http://localhost:9900/brain/<tenant>/oauth/google/callback
+# In production replace host:port with the reverse-proxy hostname.
+#
+# Scopes come from the template's `features` multi-select via
+# `derived: oauth_scopes` — base claims (openid/email/profile) plus
+# per-feature scope bundles. Google uses full-URL scopes
+# (https://www.googleapis.com/auth/...), the form is mandatory.
+#
+# Google requires `access_type=offline` to issue a refresh-token —
+# the GoogleOAuthProvider sets that automatically via
+# decorateAuthorizeParams. Without it, the token expires after 1h
+# with no way to renew (re-Connect required every hour). The
+# resulting refresh-token is stable: Google does NOT rotate it,
+# stays valid until the user revokes the grant or the project is
+# in Testing mode (then 7d).
+#
+# `prompt=consent` (also set by GoogleOAuthProvider) forces the
+# consent screen each time, ensuring the refresh-token comes back
+# even on re-authorization — otherwise Google skips refresh issuance
+# when the user previously granted the same scopes.
+
+type: google
+clientId: {{var:clientId}}
+authorizeUrl: https://accounts.google.com/o/oauth2/v2/auth
+tokenUrl: https://oauth2.googleapis.com/token
+scopes: {{var:oauth_scopes}}
+extra:
+  usePkce: true

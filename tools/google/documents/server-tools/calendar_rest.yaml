@@ -1,0 +1,98 @@
+# Google Calendar Web API pack.
+#
+# Conditionally installed: only present when `calendar` is in the
+# template's features selection — see template.yaml#documents.
+#
+# Auth: Bearer token from user-settings oauth.google.access_token,
+# same provider as Gmail/Drive — one Connect, all three usable.
+
+name: calendar_rest
+type: rest_api
+description: >
+  Google Calendar via REST — list/read/create/modify events across
+  the user's calendars, plus freebusy availability queries. Works
+  as the connecting user.
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - calendar
+  - google
+parameters:
+  specUrl: "https://api.apis.guru/v2/specs/googleapis.com/calendar/v3/openapi.json"
+  baseUrl: "https://www.googleapis.com/calendar/v3"
+  auth:
+    type: bearer
+    token: "{{secret:user:oauth.google.access_token}}"
+  include:
+    # ─── calendarList: enumerate the user's calendars
+    - "calendar.calendarList.list"
+    # ─── events: read/write
+    - "calendar.events.list"
+    - "calendar.events.get"
+    - "calendar.events.insert"
+    - "calendar.events.update"
+    - "calendar.events.patch"
+    - "calendar.events.delete"
+    - "calendar.events.quickAdd"
+    # ─── freebusy: availability check
+    - "calendar.freebusy.query"
+  timeoutSeconds: 30
+promptHint: |
+  ## Google Calendar (Web API)
+
+  The user's Google Calendar is connected. All operations target
+  one calendar at a time — `primary` is a magic id that means the
+  user's main calendar, or pass a specific id from `calendarList.list`.
+
+  Common tools (call via `find_tools(query="calendar")` then `invoke_tool`):
+
+  Discover calendars:
+  - `calendar_rest__calendar_calendarList_list` — no required args.
+    Returns each calendar's `id` (use it for events.list), `summary`
+    (display name), `accessRole`, `primary` flag.
+
+  Read events:
+  - `calendar_rest__calendar_events_list` —
+    `{"calendarId":"primary","timeMin":"2026-05-20T00:00:00Z",
+       "timeMax":"2026-05-21T00:00:00Z","singleEvents":true,
+       "orderBy":"startTime"}`.
+    Times are RFC 3339. `singleEvents:true` expands recurring events
+    into per-occurrence instances — almost always what you want.
+  - `calendar_rest__calendar_events_get` —
+    `{"calendarId":"primary","eventId":"<id>"}`.
+
+  Create / modify events:
+  - `calendar_rest__calendar_events_insert` —
+    `{"calendarId":"primary","summary":"Lunch w/ Bob",
+       "start":{"dateTime":"2026-05-21T12:00:00+02:00"},
+       "end":{"dateTime":"2026-05-21T13:00:00+02:00"},
+       "attendees":[{"email":"bob@example.com"}],
+       "location":"Cafe Lila"}`.
+    Time-zone-naive all-day events: use `start:{"date":"2026-05-21"}`
+    (no dateTime) and matching `end.date` (exclusive).
+  - `calendar_rest__calendar_events_quickAdd` — natural-language:
+    `{"calendarId":"primary","text":"Lunch with Bob tomorrow 12-1pm"}`.
+    Google's NLP parses the text; useful for free-form input.
+  - `calendar_rest__calendar_events_patch` —
+    `{"calendarId":"primary","eventId":"<id>","summary":"<new>"}`.
+    Only the fields you pass are updated.
+  - `calendar_rest__calendar_events_delete` —
+    `{"calendarId":"primary","eventId":"<id>"}`. 204 on success.
+
+  Availability:
+  - `calendar_rest__calendar_freebusy_query` —
+    `{"timeMin":"2026-05-21T00:00:00Z",
+       "timeMax":"2026-05-21T23:59:59Z",
+       "items":[{"id":"primary"},{"id":"meeting-room-1@…"}]}`.
+    Returns busy-blocks per calendar — gap = free.
+
+  Pitfalls:
+  - Times need explicit time zones (RFC 3339 with offset OR a
+    `timeZone` field on the dateTime object). "2026-05-21T12:00:00"
+    without zone gets rejected.
+  - All-day events use `date` (not `dateTime`). End is EXCLUSIVE.
+  - `attendees[].email` triggers calendar invites — Google sends
+    them automatically.
+  - `quickAdd` is great for one-liners but doesn't support attendees
+    / location / description. For richer events use `events_insert`.

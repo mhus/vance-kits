@@ -1,0 +1,112 @@
+# Gmail Web API pack — works with the user's OAuth 2.0 user-token.
+#
+# Requires the sibling `oauth/google.yaml` provider and the user to
+# have completed the Connect flow with the `gmail.modify` scope (set
+# by the template's derived oauth_scopes when feature `mail` is
+# selected).
+#
+# Conditionally installed: only present when `mail` is in the template's
+# features selection — see template.yaml#documents.
+#
+# Auth: Bearer token from user-settings oauth.google.access_token.
+# The OAuthTokenRefresher transparently swaps in a fresh token when
+# the current one is within 60s of expiry (Google ATs live ~1h).
+
+name: gmail_rest
+type: rest_api
+description: >
+  Gmail via REST — read, search, send, label messages and drafts.
+  Works as the connecting user (`me` is always the bound xoxp).
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - gmail
+  - mail
+  - google
+parameters:
+  # apis.guru is the community-maintained OpenAPI mirror for Google
+  # APIs. If upstream rotates the path or goes down, fall back to
+  # specInline with a vendored copy in _vance/specs/.
+  specUrl: "https://api.apis.guru/v2/specs/googleapis.com/gmail/v1/openapi.json"
+  baseUrl: "https://gmail.googleapis.com"
+  auth:
+    type: bearer
+    token: "{{secret:user:oauth.google.access_token}}"
+  # The spec emits dotted operationIds (gmail.users.messages.list);
+  # vance-toolpack normalises dots to underscores in tool names,
+  # but include-matching still operates on the raw form below.
+  include:
+    # ─── messages: list / read / send / modify (label)
+    - "gmail.users.messages.list"
+    - "gmail.users.messages.get"
+    - "gmail.users.messages.send"
+    - "gmail.users.messages.modify"
+    # ─── threads (multi-message conversations)
+    - "gmail.users.threads.list"
+    - "gmail.users.threads.get"
+    # ─── drafts (compose-without-send)
+    - "gmail.users.drafts.create"
+    # ─── labels (read taxonomy; create/delete handled out-of-band
+    #     in v1 — labels are usually pre-existing)
+    - "gmail.users.labels.list"
+  # Labels mark POST endpoints that don't mutate state so they ship
+  # in the primary tool manifest instead of the deferred bucket.
+  # Gmail's send/modify are genuine writes — leave them as default
+  # (write + side-effect).
+  labelOverrides:
+    # The list endpoints are GET — already read-only.  Keep this
+    # block as documentation for future read-only POSTs.
+  timeoutSeconds: 30
+promptHint: |
+  ## Gmail (Web API)
+
+  The user's Gmail is connected via xoxp-style user-token. Calls
+  appear as the user in Gmail's audit log and "Sent" folder. All
+  per-user paths use `userId: "me"` — the connected user IS the
+  identity, no impersonation supported.
+
+  Common tools (call via `find_tools(query="gmail")` then `invoke_tool`):
+
+  Read:
+  - `gmail_rest__gmail_users_messages_list` —
+    `{"userId":"me","q":"from:alice subject:invoice is:unread",
+       "maxResults":20}`. Returns just ids; follow with `_get`.
+    Query syntax: https://support.google.com/mail/answer/7190
+    (operators: from:, to:, subject:, has:attachment, after:, before:,
+    label:, is:unread, in:inbox, …).
+  - `gmail_rest__gmail_users_messages_get` —
+    `{"userId":"me","id":"<message-id>","format":"full"}`. `format`
+    can be `metadata` (headers only), `minimal`, `raw`, or `full`.
+  - `gmail_rest__gmail_users_threads_list` / `_get` — same shape, for
+    conversation view rather than individual messages.
+
+  Send:
+  - `gmail_rest__gmail_users_messages_send` — body is a base64url-
+    encoded RFC 2822 message inside `{"raw": "<base64>"}` OR a
+    multipart MIME structure. The LLM should construct via:
+    `{"userId":"me","raw":"<base64url>"}` where the raw is something
+    like:
+       From: me@gmail.com
+       To: alice@example.com
+       Subject: ...
+
+       Body text...
+    Use `_drafts_create` first for a dry-run.
+  - `gmail_rest__gmail_users_drafts_create` — same body shape as
+    send, just doesn't ship. Lets you preview.
+
+  Label:
+  - `gmail_rest__gmail_users_messages_modify` — add/remove labels:
+    `{"userId":"me","id":"<id>","addLabelIds":["IMPORTANT"],
+       "removeLabelIds":["INBOX"]}`. Archive = remove INBOX.
+  - `gmail_rest__gmail_users_labels_list` — enumerate the user's
+    labels. System labels (INBOX, SENT, …) are upper-case;
+    user-defined labels are arbitrary strings.
+
+  Pitfalls:
+  - Message IDs are opaque strings, NOT email addresses.
+  - `internalDate` is unix-milliseconds, NOT seconds.
+  - The body in `messages.get` is split across `payload.parts[]` —
+    deep parse, base64url-decode the relevant part's `body.data`.
+    Often easier to pass `format=raw` and parse the RFC 2822 yourself.

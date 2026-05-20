@@ -1,0 +1,109 @@
+# Google Drive Web API pack.
+#
+# Conditionally installed: only present when `drive` is in the
+# template's features selection — see template.yaml#documents.
+#
+# Auth: Bearer token from user-settings oauth.google.access_token.
+
+name: drive_rest
+type: rest_api
+description: >
+  Google Drive via REST — search files (titles only by default),
+  read content of files the app has access to, create/update,
+  manage sharing permissions.
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - drive
+  - google
+parameters:
+  specUrl: "https://api.apis.guru/v2/specs/googleapis.com/drive/v3/openapi.json"
+  baseUrl: "https://www.googleapis.com/drive/v3"
+  auth:
+    type: bearer
+    token: "{{secret:user:oauth.google.access_token}}"
+  include:
+    # ─── files: search / read / write / export / share
+    - "drive.files.list"
+    - "drive.files.get"
+    - "drive.files.create"
+    - "drive.files.update"
+    - "drive.files.export"
+    - "drive.files.copy"
+    # ─── permissions: sharing
+    - "drive.permissions.create"
+    - "drive.permissions.list"
+  timeoutSeconds: 30
+promptHint: |
+  ## Google Drive (Web API)
+
+  The user's Google Drive is connected with two scopes:
+  - `drive.file` — read/write files Vance created OR files the user
+    explicitly opened in this app
+  - `drive.metadata.readonly` — list/search the user's full Drive,
+    but TITLES ONLY, no body access
+
+  This means `files.list` can find anything, but `files.get` /
+  `files.export` only succeeds on files Vance owns or files the user
+  has explicitly shared with the app (e.g. via the Drive picker, or
+  files created by previous Vance turns).
+
+  Common tools (call via `find_tools(query="drive")` then `invoke_tool`):
+
+  Search files:
+  - `drive_rest__drive_files_list` —
+    `{"q":"name contains 'onboarding' and mimeType = 'application/vnd.google-apps.document'",
+       "pageSize":20,"fields":"files(id,name,mimeType,modifiedTime,webViewLink)"}`.
+    Query syntax: https://developers.google.com/drive/api/guides/search-files
+    (operators: `name contains`, `fullText contains`, `mimeType =`,
+    `modifiedTime >`, `'<folder-id>' in parents`, `trashed = false`).
+    Common mimeTypes:
+      Google Docs:     application/vnd.google-apps.document
+      Google Sheets:   application/vnd.google-apps.spreadsheet
+      Google Slides:   application/vnd.google-apps.presentation
+      Folder:          application/vnd.google-apps.folder
+      PDF:             application/pdf
+    Always set `fields` to limit the response — defaults are huge.
+
+  Read metadata / content:
+  - `drive_rest__drive_files_get` —
+    `{"fileId":"<id>","fields":"id,name,mimeType,size,modifiedTime,
+       parents,webViewLink"}`. Metadata only. For raw bytes (non-Docs)
+    add `?alt=media` (the spec exposes this as a separate
+    `drive.files.get` invocation variant — pass `alt: "media"` in the
+    body).
+  - `drive_rest__drive_files_export` —
+    `{"fileId":"<id>","mimeType":"application/pdf"}`. Converts Google
+    Docs/Sheets to PDF, Word, etc. Acceptable export mimeTypes:
+      Docs:    application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain, text/html
+      Sheets:  application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv (single sheet only)
+      Slides:  application/pdf, application/vnd.openxmlformats-officedocument.presentationml.presentation
+
+  Create / update:
+  - `drive_rest__drive_files_create` — multi-step (metadata + content).
+    For simple text upload:
+      Step 1: POST metadata-only with mimeType + name
+      Step 2: PATCH content via the resumable-upload endpoint
+    The rest_api pack v1 supports the metadata-only POST natively;
+    binary content uploads are easier via a separate tool / SDK.
+    Workaround: paste short text content into a Google Docs file via
+    Docs API (Tier 2).
+  - `drive_rest__drive_files_update` — same caveats.
+  - `drive_rest__drive_files_copy` — `{"fileId":"<src>",
+       "name":"<new-name>","parents":["<dst-folder-id>"]}`.
+
+  Sharing:
+  - `drive_rest__drive_permissions_create` —
+    `{"fileId":"<id>","role":"reader","type":"user",
+       "emailAddress":"alice@example.com","sendNotificationEmail":false}`.
+    Roles: `reader | commenter | writer | fileOrganizer | organizer | owner`.
+    Type: `user | group | domain | anyone`.
+
+  Pitfalls:
+  - `files.list` returns paginated; `nextPageToken` for next page.
+  - Without `fields`, responses are huge and slow.
+  - "Folders" are just files with `mimeType: application/vnd.google-apps.folder`.
+  - To find files in a specific folder: `q="'<folder-id>' in parents"`
+    — note the single-quotes around the folder id.
+  - `trashed = false` is a common filter to exclude soft-deleted files.

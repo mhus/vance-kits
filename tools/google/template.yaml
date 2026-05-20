@@ -1,0 +1,100 @@
+name: google
+title: "Google Workspace (Gmail, Calendar, Drive)"
+description: |
+  Connect Vance to a Google Workspace account via OAuth 2.0 (3LO) +
+  user-token. Vance acts on the user's behalf — sent mails come from
+  the user, created events land in their primary calendar, uploaded
+  files appear in their Drive.
+
+  Tier 1 (this template): Mail + Calendar + Drive. Tier 2 (Docs,
+  Sheets, Tasks, Contacts) is opt-in via a future template-version
+  update — see planning/google-workspace-tools.md.
+
+  After apply: open Web-UI → Connected Accounts → google → "Connect"
+  to run the OAuth handshake.
+
+icon: google
+
+inputs:
+  - name: features
+    type: multiselect
+    label: "Workspace surfaces"
+    help: >
+      Pick at least one. Each feature drives an OAuth-scope bundle
+      plus the matching REST tool pack. Re-apply this template
+      later to add or remove — re-Connect in Connected Accounts so
+      Google updates the consent.
+    required: true
+    choices:
+      - { value: mail,     label: "Gmail (read, send, label)",     default: true }
+      - { value: calendar, label: "Calendar (events, freebusy)",   default: true }
+      - { value: drive,    label: "Drive (search, read, upload)",  default: true }
+
+  - name: clientId
+    type: string
+    label: "OAuth Client ID"
+    help: >
+      From console.cloud.google.com → APIs & Services → Credentials →
+      your OAuth 2.0 Client ID (Web application). Looks like
+      '<digits>-<random>.apps.googleusercontent.com'.
+    required: true
+
+  - name: clientSecret
+    type: password
+    label: "OAuth Client Secret"
+    help: >
+      Encrypted at rest. Stored as tenant-setting
+      oauth.google.client_secret.
+    required: true
+    target:
+      kind: setting
+      scope: project
+      project: _tenant
+      key: oauth.google.client_secret
+
+derived:
+  # User-scopes (xoxp-equivalent for Google = the access token Google
+  # mints from authed_user). The GenericOAuth2Provider sends them as
+  # the standard `scope=` URL param; Google v2 doesn't have Slack's
+  # bot/user split, top-level access_token IS the user-token.
+  - name: oauth_scopes
+    kind: union
+    from: features
+    base:
+      - openid
+      - email
+      - https://www.googleapis.com/auth/userinfo.profile
+    perChoice:
+      mail:
+        # gmail.modify covers read + label + send (the union of
+        # gmail.readonly + gmail.send + gmail.labels). Easier consent
+        # screen than three separate scopes.
+        - https://www.googleapis.com/auth/gmail.modify
+      calendar:
+        # Full read+write across all the user's calendars. For finer
+        # grain split into calendar.readonly + calendar.events.
+        - https://www.googleapis.com/auth/calendar
+      drive:
+        # drive.file = files Vance created OR explicitly shared with
+        # the app; drive.metadata.readonly = list/search arbitrary
+        # files (titles only, no content read without explicit grant).
+        # Power users who want "all of my Drive" replace these with
+        # the broader `drive` scope manually.
+        - https://www.googleapis.com/auth/drive.file
+        - https://www.googleapis.com/auth/drive.metadata.readonly
+
+documents:
+  - { path: server-tools/gmail_rest.yaml,    requires: mail }
+  - { path: server-tools/calendar_rest.yaml, requires: calendar }
+  - { path: server-tools/drive_rest.yaml,    requires: drive }
+
+postInstall:
+  kind: oauth-connect
+  provider: google
+  message: >
+    Final step: open Connected Accounts in the Web-UI and click
+    "Connect" next to google. That runs the OAuth dance with
+    access_type=offline (for refresh tokens) and stores your
+    access-token + refresh-token in your user-settings. The Gmail,
+    Calendar and Drive sub-tools become callable from your chat
+    sessions immediately afterwards.
