@@ -37,14 +37,19 @@ parameters:
   # vance-toolpack normalises dots to underscores in tool names,
   # but include-matching still operates on the raw form below.
   include:
-    # ─── messages: list / read / send / modify (label)
+    # ─── messages: list / read / send / modify (label) / trash
     - "gmail.users.messages.list"
     - "gmail.users.messages.get"
     - "gmail.users.messages.send"
     - "gmail.users.messages.modify"
+    - "gmail.users.messages.trash"
+    - "gmail.users.messages.untrash"
+    - "gmail.users.messages.batchModify"
     # ─── threads (multi-message conversations)
     - "gmail.users.threads.list"
     - "gmail.users.threads.get"
+    - "gmail.users.threads.modify"
+    - "gmail.users.threads.trash"
     # ─── drafts (compose-without-send)
     - "gmail.users.drafts.create"
     # ─── labels (read taxonomy; create/delete handled out-of-band
@@ -96,13 +101,43 @@ promptHint: |
   - `gmail_rest__gmail_users_drafts_create` — same body shape as
     send, just doesn't ship. Lets you preview.
 
-  Label:
-  - `gmail_rest__gmail_users_messages_modify` — add/remove labels:
-    `{"userId":"me","id":"<id>","addLabelIds":["IMPORTANT"],
-       "removeLabelIds":["INBOX"]}`. Archive = remove INBOX.
+  Label / mailbox actions:
+  - `gmail_rest__gmail_users_messages_modify` — the swiss-army knife.
+    Add or remove labels: `{"userId":"me","id":"<id>",
+       "addLabelIds":[…],"removeLabelIds":[…]}`. Every common mailbox
+    action is a label mutation:
+
+       Action               addLabelIds       removeLabelIds
+       ──────────────────────────────────────────────────────
+       Mark as read              —            ["UNREAD"]
+       Mark as unread        ["UNREAD"]            —
+       Archive                   —            ["INBOX"]
+       Move back to inbox    ["INBOX"]             —
+       Star                  ["STARRED"]           —
+       Unstar                    —            ["STARRED"]
+       Mark important        ["IMPORTANT"]         —
+       Mark not-important        —            ["IMPORTANT"]
+       Apply user label      ["Label_123"]         —     (id from labels.list)
+
+    YES — you CAN mark mails as read. It's `removeLabelIds:["UNREAD"]`.
+
+  - `gmail_rest__gmail_users_messages_batchModify` — same shape but
+    operates on a list: `{"userId":"me","ids":["<id1>","<id2>",…],
+       "removeLabelIds":["UNREAD"]}` to mark a whole search-result
+    batch as read in one call. Returns 204, no body.
+  - `gmail_rest__gmail_users_messages_trash` /
+    `gmail_rest__gmail_users_messages_untrash` —
+    `{"userId":"me","id":"<id>"}`. Trash applies the TRASH label and
+    removes INBOX; untrash reverses. Use TRASH not DELETE — the
+    spec's `_delete` is permanent and we deliberately don't expose it.
+  - `gmail_rest__gmail_users_threads_modify` /
+    `_threads_trash` — same operations applied to a whole thread
+    (all messages in the conversation) rather than a single message.
   - `gmail_rest__gmail_users_labels_list` — enumerate the user's
-    labels. System labels (INBOX, SENT, …) are upper-case;
-    user-defined labels are arbitrary strings.
+    labels. System labels (INBOX, SENT, UNREAD, STARRED, IMPORTANT,
+    DRAFT, SPAM, TRASH, CATEGORY_PERSONAL/PROMOTIONS/SOCIAL/
+    UPDATES/FORUMS) are upper-case constants; user-defined label IDs
+    look like `Label_1234567890` — get them via this list first.
 
   Pitfalls:
   - Message IDs are opaque strings, NOT email addresses.
