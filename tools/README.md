@@ -16,7 +16,30 @@ Currently included:
 
 ## Bootstrap the catalog in a tenant
 
-After `mvn install` of the brain and a fresh-mongo start:
+### Easiest: via anus (recommended)
+
+```bash
+anus tool-templates import --tenant acme
+```
+
+Default repo is `https://github.com/mhus/vance-kits.git`, default ref
+`main`. Override either with `--git <url>` / `--ref <branch-or-tag>`,
+or pass `--token <pat>` for private repos. The command scans the
+repo's `tools/*/template.yaml` files, builds a `ToolTemplateCatalogDto`
+and writes it to `_tenant/config/tool-templates.yaml`. Refuses to run
+if a catalog already exists — use `tool-templates update --mode
+merge|overwrite` (with optional `--dry-run`) for that.
+
+Inspect with:
+
+```bash
+anus tool-templates show --tenant acme
+```
+
+### Manual: REST PUT directly
+
+If you can't use anus (e.g. testing the wire format), the same shape
+is accepted by the admin endpoint:
 
 ```bash
 JWT=$(curl -s -X POST http://localhost:9990/brain/acme/access/wile.coyote \
@@ -34,20 +57,6 @@ curl -s -X PUT "http://localhost:9990/brain/acme/admin/tool-templates/catalog" \
           "description": "OAuth 2.0 (3LO) + REST API. Standard plan reaches.",
           "category": "developer-tools",
           "source": { "url": "<vance-kits-repo-url>", "path": "tools/jira" }
-        },
-        {
-          "name": "imap-mailbox",
-          "title": "IMAP Mailbox (read-only)",
-          "description": "Read-only IMAP via user + app-password.",
-          "category": "communication",
-          "source": { "url": "<vance-kits-repo-url>", "path": "tools/imap-mailbox" }
-        },
-        {
-          "name": "smtp-sender",
-          "title": "SMTP sender",
-          "description": "Outbound mail (transactional). user + app-password.",
-          "category": "communication",
-          "source": { "url": "<vance-kits-repo-url>", "path": "tools/smtp-sender" }
         }
       ]
     }'
