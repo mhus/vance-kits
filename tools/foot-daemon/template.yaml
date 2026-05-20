@@ -1,0 +1,54 @@
+name: foot-daemon
+title: "Foot daemon (remote tool provider)"
+description: |
+  Register a foot daemon as a project-scoped tool provider. Tools the
+  daemon announces (shell exec, FS read/write, etc.) become available
+  as sub-tools `foot-daemon__<sub>` for any chat session in this
+  project — the actual invocations run on the daemon's host.
+
+  Prerequisite: the daemon must be running with
+
+      vance-foot --profile=daemon --project=<this-project> --name=<daemonName>
+
+  before tool calls go through. Offline daemons leave the sub-tools
+  hidden until they reconnect (see Foot-Daemon-Tools planning doc §5).
+
+  Limitation: one daemon proxy per project per apply. To add a second
+  daemon, edit the produced YAML manually after apply (or clone the
+  document under a new path).
+
+icon: server
+
+inputs:
+  - name: daemonName
+    type: string
+    label: "Daemon name"
+    help: >
+      Project-unique identifier the foot daemon connects with
+      (its --name argument). Lowercase alphanumerics + -_,  ≤ 64 chars.
+    required: true
+
+  - name: description
+    type: string
+    label: "Description"
+    help: >
+      One-line, model-visible. Tell the LLM what this daemon is for —
+      e.g. "Production server prod-eu-01: shell + FS access".
+    required: true
+
+  - name: timeoutSeconds
+    type: integer
+    label: "Per-invoke timeout (seconds)"
+    help: >
+      Upper bound for one tool call. Long-running exec uses the
+      poll-based pattern and is unaffected by this. Default 60.
+    default: "60"
+    required: false
+
+postInstall:
+  kind: notice
+  message: >
+    Foot-daemon proxy is configured. Now start the daemon with
+    --profile=daemon --project=<this-project> --name=<daemonName>. As
+    soon as it connects you'll see its sub-tools as `foot-daemon__<sub>`
+    in the project's tool catalog.

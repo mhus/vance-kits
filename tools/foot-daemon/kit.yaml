@@ -1,0 +1,29 @@
+name: tools-foot-daemon
+description: |
+  Register a foot daemon as a project-scoped tool provider. The daemon
+  runs separately as `vance-foot --profile=daemon --project=<this-project>
+  --name=<daemonName>`; this kit only writes the brain-side server-tool
+  config that wires the daemon's announced tools into the project's
+  tool registry as sub-tools.
+
+  Template-kit (v1): trags eine sibling-`template.yaml` mit Input-Schema
+  (daemonName, description, optional timeoutSeconds). Apply via Web-UI
+  Wizard, anus, or chat-agent tools `tool_template_*`.
+
+  After apply:
+
+    documents/server-tools/foot-daemon.yaml  — foot_daemon ServerTool
+                                                pointing at <daemonName>
+
+  Sub-tools appear in the project's tool catalog as
+  `foot-daemon__<daemon-tool-name>` once the daemon connects (offline
+  daemons surface no tools; reconnect refreshes the listing
+  automatically).
+
+  Limitation: one foot-daemon proxy per project per apply — re-apply
+  overwrites the existing config. For multi-daemon setups, copy the
+  generated yaml manually and rename.
+
+version: "1.0"
+artifact: true
+hasEncryptedSecrets: false

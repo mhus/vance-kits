@@ -14,6 +14,7 @@ Currently included:
 | `jira/` | **Deprecated**, superseded by `atlassian/`. See `jira/README.md`. |
 | `imap-mailbox/` | Read-only IMAP (user + app-password) |
 | `smtp-sender/` | Outbound SMTP (user + app-password) |
+| `foot-daemon/` | Register a remote foot daemon as a project-scoped tool provider (shell exec + FS on the daemon's host). The daemon process runs separately. |
 
 ## Template DSL — what `template.yaml` can carry
 

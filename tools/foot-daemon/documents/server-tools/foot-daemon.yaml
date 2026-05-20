@@ -1,0 +1,40 @@
+# Foot-daemon proxy — exposes a remote foot's client-side tools to this
+# project as sub-tools `foot-daemon__<sub>`. The actual filesystem and
+# shell live on the daemon's host; this brain just routes invokes via
+# the daemon's WebSocket session.
+#
+# The daemon must be running with
+#   vance-foot --profile=daemon --project=<this-project> --name={{var:daemonName}}
+# Offline daemons surface no sub-tools (they reappear on reconnect);
+# stale daemons (just-disconnected) stay listed but invokes fail with
+# a clear "offline / reconnect" message.
+
+name: foot-daemon
+type: foot_daemon
+description: "{{var:description}}"
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - daemon
+  - remote
+parameters:
+  daemonName: {{var:daemonName}}
+  timeoutSeconds: {{var:timeoutSeconds}}
+promptHint: |
+  ## Foot daemon: {{var:daemonName}}
+
+  {{var:description}}
+
+  Tools available (call via `find_tools(query="foot-daemon")` then
+  `invoke_tool`):
+
+  - `foot-daemon__client_exec_run` — shell on the daemon's host. Long-
+    running commands return RUNNING+jobId; poll with `*__client_exec_status`
+    / `*__client_exec_tail`.
+  - `foot-daemon__client_fs_read` / `_fs_write` — file IO on the daemon.
+  - additional sub-tools depend on what the daemon announces. Use
+    `find_tools(query="foot-daemon")` for the full current list.
+
+  Per-invocation timeout: {{var:timeoutSeconds}} seconds (long-running
+  exec via the polling pattern is unaffected).
