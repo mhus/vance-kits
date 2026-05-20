@@ -1,0 +1,78 @@
+name: atlassian
+title: "Atlassian (Jira + Confluence)"
+description: |
+  Connect Vance to your Atlassian workspace via OAuth 2.0 (3LO) + REST.
+  Pick which products you actually use — Jira, Confluence, or both —
+  and only the matching tools get installed. OAuth scopes are computed
+  from the selection so the consent screen asks for exactly what's
+  needed, nothing more.
+
+  After apply: open Web-UI → Connected Accounts → atlassian → "Connect"
+  to run the OAuth handshake.
+
+icon: atlassian
+
+inputs:
+  - name: features
+    type: multiselect
+    label: "Atlassian products"
+    help: "Select at least one. You can re-apply this template later to add the other."
+    required: true
+    choices:
+      - { value: jira,       label: Jira,       default: true }
+      - { value: confluence, label: Confluence, default: false }
+
+  - name: clientId
+    type: string
+    label: "OAuth Client ID"
+    help: "From developer.atlassian.com/console → your app → Settings"
+    required: true
+
+  - name: clientSecret
+    type: password
+    label: "OAuth Client Secret"
+    help: "Encrypted at rest. Stored as tenant-setting oauth.atlassian.client_secret."
+    required: true
+    target:
+      kind: setting
+      scope: project
+      project: _tenant
+      key: oauth.atlassian.client_secret
+
+derived:
+  # OAuth scopes are the union of `base` (always-on identity + refresh)
+  # plus the per-product scope packs. The provider yaml just references
+  # `{{var:oauth_scopes}}` — no conditionals in the file itself.
+  - name: oauth_scopes
+    kind: union
+    from: features
+    base:
+      - read:me
+      - read:account
+      - offline_access
+    perChoice:
+      jira:
+        - read:jira-work
+        - read:jira-user
+        - write:jira-work
+      confluence:
+        - read:confluence-content.all
+        - read:confluence-user
+        - write:confluence-content
+
+documents:
+  # The OAuth provider is always installed — only the scopes vary.
+  # Listed REST packs are kept iff the matching feature is selected;
+  # documents NOT listed here (currently: just oauth/atlassian.yaml)
+  # are installed unconditionally.
+  - { path: server-tools/jira_rest.yaml,       requires: jira }
+  - { path: server-tools/confluence_rest.yaml, requires: confluence }
+
+postInstall:
+  kind: oauth-connect
+  provider: atlassian
+  message: >
+    Final step: open Connected Accounts in the Web-UI and click "Connect"
+    next to atlassian. That runs the OAuth 3LO dance and stores your
+    access + refresh tokens in your user-settings — after which the
+    Atlassian REST tools become usable.

@@ -1,0 +1,35 @@
+name: tools-atlassian
+description: |
+  Combined Atlassian kit — Jira and/or Confluence via OAuth 2.0 (3LO)
+  + REST API. Standard plan reaches; no Rovo / no MCP required.
+
+  v2 template-kit: ships a sibling `template.yaml` with a `features`
+  multi-select (Jira + Confluence) plus a `derived: oauth_scopes`
+  union and a `documents:` filter overlay. Apply via the Web-UI
+  Wizard or the chat-agent tools `tool_template_*` — the kit
+  installer only ever runs through TemplateApplier, never directly.
+
+  What lands after a successful `tool_template_apply`, depending on
+  the user's feature selection:
+
+    documents/oauth/atlassian.yaml          — OAuth 3LO Provider with
+                                              the chosen scopes union
+    documents/server-tools/jira_rest.yaml      (only when 'jira' selected)
+    documents/server-tools/confluence_rest.yaml (only when 'confluence' selected)
+
+    setting oauth.atlassian.client_secret   — encrypted on _tenant
+
+  Prerequisites for the user:
+
+    - Atlassian app registered on developer.atlassian.com with the
+      scopes that match the selection (Jira, Confluence, or both)
+      and the callback URL of the deployment.
+
+  Setup recipe (Atlassian-console walkthrough, token test, common
+  pitfalls): workbench `readme/jira-via-rest-setup.md`.
+  Architecture (why REST and not MCP): workbench
+  `readme/jira-via-atlassian-mcp.md`.
+
+version: "2.0"
+artifact: true
+hasEncryptedSecrets: false

@@ -1,0 +1,76 @@
+# Jira REST API pack — works with the user's OAuth 3LO token.
+#
+# Requires the sibling `oauth/atlassian.yaml` provider to be configured
+# AND the user to have completed the Connect flow in Web-UI → Connected
+# Accounts → atlassian. Per-user state lives in user-settings under
+# oauth.atlassian.* (access_token, refresh_token, cloud_id, site_url, …).
+#
+# Conditionally installed: only present when `jira` is in the template's
+# features selection — see template.yaml#documents.
+#
+# Why REST and not MCP: Atlassian's hosted Remote MCP server
+# (mcp.atlassian.com) requires Dynamic Client Registration and a Rovo
+# Premium/Enterprise plan; it rejects self-registered 3LO tokens at the
+# tools/call layer. The direct Jira REST API (api.atlassian.com/ex/jira/)
+# accepts the same 3LO token and gives us the same coverage. See
+# readme/jira-via-atlassian-mcp.md for the full diagnostic.
+
+name: jira_rest
+type: rest_api
+description: >
+  Atlassian Jira via REST API (api.atlassian.com/ex/jira/{cloudId}/rest/api/3/).
+  Works with our OAuth 3LO token — no Rovo / MCP required. The cloudId
+  is auto-injected into the URL from the user's connected Atlassian site.
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - jira
+  - atlassian
+  - rest
+parameters:
+  specUrl: "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json"
+  # baseUrl templating — RestHttpInvoker resolves {{secret:user:...}} at
+  # call time so every user gets their own cloudId injected. Single-tenant
+  # deployments can hard-code the UUID here if preferred.
+  baseUrl: "https://api.atlassian.com/ex/jira/{{secret:user:oauth.atlassian.cloud_id}}"
+  auth:
+    type: bearer
+    token: "{{secret:user:oauth.atlassian.access_token}}"
+  # Seven curated operations. To expose more: read the operationIds in
+  # Atlassian's spec and add them here. Wildcards work but the full spec
+  # is 619 operations — almost always too many for an LLM tool manifest.
+  include:
+    - "getCurrentUser"
+    - "searchAndReconsileIssuesUsingJqlPost"
+    - "getIssue"
+    - "createIssue"
+    - "editIssue"
+    - "addComment"
+    - "searchProjects"
+  # Atlassian's search endpoint is POST-but-read-only. Without this
+  # override it inherits the POST→[write,side-effect] default and lands
+  # in conversational engines' deferred bucket — invisible to the model
+  # until find_tools discovers it.
+  labelOverrides:
+    searchAndReconsileIssuesUsingJqlPost:
+      - read-only
+  timeoutSeconds: 30
+promptHint: |
+  ## Jira (REST API)
+
+  An Atlassian Jira workspace is connected via the REST API (NOT MCP).
+  Available tools (call via `find_tools(query="jira")` then `invoke_tool`):
+
+  - `jira_rest__getCurrentUser` — your own Atlassian user (no params)
+  - `jira_rest__searchAndReconsileIssuesUsingJqlPost` — JQL search.
+    Body: `{"jql":"...","fields":["summary","status","assignee"]}`.
+    For a user's open tickets: `jql='assignee = currentUser() AND statusCategory != Done'`
+  - `jira_rest__getIssue` — single issue; path-param: `issueIdOrKey`
+  - `jira_rest__createIssue` — body: `{"fields":{"project":{"key":"..."},"summary":"...","issuetype":{"name":"Task"}}}`
+  - `jira_rest__editIssue` — body: `{"fields":{...}}`, path-param: `issueIdOrKey`
+  - `jira_rest__addComment` — body: `{"body":"..."}`, path-param: `issueIdOrKey`
+  - `jira_rest__searchProjects` — list visible Jira projects
+
+  The cloudId is auto-injected into the URL — do NOT include it in body
+  params or as a separate argument.

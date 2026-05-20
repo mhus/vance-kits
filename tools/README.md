@@ -10,9 +10,29 @@ Currently included:
 
 | Path | What |
 |---|---|
-| `jira/` | Atlassian Jira via OAuth 2.0 (3LO) + REST API |
+| `atlassian/` | Combined Atlassian kit — Jira + / or Confluence via OAuth 2.0 (3LO) + REST API. Multi-select feature picker (v2 template DSL). |
+| `jira/` | **Deprecated**, superseded by `atlassian/`. See `jira/README.md`. |
 | `imap-mailbox/` | Read-only IMAP (user + app-password) |
 | `smtp-sender/` | Outbound SMTP (user + app-password) |
+
+## Template DSL — what `template.yaml` can carry
+
+v1 features:
+
+- `inputs:` — flat list, types `string | password | boolean | integer | select`
+- `postInstall: { kind: oauth-connect, provider: <id>, message: … }`
+
+v2 additions (used by `atlassian/`):
+
+- `inputs[].type: multiselect` with `choices: [{value, label, default}]` — installs a checkbox grid in the Web-UI Wizard; submitted as a JSON array
+- `derived:` — server-computed variables. Only `kind: union` so far: gathers `base` + per-choice contribution lists into a deduplicated list, renders as a JSON array (also valid as YAML flow sequence)
+- `documents:` — opt-in filter overlay. Documents listed with `requires: <feature>` are only installed when at least one of `requires` is in the multi-select selection. Documents not listed are installed unconditionally (backward-compat).
+
+Apply-time invariants:
+
+- PASSWORD inputs MUST have `target.kind: setting` — secrets never flow into inline documents
+- PASSWORD inputs are structurally excluded from the `.applied.yaml` audit blob (see `<project>/_vance/tool-templates/<name>.applied.yaml`)
+- Re-apply overwrites the applied-state document; no history
 
 ## Bootstrap the catalog in a tenant
 
@@ -52,11 +72,11 @@ curl -s -X PUT "http://localhost:9990/brain/acme/admin/tool-templates/catalog" \
       "version": 1,
       "templates": [
         {
-          "name": "jira",
-          "title": "Atlassian Jira",
-          "description": "OAuth 2.0 (3LO) + REST API. Standard plan reaches.",
+          "name": "atlassian",
+          "title": "Atlassian (Jira + Confluence)",
+          "description": "OAuth 2.0 (3LO) + REST API. Multi-select Jira/Confluence.",
           "category": "developer-tools",
-          "source": { "url": "<vance-kits-repo-url>", "path": "tools/jira" }
+          "source": { "url": "<vance-kits-repo-url>", "path": "tools/atlassian" }
         }
       ]
     }'
@@ -68,27 +88,32 @@ For local dev, point `source.url` at the workspace path
 
 ## Installing a template via chat (Eddie/Arthur)
 
-> „richte mir Jira ein"
+> „richte mir Jira ein"  /  „richte mir Atlassian ein"
 
 Eddie:
 
 1. `find_tools(query="tool_template")` → finds `tool_template_list / describe / apply`
 2. `invoke_tool(tool_template_list, {})` → catalog
-3. `invoke_tool(tool_template_describe, {name: "jira"})` → input schema
-4. ASK_USER for clientId + clientSecret
-5. `invoke_tool(tool_template_apply, {name: "jira", projectId: "_tenant", inputs: {...}})`
+3. `invoke_tool(tool_template_describe, {name: "atlassian"})` → input schema; sees `features` as a multi-select with choices `[jira, confluence]`
+4. ASK_USER for clientId + clientSecret + which products (Jira / Confluence / both)
+5. `invoke_tool(tool_template_apply, {name: "atlassian", projectId: "_tenant", inputs: {features: ["jira"], clientId: "...", clientSecret: "..."}})`
 6. ANSWER: "now open Connected Accounts and click Connect Atlassian"
+
+The multi-select value can be passed as either a JSON array (`["jira", "confluence"]`)
+or a comma-separated string (`"jira,confluence"`). The applier accepts both
+and validates each value against the declared `choices`.
 
 See `manuals/tool-installation.md` (model-facing) for the full recipe.
 
 ## Installing via REST directly
 
 ```bash
-curl -s -X POST "http://localhost:9990/brain/acme/admin/tool-templates/jira/apply" \
+curl -s -X POST "http://localhost:9990/brain/acme/admin/tool-templates/atlassian/apply" \
     -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
     -d '{
       "projectId": "_tenant",
       "inputs": {
+        "features": ["jira", "confluence"],
         "clientId": "<from-atlassian-console>",
         "clientSecret": "<from-atlassian-console>"
       }
@@ -100,13 +125,18 @@ Returns `{templateName, installer: {documentsAdded, settingsAdded, …}, postIns
 ## Adding your own template
 
 1. Create `<service>/kit.yaml` with `artifact: true`
-2. Create `<service>/template.yaml` with `name`, `inputs` (and optionally `postInstall`)
+2. Create `<service>/template.yaml` with `name`, `inputs` (plus optionally `derived:`, `documents:`, `postInstall:`)
 3. Create `<service>/documents/...` files using `{{var:fieldName}}` placeholders
 4. Push to a git repo
-5. Add an entry to the tenant catalog (PUT, see above)
+5. Add an entry to the tenant catalog (`anus tool-templates import` or PUT)
 
 Validation rules (enforced by `KitYamlMapper.parseTemplate`):
 - PASSWORD inputs **must** have `target.kind: setting` (no inline secrets)
-- SELECT inputs **must** have non-empty `choices`
-- Input `name`s must be unique
-- `{{var:X}}` references in documents must match an input name
+- SELECT and MULTI_SELECT inputs **must** have non-empty `choices`
+- MULTI_SELECT inputs **must not** have `target.kind: setting`
+- Input `name`s must be unique; choice `value`s within an input must be unique
+- `{{var:X}}` references in documents must match an input or derived name
+- `derived[].from` must reference a declared multi-select input
+- `derived[].perChoice` keys must be values of the referenced input's choices
+- `documents[].path` must be a relative path inside `documents/` (no traversal)
+- `documents[].requires` values must be choices of some multi-select input

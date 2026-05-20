@@ -1,0 +1,26 @@
+# OAuth 3LO provider for Atlassian Jira / Confluence.
+#
+# clientId comes from the template input at apply time. The client
+# secret is persisted as a tenant-PASSWORD setting by the template
+# applier (see template.yaml#inputs[clientSecret].target) — the
+# AtlassianOAuthProvider bean looks it up by convention from
+# oauth.atlassian.client_secret.
+#
+# Callback URL the Atlassian developer console must accept (for
+# local dev):
+#   http://localhost:9900/brain/<tenant>/oauth/atlassian/callback
+# In production replace host:port with the reverse-proxy hostname.
+#
+# Scopes are computed from the template's `features` multi-select —
+# the `derived: oauth_scopes` block unions identity + refresh scopes
+# with the per-product packs (jira / confluence). A Jira-only install
+# does not request Confluence scopes, and vice versa, so the Atlassian
+# consent screen shows the minimum surface.
+
+type: atlassian
+clientId: {{var:clientId}}
+authorizeUrl: https://auth.atlassian.com/authorize
+tokenUrl: https://auth.atlassian.com/oauth/token
+scopes: {{var:oauth_scopes}}
+extra:
+  usePkce: true

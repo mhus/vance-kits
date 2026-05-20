@@ -1,0 +1,65 @@
+# Confluence REST API pack — same OAuth 3LO token as the Jira pack.
+#
+# Conditionally installed: only present when `confluence` is in the
+# template's features selection — see template.yaml#documents.
+#
+# Requires the sibling `oauth/atlassian.yaml` provider to be configured
+# AND the user to have completed the Connect flow in Web-UI → Connected
+# Accounts → atlassian. Per-user state lives in user-settings under
+# oauth.atlassian.* (access_token, refresh_token, cloud_id, site_url, …).
+
+name: confluence_rest
+type: rest_api
+description: >
+  Atlassian Confluence via the v2 REST API
+  (api.atlassian.com/ex/confluence/{cloudId}/wiki/api/v2/). Works with
+  the same 3LO token as Jira. The cloudId is auto-injected into the
+  URL from the user's connected Atlassian site.
+enabled: true
+primary: false
+defaultDeferred: false
+labels:
+  - confluence
+  - atlassian
+  - rest
+parameters:
+  # Confluence's swagger spec lives next to Jira's on the same DAC host.
+  specUrl: "https://dac-static.atlassian.com/cloud/confluence/swagger.v3.json"
+  # baseUrl mirrors the Jira pack — same cloudId secret, different
+  # service path. RestHttpInvoker resolves {{secret:user:...}} per call.
+  baseUrl: "https://api.atlassian.com/ex/confluence/{{secret:user:oauth.atlassian.cloud_id}}"
+  auth:
+    type: bearer
+    token: "{{secret:user:oauth.atlassian.access_token}}"
+  # Curated operation set — read-heavy, with create/update for
+  # pages and comments. Wildcards intentionally avoided; the
+  # Confluence spec exposes hundreds of operations.
+  include:
+    - "getSpaces"
+    - "getPages"
+    - "getPageById"
+    - "createPage"
+    - "updatePage"
+    - "getCommentsOfPage"
+    - "createFooterComment"
+  timeoutSeconds: 30
+promptHint: |
+  ## Confluence (REST API v2)
+
+  An Atlassian Confluence workspace is connected via REST.
+  Available tools (call via `find_tools(query="confluence")` then `invoke_tool`):
+
+  - `confluence_rest__getSpaces` — list visible spaces (no params)
+  - `confluence_rest__getPages` — list pages; query-param: `spaceId`,
+    optional `limit`, `cursor`
+  - `confluence_rest__getPageById` — single page; path-param: `id`,
+    query-param: `body-format=storage` for the raw XHTML
+  - `confluence_rest__createPage` — body: `{"spaceId":"...","title":"...",
+    "parentId":"...","body":{"representation":"storage","value":"<p>…</p>"}}`
+  - `confluence_rest__updatePage` — body includes `id`, `title`, `version.number+1`
+  - `confluence_rest__getCommentsOfPage` — path-param: `id`
+  - `confluence_rest__createFooterComment` — body: `{"pageId":"...","body":{...}}`
+
+  The cloudId is auto-injected — do NOT pass it as a body param.
+  Page bodies use Atlassian's storage format (XHTML-ish); convert
+  plain Markdown via a small wrapper, do not paste markdown directly.
