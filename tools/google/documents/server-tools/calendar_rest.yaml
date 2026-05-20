@@ -13,10 +13,7 @@ description: >
   the user's calendars, plus freebusy availability queries. Works
   as the connecting user.
 enabled: true
-# See gmail_rest.yaml — primary=true so per-tool descriptions +
-# promptHint reach the LLM each turn. Without this the LLM only sees
-# tool names and hallucinates "I cannot create events / freebusy".
-primary: true
+primary: false
 defaultDeferred: false
 labels:
   - calendar

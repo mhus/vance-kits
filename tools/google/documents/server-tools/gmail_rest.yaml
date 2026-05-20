@@ -18,13 +18,7 @@ description: >
   Gmail via REST — read, search, send, label messages and drafts.
   Works as the connecting user (`me` is always the bound xoxp).
 enabled: true
-# primary=true so the sub-tools land in every turn's tool manifest
-# with their full description + promptHint. Without this, the LLM
-# only sees tool NAMES in the discovery block and routinely answers
-# "I have no function to mark as read" even though
-# gmail.users.messages.modify is configured — the recipe table in
-# promptHint never reaches the agent's context.
-primary: true
+primary: false
 defaultDeferred: false
 labels:
   - gmail
