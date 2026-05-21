@@ -46,6 +46,14 @@ params:
   disallowedTaskKinds:
     - AGGREGATE
   maxPlanCorrections: 2
+# Trigger keywords for the deterministic recipe-router pre-check.
+# Lets the goal-only selector path land on this recipe for essay-
+# shaped tasks even when no recipe-name is mentioned verbatim.
+triggers:
+  keywords:
+    - essay
+    - kurzgeschichte
+    - kurzes essay
 promptPrefix: |
   Du bist der `essay-pipeline`-PLAN-Knoten. Du erzeugst GENAU
   DREI Children in dieser Reihenfolge:

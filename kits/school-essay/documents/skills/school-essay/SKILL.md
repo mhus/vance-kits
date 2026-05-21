@@ -95,10 +95,12 @@ Common mistakes to avoid:
   recipe is generic; for writing tasks the kit-supplied
   `writing` recipe ensures the generated Vogon plan actually
   writes the essay to disk.
-- **`DELEGATE` without `preset`** — the selector falls back
-  to Marvin for substantial creative tasks, and Marvin
-  without specific sub-recipes for the essay shape stalls.
-  Always pass `preset="writing"` for this skill.
+- **`DELEGATE` without `preset`** — the routing layer is now
+  trigger-gated. Without a recipe-name or matching trigger
+  keyword the selector returns NONE and falls back to
+  `routing.fallback.recipe` (default `hactar`), which is
+  the wrong shape for a structured essay. Always pass
+  `preset="writing"` for this skill.
 - Setting `message` on the action — keep it silent; Slart
   takes 10-20 minutes and you'll relay its result via
   `arthur_action type="RELAY"` once it terminates.

@@ -204,12 +204,14 @@ the failure modes the protocol doesn't.]
 - **Fictional cross-references** — "see `protocol.md`"
   when no such manual exists. Causes the model to call
   `manual_read('protocol')` and fail.
-- **Imperatives that conflict with the engine** — "Spawn
-  a worker via `process_create(recipe='X')`" when the skill
-  is for an arthur-engine that intentionally lets the
-  selector route (i.e. calls `process_create` *without* a
-  recipe param so the LLM-backed selector can pick). The
-  skill should fit the engine's conventions.
+- **Imperatives that conflict with the engine** — telling
+  the engine to spawn via a code path it doesn't use. The
+  selector-routed `process_create` (no recipe param) is now
+  trigger-gated and falls back to the tenant default
+  recipe; skills for an arthur-engine that wants a specific
+  worker should say so explicitly via
+  `process_create(recipe='X')` instead of expecting magical
+  routing. Fit the engine's conventions.
 
 ## Cross-skill design
 

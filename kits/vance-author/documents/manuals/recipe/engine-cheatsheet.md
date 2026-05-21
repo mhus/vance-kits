@@ -16,9 +16,14 @@ authoritative.
   delegates chaotically.
 - **What it does:** main session-chat orchestrator. Talks to
   the user, delegates real work to worker-recipes via
-  `process_create` (in selector-routed mode, i.e. without an
-  explicit `recipe` param), synthesises results back into
-  the conversation.
+  `process_create`. The recommended path is to **name the
+  recipe explicitly** (`recipe: "analyze"` or similar) — the
+  selector-routed mode without a recipe param now only fires
+  on trigger keywords (engine name / recipe name / declared
+  `triggers.keywords` in the goal text) and otherwise falls
+  back to the tenant default (`routing.fallback.recipe`,
+  default `hactar`). Synthesises results back into the
+  conversation.
 - **Pick when:** you need a conversational top-level entry
   point. Default for `engine: arthur` recipes.
 - **Won't fit when:** the work isn't conversational; you have
@@ -124,6 +129,23 @@ authoritative.
 - **Pick *not* when:** simple sessions don't need a
   separate observer.
 
+### `hactar` — script-architect (default fallback)
+
+- **Adams:** Hactar — generates code to solve problems.
+- **What it does:** drafts a JavaScript orchestrator script
+  (one IIFE) for a free-text goal, parse-validates it,
+  recovers on syntax errors up to `maxRecoveries`, returns
+  the accepted script as a fenced code block.
+- **Pick when:** the user goal is open-ended and benefits
+  from an automation script; also the default value of
+  `routing.fallback.recipe` (used when `process_create` is
+  called in selector-routed mode and no trigger fires).
+- **Won't fit when:** the user wants a written reply (use
+  ford / arthur); the work is conversational; the goal
+  needs a structured pipeline (vogon / marvin).
+- **Key params:** `maxRecoveries`, `executeOnDone`,
+  `promptDocument`.
+
 ### `zaphod` — parallel fan-out
 
 - **Adams:** Zaphod Beeblebrox — multiple heads, parallel
@@ -153,6 +175,9 @@ Walk down:
 7. **Are you trying N approaches in parallel?** → zaphod.
 8. **Are you watching a session for goal-drift?** →
    trillian.
+9. **Open-ended goal best handled by a generated script?**
+   → hactar. (Also the default fallback for trigger-less
+   selector-routed spawns.)
 
 If multiple match, the recipe is probably doing too much
 — split into multiple recipes spawning each other.

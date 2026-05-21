@@ -65,9 +65,12 @@ promptPrefix: |
 
 A worker that takes input, does one thing, returns
 structured output. The orchestrator (arthur or marvin) spawns
-it via `process_create` — either explicitly by name (`recipe:
-"my-worker"`) or via the selector-routed mode when the
-orchestrator only knows the task.
+it via `process_create`. Prefer the **explicit-recipe path**
+(`recipe: "my-worker"`); the selector-routed mode (no `recipe`
+param) is now trigger-gated and falls back to the tenant
+fallback recipe (default `hactar`) when no trigger fires —
+that path is for power-user opt-in via engine / recipe names
+in the goal text, not for routine orchestration.
 
 ```yaml
 description: |
