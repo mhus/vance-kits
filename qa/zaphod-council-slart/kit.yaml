@@ -1,0 +1,15 @@
+name: zaphod-council-slart
+description: |
+  Slartibartfast-Test-Kit for the Zaphod-architect path. Contains
+  only manuals — no recipes — because Slartibartfast generates the
+  Zaphod council recipe (engine: zaphod, heads + personae +
+  synthesisPrompt) at runtime from the council/STRUCTURE.md and
+  council/PERSPECTIVES.md evidence.
+
+  The manuals are deliberately domain-oriented (what is a council,
+  which perspectives matter for a refactor-impact decision), not
+  pipeline-oriented. Slartibartfast must read them, derive
+  acceptance criteria and subgoals, and shape a multi-head recipe
+  that the Zaphod engine can spawn.
+version: "1.0"
+hasEncryptedSecrets: false
