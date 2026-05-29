@@ -7,15 +7,25 @@ description: |
   zwischen Engine-Optionen schwankt, „review-output" zum Review
   eines Recipe-Drafts).
 
-  Zwei Skills:
-    recipe-author — Recipes schreiben: welche Engine, welche
-                    params, welcher promptPrefix. Manuals
-                    decken Engine-Cheatsheet, Param-Reference,
-                    Recipe-Patterns ab.
-    skill-author  — Skills schreiben (meta!): Frontmatter,
-                    Body-Format, Trigger-Design, Manual-
-                    Strukturierung. Self-applying — der Skill
-                    erklärt das Format, das er selbst nutzt.
+  Skills:
+    recipe-author      — Recipes schreiben: welche Engine, welche
+                         params, welcher promptPrefix. Manuals
+                         decken Engine-Cheatsheet, Param-Reference,
+                         Recipe-Patterns ab.
+    skill-author       — Skills schreiben (meta!): Frontmatter,
+                         Body-Format, Trigger-Design, Manual-
+                         Strukturierung. Self-applying — der Skill
+                         erklärt das Format, das er selbst nutzt.
+    workflow-author    — Workflows schreiben: Task-Types, Gates,
+                         Transitions, Anatomy.
+    event-author       — Events schreiben: Webhook-Patterns, Auth,
+                         Anatomy.
+    application-author — Application Manifests (`_app.yaml`)
+                         schreiben: kind:application, app-Types,
+                         Calendar-App-Patterns (Lane-Design, Tag-
+                         Konventionen, Refresh-Flow). Erst-Ziel ist
+                         `app: calendar`; weitere App-Types werden
+                         später ergänzt.
 
   Zielgruppe: Vance-Power-User und Tenant-Admins, die das
   Verhalten anpassen. Nicht für Endbenutzer.
