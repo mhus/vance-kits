@@ -1,0 +1,22 @@
+name: school-essay-script-loop-kit
+description: |
+  Third variant of the school-essay kit. Like school-essay-script-kit
+  the orchestration sits in a JavaScript skill-script — but unlike
+  v1 the drafting of each chapter is delegated to its own Ford
+  sub-worker via process_run. Each sub-worker is fed:
+
+    - the topic + sources (shared context),
+    - the user-stated style constraints,
+    - a summary of every previous chapter, so it sees what already
+      exists and can write its chapter consistently.
+
+  Pattern mirrors the Slart/Vogon chapter-loop: one LLM turn per
+  chapter, the script collects + persists, then concatenates.
+  Compared to school-essay-script-kit it's slower (5 sub-worker
+  turns instead of 1 outer LLM doing all drafts inline) but each
+  chapter gets dedicated focus.
+
+  Same OUTPUT.md contract as the other school-essay kits — final
+  essay layout under essay/.
+version: "1.0"
+hasEncryptedSecrets: false
