@@ -1,13 +1,19 @@
-# IMAP mailbox tool — read-only.
+# IMAP mailbox tool.
 #
 # Auth: user + app-specific-password. The password is referenced via
 # {{secret:project:imap.password}} — the template applier persisted it
 # in this project's settings during apply, encrypted at rest.
 #
-# Sub-tools emitted by ImapMailboxToolFactory:
+# Read sub-tools (always emitted):
 #   imap__list_folders
 #   imap__list_messages(folder?, limit?, unread_only?, since?)
 #   imap__get_message(messageRef, folder?)
+#
+# Write sub-tools (emitted only when readonly=false):
+#   imap__set_seen(messageRef, seen?, folder?)
+#   imap__set_flagged(messageRef, flagged?, folder?)
+#   imap__move_message(messageRef, targetFolder, folder?)
+#   imap__delete_message(messageRef, hard?, folder?)   — soft = move to trashFolder
 
 name: imap
 type: imap_mailbox
@@ -25,12 +31,16 @@ parameters:
   user: {{var:user}}
   password: "{{secret:project:imap.password}}"
   defaultFolder: {{var:defaultFolder}}
+  readonly: {{var:readonly}}
+  trashFolder: {{var:trashFolder}}
   timeoutSeconds: 30
 promptHint: |
   ## IMAP mailbox
 
-  Read-only access to an IMAP mailbox. Available sub-tools (call via
-  `find_tools(query="imap")` → `invoke_tool`):
+  Access to an IMAP mailbox. Call via `find_tools(query="imap")` →
+  `invoke_tool`.
+
+  Read (always available):
 
   - `imap__list_folders` — no args; returns folder names
   - `imap__list_messages` — args: `folder` (default INBOX), `limit`
@@ -39,3 +49,15 @@ promptHint: |
   - `imap__get_message` — args: `messageRef` (folder index or
     Message-ID), optional `folder`. Returns headers + the text/plain
     body (HTML stripped to text; attachments are ignored in v1).
+
+  Write (only present when the pack carries `readonly: false`):
+
+  - `imap__set_seen` — mark read / unread. Args: `messageRef`,
+    `seen` (bool, default true), `folder` (optional).
+  - `imap__set_flagged` — star / unstar. Args: `messageRef`,
+    `flagged` (bool, default true), `folder` (optional).
+  - `imap__move_message` — move to another folder. Args:
+    `messageRef`, `targetFolder` (required), `folder` (source).
+  - `imap__delete_message` — soft-delete moves to the pack's
+    `trashFolder` (default "Trash"). Pass `hard: true` for
+    permanent delete — irreversible.

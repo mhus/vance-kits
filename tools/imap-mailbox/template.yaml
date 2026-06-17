@@ -54,3 +54,24 @@ inputs:
     help: "Folder used when list_messages / get_message don't specify one"
     default: "INBOX"
     required: false
+
+  - name: readonly
+    type: boolean
+    label: "Read-only"
+    help: >
+      Default: true. When false, the pack also exposes set_seen, set_flagged,
+      move_message and delete_message — the agent can mutate the mailbox.
+      Leave true for triage / digest use cases.
+    default: "true"
+    required: false
+
+  - name: trashFolder
+    type: string
+    label: "Trash folder"
+    help: >
+      Soft-delete target. delete_message moves messages here unless called
+      with hard=true. Ignored when readonly=true. Folder names are
+      provider-specific — Gmail uses "[Gmail]/Trash", Zoho uses "Trash",
+      Outlook "Deleted Items".
+    default: "Trash"
+    required: false

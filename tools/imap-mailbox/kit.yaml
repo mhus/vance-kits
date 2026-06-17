@@ -1,14 +1,17 @@
 name: tools-imap-mailbox
 description: |
-  Read-only IMAP mailbox tool — drei Sub-Tools (list_folders /
-  list_messages / get_message) gegen einen einzelnen IMAP-Server mit
-  user+password-Auth (Plain oder App-Password). Funktioniert mit Zoho,
-  Gmail (App-Password), Outlook (App-Password), und generischen
-  on-prem IMAP-Servern.
+  IMAP mailbox tool — drei Read-Sub-Tools (list_folders / list_messages /
+  get_message) gegen einen einzelnen IMAP-Server mit user+password-Auth
+  (Plain oder App-Password). Bei `readonly: false` kommen vier
+  Write-Sub-Tools dazu (set_seen, set_flagged, move_message,
+  delete_message — letzteres soft via trashFolder, hard nur mit
+  explizitem Flag). Funktioniert mit Zoho, Gmail (App-Password),
+  Outlook (App-Password), und generischen on-prem IMAP-Servern.
 
   Template-Kit: trägt eine sibling-`template.yaml` mit Input-Schema
-  (host, port, tls, user, password, defaultFolder). Über den Tool-
-  Templates-Catalog installierbar — Web-UI-Wizard oder Chat-Agent-Tools.
+  (host, port, tls, user, password, defaultFolder, readonly,
+  trashFolder). Über den Tool-Templates-Catalog installierbar —
+  Web-UI-Wizard oder Chat-Agent-Tools.
 
   Was das Kit nach erfolgreichem Apply anlegt:
 
