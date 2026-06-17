@@ -1,0 +1,21 @@
+name: zaphod-debate-slart
+description: |
+  Slartibartfast-Test-Kit for the Zaphod-architect path, DEBATE
+  variant. Contains only manuals — no recipes — because
+  Slartibartfast generates the Zaphod debate recipe (engine: zaphod,
+  pattern: DEBATE, heads + positional personae + maxRounds +
+  synthesisPrompt) at runtime from the debate/STRUCTURE.md and
+  debate/POSITIONS.md evidence.
+
+  The manuals are deliberately domain-oriented (what is a debate,
+  what positions matter for a ship-now-vs-wait decision), not
+  pipeline-oriented. Slartibartfast must read them, derive the
+  acceptance criteria and subgoals, and shape a multi-round debate
+  recipe that the Zaphod engine can spawn.
+
+  This kit is the DEBATE counterpart to zaphod-council-slart — they
+  share the same fixture pattern (manuals only, Slart synthesises
+  the recipe) but cover the two Zaphod patterns separately so a
+  regression in one path doesn't silently fall back on the other.
+version: "1.0"
+hasEncryptedSecrets: false
