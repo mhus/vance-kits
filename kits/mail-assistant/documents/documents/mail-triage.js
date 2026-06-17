@@ -1,6 +1,6 @@
 /**
  * @timeout 5m
- * @statementLimit 5000000
+ * @statements 5M
  *
  * Konfiguration über Settings (Cascade think-process → project → _tenant):
  *
@@ -81,11 +81,15 @@ for (const m of messages) {
     vance.log.info(`${tag} start`);
 
     const tFetch = Date.now();
-    const full = vance.tools.call(`${PACK}__get_message`, {
+    const full = vance.tools.call(`${PACK}__preview_message`, {
         folder: FOLDER,
         messageRef: ref,
     });
-    vance.log.info(`${tag} get_message done in ${Date.now() - tFetch}ms bodyLen=${(full.body || '').length}`);
+    vance.log.info(`${tag} preview_message done in ${Date.now() - tFetch}ms `
+        + `bodyLen=${(full.body || '').length} `
+        + `orig=${full.bodyOriginalChars || '?'} `
+        + `truncated=${!!full.bodyTruncated} `
+        + `htmlStripped=${!!full.bodyStrippedFromHtml}`);
 
     const tLlm = Date.now();
     const verdict = vance.llm.callForJson(RECIPE, 'Bewerte die Mail.', {

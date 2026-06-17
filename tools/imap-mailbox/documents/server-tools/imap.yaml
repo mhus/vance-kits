@@ -7,7 +7,8 @@
 # Read sub-tools (always emitted):
 #   imap__list_folders
 #   imap__list_messages(folder?, limit?, unread_only?, since?)
-#   imap__get_message(messageRef, folder?)
+#   imap__get_message(messageRef, folder?)                  — raw body
+#   imap__preview_message(messageRef, folder?, maxBytes?)   — HTML stripped + truncated
 #
 # Write sub-tools (emitted only when readonly=false):
 #   imap__set_seen(messageRef, seen?, folder?)
@@ -33,6 +34,7 @@ parameters:
   defaultFolder: {{var:defaultFolder}}
   readonly: {{var:readonly}}
   trashFolder: {{var:trashFolder}}
+  bodyMaxBytes: {{var:bodyMaxBytes}}
   timeoutSeconds: 30
 promptHint: |
   ## IMAP mailbox
@@ -47,8 +49,15 @@ promptHint: |
     (1–500), `unread_only` (bool), `since` (ISO-8601 instant). Returns
     headers only (subject/from/date/seen).
   - `imap__get_message` — args: `messageRef` (folder index or
-    Message-ID), optional `folder`. Returns headers + the text/plain
-    body (HTML stripped to text; attachments are ignored in v1).
+    Message-ID), optional `folder`. Returns headers + the raw body
+    (text/plain preferred, text/html as fallback — NOT stripped).
+    Use when you need the original markup (link extraction, HTML
+    parsing); attachments are ignored in v1.
+  - `imap__preview_message` — same args + optional `maxBytes`.
+    Returns headers + a plain-text body: HTML stripped via jsoup
+    (style/script/inline-images gone), capped at `bodyMaxBytes`
+    (default 64 KiB). Token-efficient triage view — use this to
+    decide whether a mail is worth reading in full.
 
   Write (only present when the pack carries `readonly: false`):
 

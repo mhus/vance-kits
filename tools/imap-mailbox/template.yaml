@@ -77,3 +77,14 @@ inputs:
       Outlook "Deleted Items".
     default: "Trash"
     required: false
+
+  - name: bodyMaxBytes
+    type: integer
+    label: "Preview body cap (chars)"
+    help: >
+      Default 65536. preview_message strips HTML to plain text and then
+      caps the result at this many characters. Marketing/HTML mails
+      with embedded CSS and inline-image CIDs can be 100 KiB+ raw —
+      capping keeps the LLM token cost predictable. Set 0 to disable.
+    default: "65536"
+    required: false
