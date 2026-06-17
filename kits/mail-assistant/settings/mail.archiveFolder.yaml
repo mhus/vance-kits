@@ -1,0 +1,3 @@
+type: STRING
+value: "Archive/Auto"
+description: "Folder where unimportant mails are auto-moved."

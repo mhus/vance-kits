@@ -1,0 +1,3 @@
+type: STRING
+value: "mail-rate"
+description: "Name of the LightLlm classification recipe (internal:true)."

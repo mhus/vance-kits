@@ -1,0 +1,19 @@
+# Mail-Triage alle 30 Minuten via Hactar-Run.
+#
+# Anpassen vor Aktivierung:
+#   - `runAs`: Username, in dessen Scope das Skript läuft (für
+#              Setting-Cascade + IMAP-Credentials)
+#   - `cron`:  Frequenz nach Bedarf (Quartz-Expression, 6 Felder)
+#   - `params.maxPerRun`: optional, überschreibt mail-config.json
+#
+# Komplett löschen wenn du nur manuell via Cortex-Run-Button
+# triggerst.
+
+description: "Mail-Triage — klassifiziert ungelesene Mails periodisch."
+recipe: hactar-run
+cron: "0 */30 * * * ?"
+timezone: "Europe/Berlin"
+overlap: skip
+runAs: REPLACE_WITH_YOUR_USERNAME
+params:
+  scriptRef: "documents/mail-triage.js"

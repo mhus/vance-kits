@@ -1,0 +1,84 @@
+title:
+  de: "Mail-Triage"
+  en: "Mail Triage"
+description:
+  de: "Konfiguration für das Mail-Triage-Skript (mail-assistant Kit). Pflichtfeld: IMAP-Tool-Pack."
+  en: "Configuration for the mail-triage script (mail-assistant kit). Required: IMAP tool pack."
+icon: "EnvelopeIcon"
+category: "integrations"
+defaultScope: "project"
+availableIn: [ "!_*" ]
+fields:
+  - name: pack
+    type: string
+    label:
+      de: "IMAP-Tool-Pack-Name"
+      en: "IMAP tool pack name"
+    help:
+      de: "Name des ServerToolDocuments vom Type imap_mailbox (z.B. zoho_imap, gmail_imap). Muss readonly:false sein damit set_seen + move_message zur Verfügung stehen."
+      en: "Name of the ServerToolDocument of type imap_mailbox (e.g. zoho_imap, gmail_imap). Must be readonly:false so set_seen + move_message are available."
+    required: true
+    bindsTo:
+      key: "mail.pack"
+
+  - name: inboxFolder
+    type: string
+    label:
+      de: "Inbox-Ordner"
+      en: "Inbox folder"
+    help:
+      de: "Quell-Folder. Default 'INBOX'."
+      en: "Source folder. Default 'INBOX'."
+    defaultValue: "INBOX"
+    bindsTo:
+      key: "mail.inboxFolder"
+
+  - name: archiveFolder
+    type: string
+    label:
+      de: "Archiv-Ordner"
+      en: "Archive folder"
+    help:
+      de: "Wohin unwichtige Mails automatisch verschoben werden."
+      en: "Where unimportant mails are auto-moved."
+    defaultValue: "Archive/Auto"
+    bindsTo:
+      key: "mail.archiveFolder"
+
+  - name: maxPerRun
+    type: integer
+    label:
+      de: "Mails pro Lauf"
+      en: "Mails per run"
+    help:
+      de: "Maximale Anzahl ungelesener Mails, die pro Skript-Run verarbeitet werden."
+      en: "Maximum number of unread mails processed per script run."
+    min: 1
+    max: 100
+    defaultValue: 5
+    bindsTo:
+      key: "mail.maxPerRun"
+
+  - name: recipeName
+    type: string
+    label:
+      de: "Klassifikations-Recipe"
+      en: "Classification recipe"
+    help:
+      de: "Name des LightLlm-Recipe (internal:true) zur Mail-Klassifikation. Default 'mail-rate'."
+      en: "Name of the LightLlm recipe (internal:true) used to classify mails. Default 'mail-rate'."
+    defaultValue: "mail-rate"
+    bindsTo:
+      key: "mail.recipeName"
+
+  - name: rulesDoc
+    type: string
+    label:
+      de: "Regel-Dokument-Pfad"
+      en: "Rules document path"
+    help:
+      de: "Pfad zum Markdown-Doc mit den Triage-Regeln. Default 'documents/mail-rules.md'."
+      en: "Path to the markdown doc holding triage rules. Default 'documents/mail-rules.md'."
+    defaultValue: "documents/mail-rules.md"
+    bindsTo:
+      key: "mail.rulesDoc"

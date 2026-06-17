@@ -1,0 +1,3 @@
+type: STRING
+value: "INBOX"
+description: "Source folder the mail-triage script reads from."

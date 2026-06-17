@@ -1,0 +1,44 @@
+name: mail-assistant
+description: |
+  Mail-Triage Kit — automatisch eingehende Mails klassifizieren,
+  wichtige Mails als Inbox-Item an den User dropen, unwichtige
+  automatisch ins Archiv verschieben.
+
+  Architektur: ein Cortex-JS-Skript (`mail-triage.js`) ruft pro
+  ungelesener Mail das IMAP-Tool für Header+Body, klassifiziert per
+  LightLlm-Recipe `mail-rate` (Jeltz-Schema-Loop, JSON-Output), und
+  führt set_seen + move oder inbox_post aus. Synchron im Skript,
+  kein Process-Spawn, kein Lane-Lock.
+
+  Konfiguration über Settings (Cascade think-process → project →
+  _tenant), gelesen im Skript via `vance.settings.get(...)`.
+
+  Setting-Keys:
+    mail.pack          — Name des IMAP-Tool-Packs (REQUIRED, kein Default)
+    mail.inboxFolder   — Quell-Folder (default "INBOX")
+    mail.archiveFolder — Ziel-Folder für Unwichtige (default "Archive/Auto")
+    mail.maxPerRun     — Mails pro Lauf (default 5)
+    mail.recipeName    — Klassifikations-Recipe (default "mail-rate")
+    mail.rulesDoc      — Pfad zum Regel-Doc (default "documents/mail-rules.md")
+
+  Defaults für alle außer `mail.pack` werden beim Kit-Install in
+  den Project-Scope geschrieben. Bedienung über das Setting-Form
+  "Mail-Triage" im Workspace-Editor-Tab.
+
+  Voraussetzungen vor erstem Lauf:
+    1. IMAP-Tool-Pack als ServerToolDocument anlegen (Type
+       `imap_mailbox`, `readonly: false`, host/user/password als
+       Settings).
+    2. Im Setting-Form "Mail-Triage" das Feld `mail.pack` auf den
+       Namen aus (1) setzen.
+    3. mail-rules.md auf die eigene Whitelist/Triage-Logik anpassen.
+
+  Manuals `scripts`, `inbox-post`, `vance-script-llm` (in
+  vance-defaults/) helfen der Engine, ähnliche Skripte zu schreiben
+  oder zu modifizieren.
+
+  Scheduler `_vance/scheduler/mail-check.yaml` läuft alle 30 Min —
+  löschen wenn nur manueller Cortex-Run gewünscht. Scheduler-`params`
+  überschreiben Settings per-Lauf.
+version: "0.2"
+hasEncryptedSecrets: false

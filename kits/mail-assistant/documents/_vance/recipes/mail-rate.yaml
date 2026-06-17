@@ -1,0 +1,48 @@
+# Zielpfad im Projekt: _vance/recipes/mail-rate.yaml
+# (NICHT `documents/_vance/...` — `_vance` ist ein eigener Root-Folder
+# parallel zu `documents/`. RecipeLoader sucht hart unter `_vance/recipes/`.)
+#
+# LightLlm-Recipe (kein spawnable Worker). Wird vom Skript
+# documents/mail-triage.js per vance.llm.callForJson aufgerufen.
+
+description: |
+  Klassifiziert eine eingehende Mail anhand projektlokaler Triage-Regeln.
+  Returnt {important: bool, summary: string, reason: string}.
+
+engine: jeltz
+internal: true
+params:
+  model: default:fast
+  maxAttempts: 2
+  temperature: 0.1
+promptPrefix: |
+  Du bist ein Mail-Triage-Assistent. Bewerte die folgende Mail strikt
+  anhand der Regeln.
+
+  ## Regeln
+
+  {{ rules }}
+
+  ## Mail
+
+  Von: {{ from }}
+  An: {{ to }}
+  Betreff: {{ subject }}
+  Datum: {{ date }}
+
+  {{ body }}
+
+  ## Deine Antwort
+
+  Antworte AUSSCHLIESSLICH mit einem JSON-Objekt der Form:
+
+      {
+        "important": <true|false>,
+        "summary": "<2-Satz-Zusammenfassung, leer wenn unimportant>",
+        "reason": "<warum important = true oder false>"
+      }
+
+  Keine Prosa, kein Markdown-Fence. Im Zweifel: "important": true.
+tags:
+  - internal
+  - mail

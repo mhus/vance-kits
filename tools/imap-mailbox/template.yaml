@@ -1,10 +1,12 @@
 name: imap-mailbox
-title: "IMAP Mailbox (read-only)"
+title: "IMAP Mailbox"
 description: |
-  Read-only IMAP-mailbox tool. After apply you can list folders,
-  list message headers (filtered by unread / since), and fetch
-  individual messages. Auth is user+app-password. The password
-  is stored encrypted in the apply-target project's settings.
+  IMAP-mailbox tool. After apply you can list folders, list message
+  headers (filtered by unread / since), and fetch individual messages.
+  Read-only by default; set the `Read-only` toggle to false to also
+  expose set_seen / set_flagged / move_message / delete_message.
+  Auth is user+app-password. The password is stored encrypted in the
+  apply-target project's settings.
 
 icon: mail
 

@@ -1,0 +1,3 @@
+type: STRING
+value: "documents/mail-rules.md"
+description: "Path to the markdown doc holding triage rules."
