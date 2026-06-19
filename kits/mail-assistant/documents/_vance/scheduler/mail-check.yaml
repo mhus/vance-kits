@@ -15,5 +15,6 @@ cron: "0 */30 * * * ?"
 timezone: "Europe/Berlin"
 overlap: skip
 runAs: REPLACE_WITH_YOUR_USERNAME
+enabled: false
 params:
   scriptRef: "documents/mail-triage.js"
