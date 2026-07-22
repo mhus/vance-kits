@@ -46,8 +46,8 @@ triggers:
       - llm params
       - llm-parameter
 manualPaths:
-  - manuals/recipe
-  - manuals/shared
+  - _vance/manuals/recipe
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

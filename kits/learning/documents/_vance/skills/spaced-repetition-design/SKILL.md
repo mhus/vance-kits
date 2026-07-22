@@ -24,8 +24,8 @@ triggers:
       - mochi
       - supermemo
 manualPaths:
-  - manuals/srs
-  - manuals/shared
+  - _vance/manuals/srs
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

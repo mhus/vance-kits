@@ -23,8 +23,8 @@ triggers:
       - vor der unterschrift
       - before i sign
 manualPaths:
-  - manuals/contract
-  - manuals/shared
+  - _vance/manuals/contract
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

@@ -23,8 +23,8 @@ triggers:
       - momentum verloren
       - nichts kommt
 manualPaths:
-  - manuals/drafting
-  - manuals/shared
+  - _vance/manuals/drafting
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

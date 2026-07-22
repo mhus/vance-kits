@@ -35,8 +35,8 @@ triggers:
       - gantt konfigurieren
       - conflicts konfigurieren
 manualPaths:
-  - manuals/application
-  - manuals/shared
+  - _vance/manuals/application
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

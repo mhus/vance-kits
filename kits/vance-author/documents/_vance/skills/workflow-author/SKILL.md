@@ -21,8 +21,8 @@ triggers:
       - retry block
       - bounds block
 manualPaths:
-  - manuals/workflow
-  - manuals/shared
+  - _vance/manuals/workflow
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

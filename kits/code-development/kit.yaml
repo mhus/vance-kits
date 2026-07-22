@@ -24,6 +24,6 @@ description: |
 version: "1.0"
 hasEncryptedSecrets: false
 inherits:
-  - url: file:///Users/hummel/sources/mhus/vance-wb/repos/vance-kits
+  - url: https://github.com/mhus/vance-kits.git
     path: kits/basic
     branch: main

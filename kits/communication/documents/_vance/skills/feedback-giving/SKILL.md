@@ -23,8 +23,8 @@ triggers:
       - 1on1
       - one on one
 manualPaths:
-  - manuals/feedback-give
-  - manuals/shared
+  - _vance/manuals/feedback-give
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

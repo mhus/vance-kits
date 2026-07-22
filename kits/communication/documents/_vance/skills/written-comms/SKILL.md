@@ -24,8 +24,8 @@ triggers:
       - klingt komisch
       - tone in writing
 manualPaths:
-  - manuals/written
-  - manuals/shared
+  - _vance/manuals/written
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

@@ -19,8 +19,8 @@ triggers:
       - finanzplan
       - household budget
 manualPaths:
-  - manuals/budget
-  - manuals/shared
+  - _vance/manuals/budget
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

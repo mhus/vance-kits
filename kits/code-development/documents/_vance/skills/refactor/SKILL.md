@@ -25,8 +25,8 @@ triggers:
       - umschreiben
       - neu schreiben
 manualPaths:
-  - manuals/refactor
-  - manuals/shared
+  - _vance/manuals/refactor
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

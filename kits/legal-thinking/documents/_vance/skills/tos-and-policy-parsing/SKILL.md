@@ -22,8 +22,8 @@ triggers:
       - bevor ich klicke
       - before i click
 manualPaths:
-  - manuals/tos
-  - manuals/shared
+  - _vance/manuals/tos
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

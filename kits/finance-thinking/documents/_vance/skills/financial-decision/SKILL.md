@@ -20,8 +20,8 @@ triggers:
       - umzug kosten
       - job wechsel geld
 manualPaths:
-  - manuals/decision
-  - manuals/shared
+  - _vance/manuals/decision
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

@@ -25,8 +25,8 @@ triggers:
       - umschuldung
       - pay off
 manualPaths:
-  - manuals/debt
-  - manuals/shared
+  - _vance/manuals/debt
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

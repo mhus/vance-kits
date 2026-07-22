@@ -20,8 +20,8 @@ triggers:
       - trust boundary
       - vertrauensgrenze
 manualPaths:
-  - manuals/threat-modeling
-  - manuals/shared
+  - _vance/manuals/threat-modeling
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

@@ -24,8 +24,8 @@ triggers:
       - test fails
       - test passes
 manualPaths:
-  - manuals/test
-  - manuals/shared
+  - _vance/manuals/test
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

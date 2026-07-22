@@ -24,8 +24,8 @@ triggers:
       - widerlegen
       - widerlegt
 manualPaths:
-  - manuals/verification
-  - manuals/shared
+  - _vance/manuals/verification
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

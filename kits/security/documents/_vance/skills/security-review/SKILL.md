@@ -24,8 +24,8 @@ triggers:
       - 0day
       - zeroday
 manualPaths:
-  - manuals/security-review
-  - manuals/shared
+  - _vance/manuals/security-review
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

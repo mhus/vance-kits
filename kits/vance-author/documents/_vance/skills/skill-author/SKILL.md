@@ -18,8 +18,8 @@ triggers:
       - skill trigger
       - skill manuals
 manualPaths:
-  - manuals/skill
-  - manuals/shared
+  - _vance/manuals/skill
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

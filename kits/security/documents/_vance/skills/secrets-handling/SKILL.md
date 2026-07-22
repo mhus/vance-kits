@@ -29,8 +29,8 @@ triggers:
       - geleakt
       - exposed
 manualPaths:
-  - manuals/secrets
-  - manuals/shared
+  - _vance/manuals/secrets
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

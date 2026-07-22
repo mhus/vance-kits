@@ -21,8 +21,8 @@ triggers:
       - mergeable
       - lgtm
 manualPaths:
-  - manuals/code-review
-  - manuals/shared
+  - _vance/manuals/code-review
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

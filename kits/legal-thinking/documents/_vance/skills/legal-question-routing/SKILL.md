@@ -19,8 +19,8 @@ triggers:
       - it's just a small
       - kleine sache
 manualPaths:
-  - manuals/routing
-  - manuals/shared
+  - _vance/manuals/routing
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

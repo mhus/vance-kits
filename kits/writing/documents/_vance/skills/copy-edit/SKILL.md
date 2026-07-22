@@ -23,8 +23,8 @@ triggers:
       - tighter
       - straffen
 manualPaths:
-  - manuals/copy
-  - manuals/shared
+  - _vance/manuals/copy
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

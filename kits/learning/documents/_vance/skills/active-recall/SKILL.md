@@ -23,8 +23,8 @@ triggers:
       - exam prep
       - prüfungsvorbereitung
 manualPaths:
-  - manuals/recall
-  - manuals/shared
+  - _vance/manuals/recall
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

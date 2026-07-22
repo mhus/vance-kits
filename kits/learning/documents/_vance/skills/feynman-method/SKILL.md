@@ -20,8 +20,8 @@ triggers:
       - verstaendnis pruefen
       - is this clear
 manualPaths:
-  - manuals/feynman
-  - manuals/shared
+  - _vance/manuals/feynman
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

@@ -24,8 +24,8 @@ triggers:
       - sie haben
       - ich werde verklagt
 manualPaths:
-  - manuals/dispute
-  - manuals/shared
+  - _vance/manuals/dispute
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

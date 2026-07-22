@@ -22,8 +22,8 @@ triggers:
       - er sagte
       - sie sagte
 manualPaths:
-  - manuals/feedback-receive
-  - manuals/shared
+  - _vance/manuals/feedback-receive
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

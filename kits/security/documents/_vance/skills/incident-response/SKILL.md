@@ -25,8 +25,8 @@ triggers:
       - wir wurden gehackt
       - we were breached
 manualPaths:
-  - manuals/incident
-  - manuals/shared
+  - _vance/manuals/incident
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

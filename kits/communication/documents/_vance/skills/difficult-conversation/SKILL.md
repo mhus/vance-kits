@@ -26,8 +26,8 @@ triggers:
       - high stakes talk
       - hochbrisant
 manualPaths:
-  - manuals/conversation
-  - manuals/shared
+  - _vance/manuals/conversation
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

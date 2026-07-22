@@ -24,8 +24,8 @@ triggers:
       - read this paper
       - read this book
 manualPaths:
-  - manuals/reading
-  - manuals/shared
+  - _vance/manuals/reading
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

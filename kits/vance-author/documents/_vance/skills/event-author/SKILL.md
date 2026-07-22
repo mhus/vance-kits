@@ -17,8 +17,8 @@ triggers:
       - bearer token
       - event yaml
 manualPaths:
-  - manuals/event
-  - manuals/shared
+  - _vance/manuals/event
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

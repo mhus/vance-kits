@@ -22,8 +22,8 @@ triggers:
       - atomic commits
       - changelog
 manualPaths:
-  - manuals/commit
-  - manuals/shared
+  - _vance/manuals/commit
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

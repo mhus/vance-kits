@@ -24,8 +24,8 @@ triggers:
       - second draft
       - zweiter entwurf
 manualPaths:
-  - manuals/structural
-  - manuals/shared
+  - _vance/manuals/structural
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

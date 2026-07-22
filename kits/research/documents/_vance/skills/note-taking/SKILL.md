@@ -23,8 +23,8 @@ triggers:
       - reading notes
       - lese-notizen
 manualPaths:
-  - manuals/notes
-  - manuals/shared
+  - _vance/manuals/notes
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

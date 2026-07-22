@@ -27,8 +27,8 @@ triggers:
       - landschaft
       - landscape
 manualPaths:
-  - manuals/synthesis
-  - manuals/shared
+  - _vance/manuals/synthesis
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

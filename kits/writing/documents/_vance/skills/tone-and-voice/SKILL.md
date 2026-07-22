@@ -24,8 +24,8 @@ triggers:
       - schreibstil
       - writing style
 manualPaths:
-  - manuals/tone
-  - manuals/shared
+  - _vance/manuals/tone
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

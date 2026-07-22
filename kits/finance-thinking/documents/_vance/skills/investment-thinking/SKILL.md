@@ -23,8 +23,8 @@ triggers:
       - risk tolerance
       - risikobereitschaft
 manualPaths:
-  - manuals/investment
-  - manuals/shared
+  - _vance/manuals/investment
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

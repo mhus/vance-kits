@@ -26,8 +26,8 @@ triggers:
       - ist das wahr
       - vertrauen
 manualPaths:
-  - manuals/source
-  - manuals/shared
+  - _vance/manuals/source
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

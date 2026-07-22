@@ -26,8 +26,8 @@ triggers:
       - reproduce
       - reproduzieren
 manualPaths:
-  - manuals/debug
-  - manuals/shared
+  - _vance/manuals/debug
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read
