@@ -107,8 +107,8 @@ filling in fields is mechanical.
   `app-types` or stop and reconsider.
 - **App-specific config nests under the app's name.**
   `config.calendar`, not `calendar` at the manifest root.
-  Future apps will sit beside it (`config.kanban`,
-  `config.wiki`) — flat layout sperrt das aus.
+  Other apps sit beside it (`config.workbook`,
+  `config.kanban`, `config.wiki`) — flat layout sperrt das aus.
 - **Don't hand-edit `_<artifact>` files.** They are
   generated; the next `app_rebuild` overwrites them. Edit
   source files, then rebuild.
