@@ -9,7 +9,9 @@ triggers:
     keywords:
       - decide
       - decision
+      - should I
       - sollte
+      - sollte ich
       - entscheidung
       - entscheiden
       - alternatives
