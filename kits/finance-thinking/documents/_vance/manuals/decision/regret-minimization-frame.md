@@ -1,3 +1,8 @@
+---
+triggers: reue-minimierung, regret minimization, erwartungswert, expected value, asymmetrisches risiko, asymmetric downside, ruin problem, kelly criterion, one-shot decision, future self, bezos, entscheidungsframe
+summary: Presents the regret-minimization frame for asymmetric, one-shot decisions where expected-value optimization fails, with the asymmetric-downside/ruin check and when it points toward or away from action.
+---
+
 # Regret Minimization Frame — when expected-value optimization fails
 
 The expected-value frame: pick the option with the highest

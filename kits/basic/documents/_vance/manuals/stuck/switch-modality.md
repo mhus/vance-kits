@@ -1,3 +1,8 @@
+---
+triggers: medium wechseln, switch modality, kanal wechsel, talk aloud, whiteboard, walk, sketch it, read aloud, sleep on it, festgefahren im medium, modality grid, perspektivwechsel
+summary: How to get unstuck when the working medium has become the bottleneck: a modality grid and concrete switches (talk aloud, whiteboard, walk, sketch, print, sleep on it) plus when not to switch.
+---
+
 # Switch modality — when the medium is fighting the user
 
 Stuck because the user has been working in one channel for too

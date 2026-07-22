@@ -1,3 +1,8 @@
+---
+triggers: feedback nach oben, upward feedback, feedback an den chef, feedback an mitarbeiter, downward feedback, peer feedback, machtgefälle, power asymmetry, skip-level, feedback über kollegen, cross-functional feedback, richtungsabhängiges feedback
+summary: How giving feedback changes with power direction — up to your boss, down to a report, or sideways to a peer — and the specific risks and adjustments each direction requires.
+---
+
 # Asymmetric Feedback — up, down, sideways
 
 Power asymmetry shapes the risk and reception of

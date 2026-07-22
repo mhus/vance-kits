@@ -1,3 +1,8 @@
+---
+triggers: karteikarten gestalten, card design, atomic cards, flashcard, cloze deletion, lückentext, eindeutiger cue, leech card, spaced repetition karten, anki cards, karten aufteilen
+summary: Designing spaced-repetition cards that are atomic, precisely cued and honestly gradable, with patterns for definitions, procedures, contrasts and images.
+---
+
 # Card Design — atomic, cued, evaluable
 
 Most SRS failure is card-design failure. The algorithm

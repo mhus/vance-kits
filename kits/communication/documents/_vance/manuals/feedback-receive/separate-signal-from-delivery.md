@@ -1,3 +1,8 @@
+---
+triggers: signal von verpackung trennen, signal versus delivery, kern der kritik, kernel test, schlecht formuliertes feedback, rude feedback, was ist dran, gewichtung von feedback, mehrere botschaften trennen, kritik bewerten, hostile criticism, verpacktes feedback
+summary: How to separate the substance of feedback (signal) from how it was delivered — the "kernel" test for extracting a real observation from rude or hostile feedback, and how to weight signal strength.
+---
+
 # Separate Signal from Delivery — what was said vs. how
 
 Two independent dimensions:

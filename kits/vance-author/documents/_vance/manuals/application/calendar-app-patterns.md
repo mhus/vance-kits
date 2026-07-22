@@ -1,3 +1,8 @@
+---
+triggers: kalender-app, calendar patterns, lane granularity, tag-konventionen, farbpalette, color palette, gantt, window, includeRecurring, refresh cadence, lane-namen, calendar anti-patterns
+summary: Design best-practices for `app: calendar` manifests — lane granularity, tag and color conventions, `window` and `includeRecurring` decisions, refresh cadence, and calendar anti-patterns.
+---
+
 # Calendar-App Patterns
 
 Design best-practices for `_app.yaml` manifests with `app: calendar`. Load when designing a new calendar suite or tightening an existing one.

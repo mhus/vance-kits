@@ -1,3 +1,8 @@
+---
+triggers: arbeitsgedächtnis, working memory, externalise, benennen, cast list pinnen, state pinnen, verliert den faden, name everything, sketching, überforderung nachverfolgen, mehrstufiger prozess, mid-flight summary
+summary: Techniques for externalising working memory when a user loses track of a stateful explanation: naming things, pinning the cast list and state, forced mid-flight summaries, and sketching.
+---
+
 # Working Memory — externalise before the user runs out of room
 
 The user is explaining a stateful thing — a system, a proof, a

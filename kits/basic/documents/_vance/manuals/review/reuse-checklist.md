@@ -1,3 +1,8 @@
+---
+triggers: wiederverwendung, reuse review, duplication, doppelter code, existing helper, near-duplicate, reimplementing stdlib, re-litigating decisions, convergent evolution, vorhandene utility, duplikat erkennen
+summary: The reuse review pass: checks for whether code, prose, plans, or decisions duplicate something that already exists, with guidance on phrasing a reuse finding and when duplication is acceptable.
+---
+
 # Reuse — does this duplicate something that already exists?
 
 The first review pass. Easiest way to ship something worse than

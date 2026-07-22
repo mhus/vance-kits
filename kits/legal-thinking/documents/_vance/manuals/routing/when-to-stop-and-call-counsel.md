@@ -1,3 +1,8 @@
+---
+triggers: stop and call counsel, anwalt sofort, bright-line rules, klare grenze, active litigation, klage zugestellt, subpoena, criminal matter, strafsache, imminent deadline, frist, cease and desist, accident injury, unfall, severance agreement, finding an attorney
+summary: Bright-line situations that warrant an attorney now, not later (served/subpoenaed, criminal matters, imminent deadlines, legal threats, accidents, family/real-estate/high-stakes matters), why people wrongly delay, and how to find counsel.
+---
+
 # When to Stop and Call Counsel — bright-line rules
 
 Some situations warrant attorney now, not later. This

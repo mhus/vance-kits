@@ -1,3 +1,8 @@
+---
+triggers: print debugging, console.log, logging, log ausgabe, was loggen, branch points, request id, produktions-logs, key=value, debug prints entfernen
+summary: How to print-debug effectively — what and where to log, a readable single-line format, volume control, production constraints and cleanup afterwards.
+---
+
 # Log-Driven Debugging — print-debug well
 
 A `console.log` you write in 5 seconds beats a debugger you can't

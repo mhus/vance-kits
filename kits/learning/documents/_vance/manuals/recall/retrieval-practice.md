@@ -1,3 +1,8 @@
+---
+triggers: retrieval practice, aktives erinnern, active recall, blank-page recall, self-quizzing, freies erinnern, cued recall, testen statt lesen, abrufen aus dem gedächtnis, recognition vs recall, wiederholung
+summary: Concrete active-recall techniques — blank-page recall, flashcards, self-quizzing, cued and free recall — with guidance on picking one by material and testing before you feel ready.
+---
+
 # Retrieval Practice — concrete techniques
 
 Active recall is a category; retrieval practice is the

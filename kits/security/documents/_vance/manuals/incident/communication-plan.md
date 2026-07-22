@@ -1,3 +1,8 @@
+---
+triggers: incident communication, statuspage, statusseite, kundenkommunikation, breach notification, meldepflicht, stakeholder updates, leadership briefing, presse pr, gdpr 72 stunden, comms lead, kommunikationsvorlagen
+summary: Structured incident communication — audiences, triggers, status-page and internal cadence, customer-comms templates, and what not to say.
+---
+
 # Communication Plan — who hears what, when
 
 In an incident, the communication failure usually causes more

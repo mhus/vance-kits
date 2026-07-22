@@ -1,3 +1,8 @@
+---
+triggers: git amend, commit korrigieren, rebase, force push, force-with-lease, reflog, squash on merge, published history, veröffentlicht, rewrite history
+summary: Rules for git commit --amend and rebase — amend only unpushed or private commits, recovery via reflog, squash-on-merge, and dangerous history-rewrite commands.
+---
+
 # When to Amend — `--amend` rules and rebases
 
 `git commit --amend` rewrites the most recent commit. Powerful;

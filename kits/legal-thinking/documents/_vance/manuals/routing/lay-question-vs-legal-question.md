@@ -1,3 +1,8 @@
+---
+triggers: lay question, laienfrage, legal question, rechtsfrage, understanding vs action, verstehen vs handeln, routing, when to consult attorney, anwalt konsultieren, borderline question, categorisation, free legal help, prozesskostenhilfe, bias toward attorney, stakes threshold
+summary: How to tell a lay question (about understanding, layperson-handleable) from a legal question (about action, requiring attorney) — the understanding-vs-action test, categorised examples per domain, and free/low-cost counsel options.
+---
+
 # Lay Question vs. Legal Question — distinguishing the two
 
 Some questions look legal and aren't. Some look simple

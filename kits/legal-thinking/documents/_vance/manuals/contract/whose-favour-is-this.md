@@ -1,3 +1,8 @@
+---
+triggers: asymmetry, asymmetrie, whose favour, wer hat den vorteil, drafter favour, verfasser, adhesion contract, standardvertrag, take-it-or-leave-it, negotiable, verhandelbar, pushback, mutual clause, gegenseitig, einseitige klausel, verhandlungsspielraum
+summary: How to recognise which side a contract is drafted to favour — spotting one-sided liability caps, termination, indemnification and modification rights, distinguishing adhesion from negotiable contracts, and building a negotiation list.
+---
+
 # Whose Favour Is This — recognising asymmetry
 
 Most contracts are drafted by one side. The drafter

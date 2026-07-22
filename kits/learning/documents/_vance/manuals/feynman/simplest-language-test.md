@@ -1,3 +1,8 @@
+---
+triggers: einfache sprache, 12-jährigen erklären, audience calibration, zielgruppe wählen, simplify, analogien, jargon vermeiden, layperson, expert dialogue, over-simplification, verständliche erklärung
+summary: Calibrating how simple an explanation should be by picking the right audience level, and recognising where pure simplification distorts or misleads.
+---
+
 # Simplest Language Test — calibrating the audience
 
 The Feynman frame often invokes "explain it to a

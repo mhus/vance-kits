@@ -1,3 +1,8 @@
+---
+triggers: schreibblockade, blank page, erster satz, first draft, anfangen, getting started, terrible first draft, mitte schreiben, question and answer, laut sprechen, talk it type, leere seite
+summary: Five concrete moves to break the blank page and start a first draft, plus how to pick the right one and what to avoid at this stage.
+---
+
 # Getting Started — moves to break the blank page
 
 The page is empty. The user is staring at it. The hardest

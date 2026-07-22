@@ -1,3 +1,8 @@
+---
+triggers: extrahieren, inline, helper funktion, refactoring move, extract method, extract variable, duplication, abstraktion, wann extrahieren, mechanik
+summary: When to extract logic into a helper versus inline it back, the mechanics of each move, tactical patterns, and when the right move is replace instead.
+---
+
 # Extract or Inline — the two opposite moves
 
 Refactoring is mostly extract and inline. Other moves (rename,

@@ -1,3 +1,8 @@
+---
+triggers: momentum, schreibfluss, dranbleiben, don't look back, satzstart, sentence stems, platzhalter, placeholder, TK marker, time-boxing, pomodoro, flow halten
+summary: Techniques for sustaining drafting momentum through the middle of a draft — no rereading, sentence stems, placeholders, and time-boxing.
+---
+
 # Momentum Techniques — keep words coming once started
 
 The blank page is broken; the user is writing. Then the

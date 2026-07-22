@@ -1,3 +1,8 @@
+---
+triggers: task types, agent_task, script_task, tool_task, gate_task, timer_task, condition_task, workflow_task, terminal, task outcomes, sync vs async, workflow zustände
+summary: The eight Hactar workflow task types (agent/script/tool/gate/timer/condition/workflow/terminal) — their YAML shape, output, outcome vocabulary, and the sync-vs-async execution cheat-sheet.
+---
+
 # Task Types
 
 Eight task types, all sharing the uniform lifecycle: every task

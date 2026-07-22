@@ -1,3 +1,8 @@
+---
+triggers: facts vs feelings, fakten gefühle trennen, fact record, faktenprotokoll, inference, schlussfolgerung, motive, third-party test, neutraler beobachter, judgement words, wertungen, discovery, contemporaneous, communicating with attorney mediator, emotional record
+summary: How to separate the verifiable fact record from the emotional/inference record in a dispute — the third-party test, stripping judgement words, honest uncertainty, and tailoring what you share to attorney vs. mediator vs. friends.
+---
+
 # Facts vs. Feelings — different artefacts
 
 In a dispute, both facts (what happened) and feelings

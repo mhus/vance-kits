@@ -1,3 +1,8 @@
+---
+triggers: zettelkasten, luhmann, atomic notes, linking, permanent notes, literature notes, emergent structure, slip-box, verlinkung, notizsystem
+summary: The core Zettelkasten principles — atomic notes in your own words, linking, and emergent structure — applied across any tool.
+---
+
 # Zettelkasten Basics — atomic notes, linking, emergent structure
 
 Zettelkasten is German for "slip-box". It refers to the

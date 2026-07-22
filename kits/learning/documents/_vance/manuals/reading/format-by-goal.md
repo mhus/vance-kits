@@ -1,3 +1,8 @@
+---
+triggers: lesetechnik nach format, books papers articles, wissenschaftliche paper lesen, three-pass, textbook lesen, rfc lesen, blog post, lesestrategie, reading approach, format-specific reading, quer lesen
+summary: Matching reading technique to the material's format — books, papers, articles, docs, code, RFCs — so effort fits the content's density and your goal.
+---
+
 # Format by Goal — different reading for different formats
 
 A book is not a paper is not a textbook is not an

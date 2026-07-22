@@ -1,3 +1,8 @@
+---
+triggers: tonfall in text, tone in text, wärmer schreiben, text klingt kalt, cold-default, passiv-aggressiv wirken, passive-aggressive, satzzeichen als ton, punctuation tone, emoji im chat, read-it-back test, tondrift in threads, auf feindselige nachricht antworten
+summary: How to compensate for missing voice and body language in written messages — warming and cooling moves, punctuation and emoji as tone signals, the read-it-back test, and avoiding unintended coldness or passive-aggression.
+---
+
 # Tone in Text — compensating for missing voice
 
 In conversation, tone comes from voice, face, body. In

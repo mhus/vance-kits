@@ -1,3 +1,8 @@
+---
+triggers: refactor oder rewrite, neu schreiben, umbauen, strangler fig, inkrementell, tests vorhanden, modulgröße, rewrite risiko, entscheidung, legacy code
+summary: Weighing incremental refactor against a from-scratch rewrite, the strangler-fig third option, a decision checklist, and the anti-patterns of each.
+---
+
 # Refactor vs. Rewrite — when "let me rewrite this" is wrong
 
 The temptation: a module is messy, the user is frustrated, the

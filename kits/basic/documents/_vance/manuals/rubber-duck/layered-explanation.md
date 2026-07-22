@@ -1,3 +1,8 @@
+---
+triggers: erklärungsebenen, layered explanation, level jumping, ebenenwechsel, goal shape mechanism detail, stuck explaining, rubber duck levels, abstraktionsebene halten, level skip, why vs how, strukturierte erklärung
+summary: How to keep an explainer on one abstraction level at a time (goal / shape / mechanism / detail), surfacing level-skips without correcting them so the user closes each level before moving.
+---
+
 # Layered Explanation — keeping the explainer at one level at a time
 
 Most explanations break because the explainer jumps levels. They

@@ -1,3 +1,8 @@
+---
+triggers: app-typen, app types, calendar app, kanban, wiki, book, app registrieren, new app type, app_rebuild, vanceapplication, $meta.app, geplante apps
+summary: The catalogue of Vance `$meta.app` types (only `calendar` in v1), what each does, how a new app type is registered, and when not to propose an app.
+---
+
 # App Types
 
 Which `$meta.app` values Vance supports today, what each one does, and how a new app type would be added.

@@ -1,3 +1,8 @@
+---
+triggers: feedback timing, wann feedback geben, zeitpunkt für feedback, privat oder in der gruppe, private vs group feedback, is now a good time, feedback im richtigen moment, kulturelle unterschiede feedback, feedback per email, drive-by feedback, feedback aufstauen, kontext für feedback
+summary: When and where to deliver feedback so it lands — timing windows, waiting when hot, the "is now a good time" gate, private vs. group, and cultural/context calibration.
+---
+
 # Timing and Context — when and where feedback lands
 
 The same words deliver differently depending on when

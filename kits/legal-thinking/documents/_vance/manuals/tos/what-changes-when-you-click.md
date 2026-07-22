@@ -1,3 +1,8 @@
+---
+triggers: what changes when you click, i agree, content license, inhaltslizenz, perpetual sublicensable, nutzungsrechte, content moderation rights, kontosperrung, ip claims, behaviour requirements, scraping reverse engineering, modification rights, account portability, datenexport, name likeness, marketing consent
+summary: The broad rights an 'I agree' click can grant beyond simple service use — perpetual content licenses, content-moderation/termination rights, IP representations, behaviour restrictions, unilateral modification, data portability limits, and unusual grants to refuse.
+---
+
 # What Changes When You Click — broad rights you may grant
 
 The "I agree" click can grant rights you might not

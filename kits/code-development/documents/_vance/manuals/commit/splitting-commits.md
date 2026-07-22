@@ -1,3 +1,8 @@
+---
+triggers: commit splitten, atomic commit, git add -p, interactive staging, soft reset, git stash, commit stack, aufteilen, unstage, patch edit
+summary: Techniques for splitting a mixed working tree into atomic commits — git add -p, soft reset, stash, branch-off — and what "atomic" means in practice.
+---
+
 # Splitting Commits — atomic commits without losing work
 
 A commit should describe **one** thing. Mixed commits — refactor

@@ -1,3 +1,8 @@
+---
+triggers: liability and arbitration, terms of service, agb, mandatory arbitration, schiedsklausel, class action waiver, sammelklage-verzicht, limitation of liability, haftungsbeschränkung, indemnification, freistellung, choice of law forum, gerichtsstand, warranty disclaimer, as is, opt-out window, account termination
+summary: The recourse-limiting clauses in ToS/EULAs — mandatory arbitration, class-action waivers, liability caps, indemnification, choice of law/forum, unilateral amendment, account termination and 'AS IS' disclaimers — and their combined adhesion-contract effect.
+---
+
 # Liability and Arbitration — what you give up by clicking
 
 ToS / EULAs commonly include clauses that limit your

@@ -1,3 +1,8 @@
+---
+triggers: zuhören nach der botschaft, active listening, stille aushalten, don't fill silence, reaktion vs antwort, reaction versus response, nachfragen, botschaft landen lassen, nach dem gespräch, verteidigend zuhören, defensive listening, schweigen
+summary: What to do after you have delivered a hard message — landing it without diluting, holding silence, and listening for real instead of waiting to speak.
+---
+
 # Landing and Listening — what to do after delivering
 
 The hard part isn't saying it; it's what comes after.

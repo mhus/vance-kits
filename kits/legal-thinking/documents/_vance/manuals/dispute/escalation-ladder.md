@@ -1,3 +1,8 @@
+---
+triggers: escalation ladder, eskalationsstufen, dispute resolution, streitbeilegung, direct conversation, written complaint, beschwerde, mediation, schlichtung, demand letter, abmahnung, litigation, klage, small claims, settlement, vergleich, threats calibration, de-escalation
+summary: The typical ladder of dispute steps (direct conversation → written complaint → regulatory channel → mediation → demand letter → litigation), how to pick where to start, when to skip rungs, and how to evaluate settlement.
+---
+
 # Escalation Ladder — paths from disagreement to resolution
 
 Most disputes have multiple steps before formal legal

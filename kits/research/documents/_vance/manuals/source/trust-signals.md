@@ -1,3 +1,8 @@
+---
+triggers: trust signals, vertrauenssignale, author credibility, conflict of interest, citations, retraction, methodology, publikationsdatum, quellenprüfung, replication
+summary: A checklist of concrete signals (author, date, citations, replication, funding) for judging whether a specific source is reliable within its type.
+---
+
 # Trust Signals — what to look at on the source itself
 
 The credibility ladder gives you the source-type. Trust

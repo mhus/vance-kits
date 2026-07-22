@@ -1,3 +1,8 @@
+---
+triggers: transition patterns, outcome routing, on catch block, HactarErrorKind, retry maxAttempts, backoffSeconds, condition_task fan-out, SpEL, escalation gate, no transition, bounds preempt, fehler-routing
+summary: How task outcomes route to next states — the fixed resolver order (override/on/catch), retry and bounds preemption, per-type outcome vocabularies, condition_task fan-out with SpEL, and the "no transition" failure mode.
+---
+
 # Transition Patterns
 
 How outcomes route to next states. The resolver order is fixed:

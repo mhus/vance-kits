@@ -1,3 +1,8 @@
+---
+triggers: schulden, debt, kredit, kreditkarte, credit card, hypothek, mortgage, student loan, studienkredit, secured, tilgung, insolvenz, bankruptcy
+summary: Maps common debt types (credit card, mortgage, student, auto, payday, BNPL, medical, tax, family, business) by rate, security, tax treatment and dischargeability.
+---
+
 # Debt Types and Shapes — debt isn't one thing
 
 "Debt" lumps many different kinds of obligation that

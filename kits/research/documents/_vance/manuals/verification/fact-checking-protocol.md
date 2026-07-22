@@ -1,3 +1,8 @@
+---
+triggers: fact-checking, faktenprüfung, lateral reading, verification, primary evidence, calibrated answer, quellencheck, verifizieren, prüfprotokoll, partial verification
+summary: A four-step protocol (pin claim, lateral reading, find primary, calibrate) for verifying a specific factual claim and honestly reporting the result.
+---
+
 # Fact-Checking Protocol — concrete steps for a claim
 
 A repeatable protocol for verifying a specific factual

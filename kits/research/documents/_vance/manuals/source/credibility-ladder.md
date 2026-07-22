@@ -1,3 +1,8 @@
+---
+triggers: credibility, glaubwürdigkeit, primärquelle, secondary source, tertiary source, peer-reviewed, preprint, quellenhierarchie, source tier, corroboration
+summary: Ranking sources by evidential strength (primary/secondary/tertiary and sub-tiers) and matching the right tier to each kind of claim.
+---
+
 # Credibility Ladder — what kind of source supports what
 
 Sources sit on a rough ladder of evidential strength. The

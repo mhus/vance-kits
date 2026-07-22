@@ -1,3 +1,8 @@
+---
+triggers: wünschenswerte schwierigkeit, desirable difficulty, 85-prozent-regel, struggle kalibrieren, zu leicht zu schwer, productive struggle, retrieval failure, scaffolding, schwierigkeitsgrad, success rate, edge of ability
+summary: Calibrating practice difficulty to the productive zone (around 85% success) where struggle drives learning, and recognising when it tips into unproductive frustration.
+---
+
 # Desirable Difficulty — calibrating struggle
 
 A learning principle: too easy is wasted; too hard is

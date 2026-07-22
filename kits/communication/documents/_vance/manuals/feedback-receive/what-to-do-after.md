@@ -1,3 +1,8 @@
+---
+triggers: feedback umsetzen oder nicht, act park discard, feedback verwerfen, feedback parken, verhalten ändern, widersprüchliches feedback, contradictory feedback, feedback aus dem review, performance review items, loop schließen, feedback über persönlichkeit, entscheiden was mit feedback tun
+summary: How to decide what to do with feedback you have received — the three honest answers (act on it, note and park, discard) with criteria for choosing and how to close the loop.
+---
+
 # What to Do After — three honest answers
 
 You've received the feedback. Defences have been

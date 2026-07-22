@@ -1,3 +1,8 @@
+---
+triggers: feynman-technik, erklären um lücken zu finden, explain to find gaps, jargon-check, hand-waving, wissenslücken, mental model, re-explain, verständnis testen, understanding gaps
+summary: How to use the Feynman technique as a diagnostic — explaining a topic to surface and then close the specific gaps in your understanding.
+---
+
 # Explain to Find Gaps — the Feynman technique
 
 The technique sounds simple: explain what you're

@@ -1,3 +1,8 @@
+---
+triggers: data flow diagram, datenflussdiagramm, dfd, process datastore external entity, prozess datenspeicher, trust boundary, vertrauensgrenze, dfd levels, level-0 level-1, dfd anti-patterns, ascii diagram, when to redraw
+summary: How to draw a useful DFD for threat modeling — the four element types, trust-boundary annotation, nesting levels, common mistakes, and when to redraw.
+---
+
 # Data Flow Diagrams — DFDs done well
 
 A DFD is the structural backbone of a threat model. Without one,

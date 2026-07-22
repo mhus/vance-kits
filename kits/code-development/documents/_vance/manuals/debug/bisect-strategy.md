@@ -1,3 +1,8 @@
+---
+triggers: git bisect, regression, funktionierte früher, midpoint, log bisect, dependency bisect, input bisect, config bisect, halbieren, offending commit
+summary: When and how to bisect a regression — git bisect plus log, dependency, input and configuration bisection — and what to do after it names the commit.
+---
+
 # Bisect Strategy — when "it used to work"
 
 The user says the bug appeared between versions A and B. Don't

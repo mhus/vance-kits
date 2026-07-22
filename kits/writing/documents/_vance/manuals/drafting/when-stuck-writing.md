@@ -1,3 +1,8 @@
+---
+triggers: feststecken, writing stuck, perfektionismus, perfectionism, topic drift, längenangst, length dread, blockade, paralysiert, comparison spiral, zu viele tabs, over-explaining
+summary: Diagnoses eight distinct drafting-stuck patterns (perfectionism, drift, length dread, paralysis, comparison, over-explaining) and the specific move for each.
+---
+
 # When Stuck Writing — drafting-specific stuck patterns
 
 Different from generic `stuck` from basic. Writing-stuck has

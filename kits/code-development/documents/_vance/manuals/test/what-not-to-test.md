@@ -1,3 +1,8 @@
+---
+triggers: nicht testen, was nicht testen, framework testen, getter setter, private methoden, konfiguration, logs testen, pass-through, coverage target, low-value test
+summary: What not to write tests for — framework/generated code, trivial accessors, private methods, config, logs, pass-throughs — and how to push back on coverage demands.
+---
+
 # What NOT to Test — anti-test guide
 
 Tests have a cost: write, run, maintain, fix when they fail

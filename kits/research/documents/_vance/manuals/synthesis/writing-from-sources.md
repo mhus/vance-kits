@@ -1,3 +1,8 @@
+---
+triggers: writing from sources, zitieren, citation density, paraphrasing, attribution, audit trail, quellenbelege, belegdichte, synthesis voice, plagiat
+summary: Turning a claim graph into grounded prose with calibrated citation density, correct attribution, and a maintained audit trail.
+---
+
 # Writing from Sources — keeping claims grounded through prose
 
 The claim graph is built; the structure is understood.

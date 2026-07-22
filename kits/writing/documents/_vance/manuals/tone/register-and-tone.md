@@ -1,3 +1,8 @@
+---
+triggers: register, tonfall, tone, formalität, förmlichkeit, register ladder, formal informal, kontraktionen, register mismatch, ton verschieben, register shift, warm kalt
+summary: The register ladder from academic to casual, matching register to audience, tone within a register, and shifting register up or down without losing voice.
+---
+
 # Register and Tone — choices that signal context
 
 Register is how formal the writing is. Tone is the

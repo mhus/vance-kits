@@ -1,3 +1,8 @@
+---
+triggers: schuldenpriorisierung, debt prioritisation, avalanche, snowball, lawine, schneeball, highest interest, tilgungsreihenfolge, umschuldung, consolidation, überschuldung, credit counselling
+summary: Compares avalanche, snowball and hybrid debt-payoff heuristics, their exceptions (variable rate, tax-deductible, forgiveness, 0% promos), and when debt is beyond prioritisation.
+---
+
 # Prioritising Debts — what to pay first
 
 You have multiple debts; you have extra money to put

@@ -1,3 +1,8 @@
+---
+triggers: incident triage, ersten 30 minuten, incident commander, sme, scribe, channel discipline, containment, eindämmung, eskalation, escalation, stand-down, rollback vs forward-fix
+summary: Running the first 30 minutes of an incident — establishing roles, channel discipline, orient/contain/investigate phases, escalation and stand-down.
+---
+
 # Triage Protocol — first 30 minutes
 
 The early phase of an incident. The decisions made now shape

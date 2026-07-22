@@ -1,3 +1,8 @@
+---
+triggers: secret rotation, geheimnis-rotation, rotationsintervall, dual-secret, hot reload, zero downtime rotation, ohne ausfall, versioned keys, encryption key rotation, re-encryption, rotation window, event-based rotation
+summary: Making secret rotation cheap and routine — time- and event-based triggers, dual-secret/hot-reload patterns, downtime-free rotation, and encryption-key rotation.
+---
+
 # Rotation Strategy — keep secrets short-lived
 
 A secret that has been valid for two years has had two years to

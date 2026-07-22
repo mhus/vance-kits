@@ -1,3 +1,8 @@
+---
+triggers: recipe patterns, chat orchestrator, single-shot worker, lector loop, marvin top-level, postActions worker, read-only investigator, rag chat, zaphod fan-out, recipe vorlage, recipe kopieren, engine skeleton
+summary: Copy-and-adapt recipe templates for recurring shapes (arthur chat orchestrator, ford worker, vogon lector loop, marvin top-level, RAG-grounded chat, zaphod fan-out) with engine, params, prompt skeleton, and when to deviate.
+---
+
 # Recipe Patterns — recurring shapes
 
 Common patterns to copy-and-adapt rather than designing from

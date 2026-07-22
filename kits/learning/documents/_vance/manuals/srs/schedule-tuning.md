@@ -1,3 +1,8 @@
+---
+triggers: srs schedule, intervalle tunen, sm-2 fsrs, again hard good easy, karten bewerten, algorithmus überschreiben, retention dial, leech, pre-exam tuning, daily reviews, ease factor
+summary: When to trust the SRS scheduling algorithm versus override it — how to rate honestly and adjust for deadlines, leeches, re-entry and target retention.
+---
+
 # Schedule Tuning — when to trust the algorithm, when to override
 
 SRS algorithms (SM-2, FSRS, the various Anki and

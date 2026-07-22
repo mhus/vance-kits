@@ -1,3 +1,8 @@
+---
+triggers: hypothese, debugging, fehlerursache, falsifizierbar, wrong input, state assumption, race condition, wrong version, experiment, testbare annahme, suchraum halbieren
+summary: Forming and testing specific, falsifiable hypotheses to locate a bug — four archetypes (wrong input, state, ordering, tool/version) and when to rehypothesise.
+---
+
 # Hypothesis Method — testable claims about the cause
 
 Debugging is a search. A hypothesis is the search node. Bad

@@ -1,3 +1,8 @@
+---
+triggers: test pyramide, unit test, integration test, end-to-end, e2e, testebene wählen, inverted pyramid, property test, contract test, testverhältnis
+summary: The unit/integration/e2e test pyramid — cost and brittleness per level, how to pick the cheapest level for a behaviour, and fixing an inverted pyramid.
+---
+
 # Test Pyramid — pick the cheapest level that exposes the behaviour
 
 Tests live on three (or four) levels. The pyramid works because

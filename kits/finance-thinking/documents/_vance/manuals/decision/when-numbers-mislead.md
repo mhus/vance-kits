@@ -1,3 +1,8 @@
+---
+triggers: versteckte annahmen, hidden assumptions, roi, break-even, rendite, return, nominal vs real, opportunitätskosten, opportunity cost, zinseszins projektion, survivorship bias, verkaufstricks
+summary: Exposes how financial calculations mislead through hidden assumptions (inflation, returns, taxes, horizon) and framing tricks, and how to stress-test ROI, break-even and compound-interest claims.
+---
+
 # When Numbers Mislead — financial calculations with hidden assumptions
 
 A "$X is the breakeven point" calculation looks

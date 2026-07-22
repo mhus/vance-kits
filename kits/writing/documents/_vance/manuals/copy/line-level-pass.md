@@ -1,3 +1,8 @@
+---
+triggers: satzebene, line edit, aktiv passiv, active passive, satzlänge, sentence rhythm, satzanfang, nominalisierung, klischee, cliché, vorlesen, read aloud
+summary: Sentence-by-sentence editing pass for clarity, active voice, length variety, end-emphasis, pronoun reference, nominalisations, and rhythm.
+---
+
 # Line-Level Pass — sentence-by-sentence
 
 Each sentence is its own object. The line-level pass

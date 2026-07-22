@@ -1,3 +1,8 @@
+---
+triggers: grammatik, grammar, zombie-regel, subject-verb agreement, split infinitive, comma splice, apostroph, its vs it's, oxford comma, style guide, pedanterie, satzbau-regel
+summary: Which grammar rules affect clarity and must be fixed versus zombie rules that can be safely broken, plus style-guide discipline.
+---
+
 # Grammar Without Pedantry — rules to follow, rules to drop
 
 Some grammar rules matter for clarity. Others are zombie

@@ -1,3 +1,8 @@
+---
+triggers: _app.yaml, app manifest, $meta kind application, app anatomy, calendar block schema, lane-config, _info.yaml, manifest-felder, application document, gantt outputpath, conflicts
+summary: The full `_app.yaml` application-manifest schema — mandatory `$meta` fields, top-level and calendar-block config, lane-config alternatives, and what the codec does not validate.
+---
+
 # `_app.yaml` Anatomy
 
 The full shape of a Vance application manifest. Source-of-truth spec: `specification/doc-kind-application.md`.

@@ -1,3 +1,8 @@
+---
+triggers: umformulieren, re-frame, wrong question, falsche frage, how vs whether, which vs why, frage neu stellen, borrowed problem, ein level höher, festgefahren an fragestellung, leverage durch reframing, problem hinterfragen
+summary: How to get unstuck when the question itself is wrong: probe questions and common upward re-frames (how→whether, which→why), plus when re-framing becomes escapism.
+---
+
 # Re-frame — when the question itself is the problem
 
 Stuck because the question is wrong. Symptoms:

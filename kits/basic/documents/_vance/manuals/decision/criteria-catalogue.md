@@ -1,3 +1,8 @@
+---
+triggers: entscheidungskriterien, decision criteria, reversibility, umkehrbarkeit, one-way door, sunk cost, regret risk, bewertungsmaßstäbe, kriterien-gewichtung, fomo, wertefit, tail risk
+summary: A reference catalogue of criterion buckets (cost, reversibility, impact, learning, fit, risk) plus anti-criteria, to help a user articulate what they actually care about in a decision.
+---
+
 # Decision Criteria — Catalogue
 
 A reference list of criterion buckets you can offer when the user is

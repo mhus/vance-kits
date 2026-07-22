@@ -1,3 +1,8 @@
+---
+triggers: gespräch vorbereiten, prepare difficult conversation, kernsatz, core sentence, gesprächseinstieg, opening line, nicht auswendig lernen, don't memorise script, struktur statt skript, reaktionen antizipieren, überdrehte vorbereitung, over-preparation
+summary: How to prepare for a difficult conversation by planning structure (core sentence, opening, likely responses, limits) rather than memorising a word-for-word script.
+---
+
 # Preparation Script — plan, don't memorise
 
 A scripted conversation reads scripted. The other person

@@ -1,3 +1,8 @@
+---
+triggers: erklärung bricht ab, wissenslücken diagnostizieren, gap types, definition gap, mechanism gap, causal gap, intuition gap, hand-wave gap, prerequisite gap, feynman failure, lücken schließen
+summary: Diagnosing and repairing the different types of gap that surface when a Feynman explanation breaks down, treating each break as diagnostic data.
+---
+
 # Failure as Data — what to do when explanation breaks
 
 The explanation stopped. You hit a wall. You don't know

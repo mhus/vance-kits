@@ -1,3 +1,8 @@
+---
+triggers: kürzen, cutting down, streichen, überlänge, 30 prozent, throat-clearing, wiederholung, redundancy, qualifications, was nicht kürzen, voice bewahren, konzentration
+summary: The structural cutting pass — what to cut in order of cost, how much (aim 30%), and what to protect (voice, specifics, counter-arguments).
+---
+
 # Cutting Down — what to cut, how much, why
 
 First drafts are 30-50 % over-length almost always.

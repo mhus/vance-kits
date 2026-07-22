@@ -1,3 +1,8 @@
+---
+triggers: postmortem, retrospektive, blameless, schuldfrei, contributing factors, beitragende faktoren, timeline, zeitleiste, action items, massnahmen, root cause, lessons learned
+summary: How to write a blameless, factual postmortem — when, who, the section format, action-item discipline, and follow-through.
+---
+
 # Postmortem Format — blameless, factual, action-producing
 
 A postmortem is the artifact that turns an incident into

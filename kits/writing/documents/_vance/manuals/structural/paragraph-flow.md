@@ -1,3 +1,8 @@
+---
+triggers: absatzfluss, paragraph flow, übergang, transition, brückensatz, bridge sentence, jolt, ruckeln, continuation, reframe, cliffhanger, roter faden
+summary: Fixing paragraph-to-paragraph flow — the three good join patterns, the jolts that break flow, and the moves (bridge, cut, reorder, merge, split).
+---
+
 # Paragraph Flow — paragraphs that pull the reader forward
 
 The outline is right; the structure works. But reading the

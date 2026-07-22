@@ -1,3 +1,8 @@
+---
+triggers: recipe params, model alias, fallbackModels, manualPaths, maxIterations, temperature, sampling params, rag.autoInject, allowedToolsAdd, outputSchema, promptPrefix pebble, planMode
+summary: Reference for the recipe `params` map — cross-engine keys (model, manualPaths, validation, maxIterations, RAG), LLM sampling params with provider coverage, engine-specific highlights, tool/skill scope, and param anti-patterns.
+---
+
 # Params Reference — what goes into `params`
 
 The `params` map is where you tune the engine's behaviour

@@ -1,3 +1,8 @@
+---
+triggers: gebühren, fees, expense ratio, kostenquote, ausgabeaufschlag, fee drag, ter, advisory fee, indexfonds, index fund, zinseszins, compounding
+summary: Shows how small annual fees compound into large long-term losses, where fees hide (expense ratios, loads, AUM, wrap accounts, insurance) and how to measure and reduce them.
+---
+
 # Fee Drag Test — small fees compound enormously
 
 A 1% expense ratio sounds tiny. Over 30 years of

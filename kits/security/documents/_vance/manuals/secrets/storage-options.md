@@ -1,3 +1,8 @@
+---
+triggers: secret storage, geheimnis-speicherung, vault, secrets manager, kms, env vars, umgebungsvariablen, dotenv, os keychain, ci variables, sops git-crypt, decision flow speicherwahl
+summary: Choosing where a secret should live — comparing .env, runtime env vars, cloud secrets managers, Vault, KMS, OS keychain, encrypted files, and CI variables, with a decision flow.
+---
+
 # Storage Options — where a secret should live
 
 Pick storage based on three properties of the secret:

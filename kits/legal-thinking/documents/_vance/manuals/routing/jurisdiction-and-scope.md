@@ -1,3 +1,8 @@
+---
+triggers: jurisdiction, gerichtsbarkeit, zuständigkeit, choice of law, rechtswahl, where the law applies, bundesland state federal, cross-border, grenzüberschreitend, common law civil law, non-compete enforceability, tenant rights, gdpr ccpa, internet legal advice, statute of limitations
+summary: Why almost every legal answer depends on where you are — layers of jurisdiction, choice-of-law limits, jurisdiction-dependent examples (non-competes, tenant rights, privacy), cross-border traps, and the unreliability of unspecified online legal info.
+---
+
 # Jurisdiction and Scope — why "where" always matters
 
 Almost every legal answer depends on where you are.

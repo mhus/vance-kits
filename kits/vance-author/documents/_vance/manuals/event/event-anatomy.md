@@ -1,3 +1,8 @@
+---
+triggers: event yaml, event anatomy, workflow trigger, http endpoint, _vance/events, payload handling, response codes, methods, runAs, event-felder, cascade resolution, hactar spawn
+summary: The anatomy of an event document (`_vance/events/<name>.yaml`) that HTTP-triggers a Hactar workflow — top-level fields, payload handling, cascade resolution, and HTTP response codes.
+---
+
 # Event Anatomy
 
 An event is a YAML document under

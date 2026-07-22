@@ -1,3 +1,8 @@
+---
+triggers: mehrfaches lesen, multi-pass reading, three-pass, erster durchgang, skim for shape, selektives lesen, pass 1 pass 2 pass 3, reinforcement, welche abschnitte vertiefen, paper durchgänge
+summary: The multi-pass reading method — a shallow first pass to map the material, then selective deep passes only on what merits depth.
+---
+
 # Second Pass Techniques — multi-pass reading
 
 A common mistake: read everything once, slowly,

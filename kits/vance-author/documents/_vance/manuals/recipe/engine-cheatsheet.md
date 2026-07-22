@@ -1,3 +1,8 @@
+---
+triggers: engine auswählen, engine cheatsheet, arthur ford marvin vogon, eddie zaphod hactar, slartibartfast trillian, engine vs recipe, reactive chat, single-shot worker, task tree, parallel fan-out, welche engine, deterministische pipeline
+summary: How to pick the right Vance engine (arthur/ford/marvin/vogon/eddie/slartibartfast/trillian/hactar/zaphod) for a recipe, what each does, when it fits and when not, and the engine-vs-recipe-vs-process distinction.
+---
+
 # Engine Cheatsheet — pick first, configure second
 
 A recipe is bound to one engine. The engine determines the

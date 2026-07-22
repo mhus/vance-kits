@@ -1,3 +1,8 @@
+---
+triggers: security review, sicherheitslücke, injection, authentifizierung, autorisierung, kryptographie, secrets, deserialisierung, ssrf, path traversal, idor, schwachstellen
+summary: Vulnerability classes to check when a diff touches input, auth, crypto, secrets, deserialisation, files or network, and how to phrase a security finding.
+---
+
 # Security Categories — vulnerability classes during code review
 
 When the diff touches input parsing, authentication, authorisation,

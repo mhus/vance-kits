@@ -1,3 +1,8 @@
+---
+triggers: bias, voreingenommenheit, selection bias, confirmation bias, motivated reasoning, funding bias, ideological bias, survivorship bias, quellenverzerrung, interessenkonflikt
+summary: How to identify, name, and weight the biases in a source without discarding it, and when bias rises to disqualifying.
+---
+
 # Bias Detection — surface bias without disqualifying
 
 Every source has bias. Some biases distort more than others.

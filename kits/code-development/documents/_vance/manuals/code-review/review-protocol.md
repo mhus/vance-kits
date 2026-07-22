@@ -1,3 +1,8 @@
+---
+triggers: code review, review protokoll, behaviour, correctness, struktur, qualität, risiko, operability, severity, verdict, off-by-one, prüfpässe
+summary: The three-pass code-review protocol — behaviour/correctness, structure/quality, risk/operability — with severity ladders and a verdict line.
+---
+
 # Code-Review Protocol — three passes, separated
 
 The full protocol behind the skill's default. Walk each pass to

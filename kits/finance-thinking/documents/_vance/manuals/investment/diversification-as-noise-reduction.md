@@ -1,3 +1,8 @@
+---
+triggers: diversifikation, diversification, korrelation, correlation, streuung, idiosyncratic risk, klumpenrisiko, 60/40, asset allocation, index fund, konzentration, marktrisiko
+summary: Explains what diversification does (reduces idiosyncratic risk and variance) and does not do (eliminate market risk), with correlations, the 60/40 frame and concentration traps.
+---
+
 # Diversification as Noise Reduction — what it does and doesn't
 
 Diversification is widely advised, often misunderstood.

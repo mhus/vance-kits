@@ -1,3 +1,8 @@
+---
+triggers: aktives lesen, reading for retention, marginalia, recall pauses, notizen machen, zusammenfassung, question generation, behalten was man liest, pre-reading, spaced summary, active engagement
+summary: Active reading techniques — pre-reading, marginalia, recall pauses, summaries and post-read conversion — that interrupt passive reading to consolidate memory.
+---
+
 # Reading for Retention — active reading techniques
 
 Default reading is passive: eyes track text; mind

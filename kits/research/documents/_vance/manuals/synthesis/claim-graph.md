@@ -1,3 +1,8 @@
+---
+triggers: claim graph, atomare aussagen, atomic claims, claim extraction, contradiction, synthesis structure, aussagenextraktion, widerspruch, wissenslücke, gruppierung
+summary: Breaking sources into atomic claims and mapping agreement, contradiction, and gaps as the structural basis for synthesis.
+---
+
 # Claim Graph — atomic claims as the unit of synthesis
 
 A source is a bundle of claims. A synthesis based on

@@ -1,3 +1,8 @@
+---
+triggers: progressive summarisation, tiago forte, layered notes, bold highlight, distillation, zusammenfassung, schichten, destillation, note layers, kernaussage
+summary: Tiago Forte's four-layer note technique (capture, bold, highlight, summary) for distilling notes usable at any level of detail.
+---
+
 # Progressive Summarisation — layered distillation
 
 Progressive Summarisation (Tiago Forte) is a technique

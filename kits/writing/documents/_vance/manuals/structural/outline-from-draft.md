@@ -1,3 +1,8 @@
+---
+triggers: outline, reverse outlining, struktur extrahieren, does-line, was macht der absatz, buried thesis, vergrabene these, umstrukturieren, restructure, missing connective, reihenfolge, gliederung
+summary: Reverse-outlining a finished draft with one 'what it does' line per paragraph to surface buried thesis, redundancy, gaps, and wrong order.
+---
+
 # Outline from Draft — extracting the implicit structure
 
 The draft has structure already; it's just buried. The

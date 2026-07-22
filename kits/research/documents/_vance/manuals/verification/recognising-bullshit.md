@@ -1,3 +1,8 @@
+---
+triggers: bullshit, brandolini, falschbehauptung, misleading statistics, gish gallop, weasel words, causation correlation, irreführung, sagan baloney, manipulationsmuster
+summary: Recognisable patterns of truth-indifferent claims (clean stats, weasel words, gish gallop, false balance) and how to calibrate skepticism to them.
+---
+
 # Recognising Bullshit — patterns of false / misleading claims
 
 "Bullshit" here is technical: language that's

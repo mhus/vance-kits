@@ -1,3 +1,8 @@
+---
+triggers: umkehrbarkeit, reversibility, one-way door, two-way door, einbahnstraße, entscheidung, stakes, einsatz, stress-test, irreversibel, pseudo-reversible, entscheidungsrisiko
+summary: Frames money decisions by reversibility (one-way vs two-way doors, pseudo-reversible) and stakes, with a 2x2 grid mapping how much rigour each combination deserves.
+---
+
 # Reversibility and Stakes — one-way vs. two-way doors
 
 The first dimension of any money decision: is it reversible

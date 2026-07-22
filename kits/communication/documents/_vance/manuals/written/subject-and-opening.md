@@ -1,3 +1,8 @@
+---
+triggers: betreffzeile, subject line, email eröffnung, opening line, erster satz email, kein floskel-einstieg, throat-clearing weglassen, action prefix, betreff formulieren, slack einstieg, antwort betreff, aussagekräftiger betreff
+summary: How to write email subject lines and opening lines that get opened and triaged — naming the topic, signalling expected action, cutting throat-clearing openers, and coherence across subject and opening.
+---
+
 # Subject and Opening — first-impression real estate
 
 The subject line + the first line is what the reader

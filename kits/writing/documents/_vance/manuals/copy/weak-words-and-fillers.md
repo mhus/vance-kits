@@ -1,3 +1,8 @@
+---
+triggers: füllwörter, weak words, filler, hedge adverb, floskel, throat-clearing, redundante paare, intensifier, in order to, the fact that, streichen, cut words
+summary: A checklist of weak words, filler phrases, hedges, and redundant constructions to cut, with the exceptions where they earn their place.
+---
+
 # Weak Words and Fillers — specific cuts that improve
 
 A list of words and phrases that almost always weaken

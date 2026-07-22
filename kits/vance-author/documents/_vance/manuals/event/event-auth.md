@@ -1,3 +1,8 @@
+---
+triggers: event auth, bearer token, tokenSetting, auth.token, konstantzeit-vergleich, webhook signatur, replay-schutz, kein rate-limit, setting cascade, 503 misconfig, produktions-secret, token rotieren
+summary: Bearer-token authentication for events — inline `token:` vs. `tokenSetting:` cascade, request-time verification, what auth is not in v1 (no signatures/replay/rate-limit), and how to pick auth per event.
+---
+
 # Event Authentication
 
 An event is openly callable unless it carries an `auth:` block. Auth

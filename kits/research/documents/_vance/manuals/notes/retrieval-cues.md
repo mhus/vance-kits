@@ -1,3 +1,8 @@
+---
+triggers: retrieval cues, wiederauffindbarkeit, note titles, tags, keywords, findability, notizen finden, suchbegriffe, schlagworte, verlinkung
+summary: Designing titles, tags, keywords, and links at capture-time so notes stay findable months later.
+---
+
 # Retrieval Cues — making notes findable later
 
 A note you can't find isn't a note. The capture-retention

@@ -1,3 +1,8 @@
+---
+triggers: documentation discipline, dokumentation, records, beweise sichern, evidence, contemporaneous notes, gleichzeitige aufzeichnung, append-only, aufbewahrung, backup, discovery, beweiskraft, chronologie, streit dokumentieren, formal log, privilege
+summary: How to keep dispute records that hold up — start early, capture what was said/written/done contemporaneously, use append-only chronological logs, understand which evidence is strong vs. weak, and handle discovery/privilege risks.
+---
+
 # Documentation Discipline — records that hold up
 
 A dispute often unfolds over months. Your memory at

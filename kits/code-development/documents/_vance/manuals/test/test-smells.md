@@ -1,3 +1,8 @@
+---
+triggers: test smell, assertion roulette, mystery guest, eager test, conditional in test, implementation coupling, mock testet mock, flaky test, hidden randomness, time-dependent test, snapshot
+summary: A catalogue of test smells (assertion roulette, mystery guest, implementation coupling, testing the mock, flaky randomness/time, snapshot abuse) and their fixes.
+---
+
 # Test Smells — bad shapes to refactor away
 
 Tests can be wrong in ways production code can't. They can pass

@@ -1,3 +1,8 @@
+---
+triggers: secret leaked, secret geleakt, exposed credential, api key leak, rotation nach leak, blast radius, forensics, audit logs, git history rewrite, filter-repo, leaked private key, db credential leak
+summary: Response playbook when a secret is exposed — contain and rotate within the hour, investigate blast radius, clean up the leak, and add controls.
+---
+
 # Leakage Recovery — what to do when a secret is exposed
 
 A secret leaked. Maybe pushed to a public repo, maybe in a

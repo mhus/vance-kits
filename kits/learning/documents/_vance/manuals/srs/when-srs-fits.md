@@ -1,3 +1,8 @@
+---
+triggers: wann srs passt, srs eignung, vocabulary facts, wo spaced repetition scheitert, skills vs recall, tacit knowledge, konzeptverständnis, hybrid learning, srs-everything, richtige lernmethode, material fit
+summary: Deciding when spaced repetition is the right tool — great for vocabulary and discrete facts, a poor fit for skills, synthesis, deep reasoning and volatile material.
+---
+
 # When SRS Fits — and when it doesn't
 
 SRS is great for some material and a bad fit for

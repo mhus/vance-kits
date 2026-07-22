@@ -1,3 +1,8 @@
+---
+triggers: entscheidung treffen, decision framing, six-pass protocol, optionen abwägen, reversibility check, gut signal, bauchgefühl, kriterien bewerten, next step statt verdict, weighty decision, entscheidungsprozess
+summary: The full six-pass protocol for framing a weighty decision: restate, surface criteria, score honestly, check reversibility, name the gut signal, and recommend a next step.
+---
+
 # Decision-Framing — Full Protocol
 
 The full six-pass walk for weighty decisions. Adapt depth to the

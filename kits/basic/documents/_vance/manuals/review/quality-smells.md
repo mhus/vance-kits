@@ -1,3 +1,8 @@
+---
+triggers: code smell, quality review, parameter sprawl, copy-paste, leaky abstraction, premature abstraction, stringly-typed, derived state, unnecessary nesting, strukturprobleme, magic numbers, review qualität
+summary: The quality review pass: structural smells across code, prose, and plans (parameter sprawl, copy-paste, leaky/premature abstraction, stringly-typed, derived state, needless nesting) and when to flag versus leave them.
+---
+
 # Quality Smells — structural patterns to flag
 
 The second review pass. Reuse asks "is this fresh code that

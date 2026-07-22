@@ -1,3 +1,8 @@
+---
+triggers: gate_task, human-in-the-loop, inbox approval decision feedback, assignedTo, criticality, timeoutSeconds, catch.timeout, gate payload, storeAs, workflow.gate, benutzer-freigabe, gate pitfalls
+summary: The `gate_task` human-in-the-loop primitive — the inbox block, the three kinds (APPROVAL/DECISION/FEEDBACK), assignedTo fallback, criticality, timeouts, payload structure, and gate pitfalls.
+---
+
 # Gate Design
 
 A `gate_task` parks the workflow on an Inbox-Item until a user

@@ -1,3 +1,8 @@
+---
+triggers: stimme, voice, autorenstimme, voice vs register, satzrhythmus, wortwahl, interpunktion, eigenstil, voice bewahren, voice flattening, mannered voice, eigene stimme finden
+summary: Distinguishing a writer's voice from register and preserving it through editing, plus when voice itself is the problem and how to refine it.
+---
+
 # Voice Consistency — distinguishing voice from register
 
 Register is "how formal". Voice is "who's writing". A

@@ -1,3 +1,8 @@
+---
+triggers: red flag clauses, problematische klauseln, indemnification, freistellung, non-compete, wettbewerbsverbot, mandatory arbitration, schiedsklausel, class action waiver, haftungsbeschränkung, liability cap, ip assignment, automatische verlängerung, auto-renewal, gerichtsstand, forum selection
+summary: Specific high-impact contract clause patterns (indemnification, non-compete, arbitration, class waivers, liability caps, IP assignment, auto-renewal, forum selection) to spot and flag for attorney review.
+---
+
 # Red-Flag Clauses — patterns that warrant scrutiny
 
 Specific clause patterns that warrant careful attention

@@ -1,3 +1,8 @@
+---
+triggers: stride, bedrohungsmodellierung, threat modeling, spoofing tampering repudiation, information disclosure denial of service, elevation of privilege, stride per element, element-typen, linddun pasta attack tree, mitigations, threat matrix
+summary: The STRIDE threat-modeling mnemonic — the six categories, which apply per DFD element type, how to walk them, and when to switch to LINDDUN/PASTA/attack trees.
+---
+
 # STRIDE — six categories you walk per element
 
 STRIDE is a mnemonic for systematically considering threat types.

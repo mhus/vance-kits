@@ -1,3 +1,8 @@
+---
+triggers: denkfehler, common confusions, correlation vs causation, necessary vs sufficient, notation vs concept, spec vs implementation, reference vs copy, begriffsverwechslung, rubber duck patterns, static vs dynamic, verwechslung aufdecken
+summary: A checklist of recurring confusion patterns (conceptual, terminological, state/time, identity) for a rubber-duck listener to spot and gently surface in a user's explanation.
+---
+
 # Common Confusions — patterns the duck should listen for
 
 A checklist of recurring confusion patterns. If you spot one in

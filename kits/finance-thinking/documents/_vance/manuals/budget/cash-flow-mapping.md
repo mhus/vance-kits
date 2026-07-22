@@ -1,3 +1,8 @@
+---
+triggers: cashflow, cash flow mapping, geldfluss, kontoauszug, bank statement, regelmäßige einnahmen, inflows, outflows, unregelmäßige ausgaben, irregular expenses, versteckte kosten, budget erstellen
+summary: A method for mapping the real money picture before budgeting — the four flows (regular in/out, irregular, hidden), how to pull statements, spot patterns and detect deficit, crunch or surplus.
+---
+
 # Cash-Flow Mapping — getting the actual picture
 
 Before designing a budget, get the real picture. Most "I need

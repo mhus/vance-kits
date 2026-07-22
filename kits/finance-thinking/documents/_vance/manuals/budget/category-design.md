@@ -1,3 +1,8 @@
+---
+triggers: budgetkategorien, budget categories, 50/30/20, kategorien, needs vs wants, gemeinsame finanzen, joint finances, drei-konten-modell, three-account, abos, subscriptions, kategorien anpassen
+summary: Guides designing budget categories that fit your life — how many, which dimensions to distinguish, joint-finance structures, and category anti-patterns like templates and vanity buckets.
+---
+
 # Category Design — categories that fit your life
 
 A budget's categories are its skeleton. Wrong categories

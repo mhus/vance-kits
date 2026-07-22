@@ -1,3 +1,8 @@
+---
+triggers: effizienz, efficiency review, wasteful patterns, doppelte arbeit, sequential vs parallel, hot-path bloat, n+1 queries, unbounded accumulation, toctou, no-op updates, überflüssige arbeit, premature optimisation
+summary: The efficiency review pass: cross-cutting and code/plan-specific wasteful patterns (repeated work, needless sequencing, hot-path bloat, over-loading, unbounded growth) and how to phrase or withhold an efficiency finding.
+---
+
 # Efficiency Traps — wasteful patterns review usually misses
 
 The third review pass. Reuse / Quality both ask "is this the

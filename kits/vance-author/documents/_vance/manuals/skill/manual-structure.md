@@ -1,3 +1,8 @@
+---
+triggers: manual schreiben, manual structure, output line convention, manual länge, cross-linking manuals, manuals/shared, manual anti-patterns, manual_read, standalone manual, manual vs skill body, manual tone, depth calibration
+summary: How to write manuals the LLM will actually use — what makes a manual useful, length targets, recommended section structure, the output-line convention, cross-linking, tone, and manual anti-patterns.
+---
+
 # Manual Structure — write manuals the model will actually use
 
 A manual is a Markdown file under `manuals/<topic>/<name>.md`,

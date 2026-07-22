@@ -1,3 +1,8 @@
+---
+triggers: bluf, bottom line up front, kernaussage zuerst, kernbotschaft nach vorne, lead nicht vergraben, burying the lead, entscheidungsvorlage, decision memo, executive summary, fazit zuerst, klar strukturierte email, why-then-what
+summary: The Bottom Line Up Front structure for professional writing — lead with the conclusion, decision, or ask before the reasoning; when it works, when to soften it, and how to structure what follows.
+---
+
 # BLUF — Bottom Line Up Front
 
 A military-derived structure that's become standard in

@@ -1,3 +1,8 @@
+---
+triggers: triangulation, unabhängige quellen, corroboration, independence, pseudo-triangulation, echo chamber, cross-method, mehrfachbelege, bestätigung, quellenunabhängigkeit
+summary: Strengthening a claim through genuinely independent sources and detecting pseudo-triangulation where apparent agreement traces to one origin.
+---
+
 # Triangulation — multiple independent sources for the same claim
 
 A claim supported by one source is a single-source claim.

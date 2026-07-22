@@ -1,3 +1,8 @@
+---
+triggers: interleaving, verschachteltes üben, blocking, blocked practice, themen mischen, gemischtes üben, discrimination practice, spacing vs interleaving, üben abwechseln, retention transfer, mixed deck
+summary: Why interleaving (mixing topics within a session) beats blocked practice for long-term retention and transfer, and when blocking still fits.
+---
+
 # Interleaving vs. Blocking — mixing topics in practice
 
 Two patterns:

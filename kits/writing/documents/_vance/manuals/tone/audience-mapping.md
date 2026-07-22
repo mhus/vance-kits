@@ -1,3 +1,8 @@
+---
+triggers: zielgruppe, audience, leserschaft, publikum, sharp definition, wissenstand, disposition, lesekontext, reading context, stakes, mismatch, register calibration
+summary: Getting the audience sharp enough that register decisions follow — knowledge, disposition, context, relationship, and stakes axes plus common mismatch patterns.
+---
+
 # Audience Mapping — knowing who the piece is for
 
 Before you can tune tone, you have to know who's reading.

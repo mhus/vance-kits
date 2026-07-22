@@ -1,3 +1,8 @@
+---
+triggers: structural pass, vertrag überblick, contract structure, erste durchsicht, first read, parteien, parties, laufzeit, term and termination, kündigung, zahlung, payment consideration, boilerplate, vertragsarten, lease employment nda, schedules exhibits
+summary: The structural orientation pass for reading any contract first — identify parties, term, exchange, obligations, termination, breach consequences, and jurisdiction before scrutinising individual clauses.
+---
+
 # Structural Pass — first read for shape
 
 Before scrutinising clauses, get the contract's overall

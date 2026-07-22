@@ -1,3 +1,8 @@
+---
+triggers: java, typescript, python, rust, go, sql, shell, idiome, konventionen, code style, sprachspezifisch, linting
+summary: Idiomatic per-language conventions (Java, TypeScript, Python, Rust, Go, SQL, shell) to check during code review, plus when not to raise a convention finding.
+---
+
 # Language Conventions — idiomatic checks per language
 
 Common-sense conventions for languages that show up often. Not

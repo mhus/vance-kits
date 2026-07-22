@@ -1,3 +1,8 @@
+---
+triggers: privacy policy, datenschutzerklärung, data rights checklist, datenrechte, data collection, datenerfassung, gdpr ccpa, retention, aufbewahrungsdauer, deletion right, löschrecht, data sharing third parties, weitergabe, ai model training, cookies tracking, biometric data, international data transfer
+summary: A checklist for reading a privacy policy — collection scope, use/purpose (incl. AI training and data sale), third-party sharing, retention, your access/deletion/portability rights, cookies, and high-attention scenarios (health, children, financial, AI).
+---
+
 # Data Rights Checklist — what to look for in privacy policies
 
 A privacy policy describes:

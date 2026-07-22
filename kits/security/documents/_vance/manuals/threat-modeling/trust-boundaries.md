@@ -1,3 +1,8 @@
+---
+triggers: trust boundary, vertrauensgrenze, privilege delta, zero-trust, tenant isolation, mandantentrennung, browser server boundary, service to service, boundary controls, forgotten boundaries, supply chain boundary, boundary anti-patterns
+summary: Identifying meaningful trust boundaries in a DFD — what counts as one, common boundaries in modern systems, mapping each to an enforcing control, and boundary anti-patterns.
+---
+
 # Trust Boundaries — where threats live
 
 A trust boundary is a line on your DFD where the privilege

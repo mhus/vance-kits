@@ -1,3 +1,8 @@
+---
+triggers: commit message, betreffzeile, subject line, commit body, imperativ, conventional commits, trailer, semver prefix, nachricht schreiben, fixes issue
+summary: How to write commit subjects and bodies — imperative mood, length limits, when a body is needed, Conventional Commits prefixes and trailers.
+---
+
 # Message Conventions — subjects and bodies that read well later
 
 A commit message is a letter to your future self (and the next

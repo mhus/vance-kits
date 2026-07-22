@@ -1,3 +1,8 @@
+---
+triggers: citation chasing, zitatverfolgung, primärquelle finden, telephone game, source chain, misattribution, quellenkette, ursprungsquelle, reverse search, statistic tracing
+summary: Walking a claim backwards through its citation chain to the primary source and comparing the original against the surface claim.
+---
+
 # Citation Chasing — follow the claim back to its origin
 
 Most viral claims aren't grounded where they appear; they

@@ -1,3 +1,8 @@
+---
+triggers: abwehrreaktion erkennen, defensiveness, rechtfertigung, rationalisation, gegenangriff, counter-attack, quelle abwerten, vorschnelle zustimmung, katastrophisieren, catastrophising, feedback annehmen ohne verteidigung, defensive fühlen, innere abwehr
+summary: How to recognise your own defences (rationalisation, source-attack, withdrawal, counter-attack, catastrophising, etc.) as they fire when receiving feedback, and how to decide whether to deploy or defer them.
+---
+
 # Defensive Detection — recognising your own defences
 
 Defences are automatic. They fire faster than thought.

@@ -1,3 +1,8 @@
+---
+triggers: webhook patterns, github pr webhook, stripe webhook, curl trigger, iot sensor push, externer cron, offener endpoint, X-Hub-Signature, signature verifier, event beispiele, methods POST, kit-export token
+summary: Concrete recipes for wiring external sources (GitHub, Stripe, curl, IoT, external cron, open endpoint) to Vance events, with the matching workflow shape, auth choice, and source-specific caveats.
+---
+
 # Event Webhook Patterns
 
 Concrete recipes for connecting common external sources to Vance via

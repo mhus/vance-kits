@@ -1,3 +1,8 @@
+---
+triggers: emotionale temperatur, deeskalation, de-escalation, cooling moves, pause einlegen, gespräch abkühlen, running hot, flooding, überreizt, abbruch statt weiterreden, break einlegen, gefühle im gespräch
+summary: How to monitor and manage the emotional temperature of a difficult conversation — recognising when you or the other person are running too hot, cooling moves, and when to call a break.
+---
+
 # Emotional Thermometer — keeping the conversation in productive range
 
 A difficult conversation runs at an emotional

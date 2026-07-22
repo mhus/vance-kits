@@ -1,3 +1,8 @@
+---
+triggers: trigger design, KEYWORDS trigger, PATTERN trigger, 50% schwelle, auto-aktivierung, over-activation, under-activation, mehrsprachige trigger, defaultActiveSkills, /skill manuell, trigger testen, regex trigger
+summary: Designing skill triggers that fire when relevant — the KEYWORDS (50% threshold) and PATTERN types, the imagine-phrasings design process, multi-language triggers, testing, and over/under-activation mistakes.
+---
+
 # Trigger Design — fire when relevant, sleep otherwise
 
 Triggers are how a skill activates without the user explicitly

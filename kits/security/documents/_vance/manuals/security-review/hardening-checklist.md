@@ -1,3 +1,8 @@
+---
+triggers: hardening, härtung, defense-in-depth, checkliste, network service application data identity layer, tls hsts, egress filtering, least privilege, csp cookies csrf, secrets in vault, per-language hardening, supply chain
+summary: Layer-by-layer hardening checklist (network, service, application, data, identity, operational, build) plus per-language notes and how to sample-walk it.
+---
+
 # Hardening Checklist — defense-in-depth across layers
 
 Hardening is what makes a single mistake survivable. A bug bypasses

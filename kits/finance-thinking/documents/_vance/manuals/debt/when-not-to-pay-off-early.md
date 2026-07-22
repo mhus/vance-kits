@@ -1,3 +1,8 @@
+---
+triggers: schulden tilgen, pay off debt, vorzeitige tilgung, early payoff, notgroschen, emergency fund, arbeitgeberzuschuss, employer match, niedrigzins hypothek, low-rate mortgage, tilgen oder investieren, opportunity cost
+summary: Covers the cases where carrying debt longer beats early payoff — emergency fund, employer match, low-rate mortgages, near-forgiveness loans, 0% promos — with counter-cases and worked examples.
+---
+
 # When NOT to Pay Off Debt Early
 
 The default cultural advice: get out of debt fast. But

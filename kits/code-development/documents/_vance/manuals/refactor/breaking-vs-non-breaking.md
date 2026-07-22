@@ -1,3 +1,8 @@
+---
+triggers: breaking change, api änderung, signatur, schema migration, deprecate migrate remove, abwärtskompatibel, wire format, spalte hinzufügen, additive change, three-step migration
+summary: Deciding whether an API, schema or wire-format change is breaking and the deprecate to migrate to remove staging (with database column patterns) when it is.
+---
+
 # Breaking vs. Non-breaking — refactors that touch an API
 
 Refactor inside a function: nobody else cares. Refactor that

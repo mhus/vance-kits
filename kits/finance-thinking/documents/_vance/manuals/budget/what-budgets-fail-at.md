@@ -1,3 +1,8 @@
+---
+triggers: budget scheitert, budget failure, unregelmäßige ausgaben, irregular expenses, lifestyle creep, sinking fund, rücklagen, abo-wucher, subscription bloat, schwankendes einkommen, irregular income, steuerüberraschung
+summary: Lists the failure modes a basic monthly budget misses — irregular expenses, lifestyle creep, irregular income, small purchases, subscription bloat, tax surprises — and the counter for each.
+---
+
 # What Budgets Fail At — common gaps
 
 A budget that captures regular monthly bills and groceries

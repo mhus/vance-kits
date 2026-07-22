@@ -1,3 +1,8 @@
+---
+triggers: scope verkleinern, narrow scope, bite too big, five-minute test, vertical slice, happy path, time-boxing, kleinster schritt, festgefahren zu groß, slice schneiden, throwaway bauen, umfang reduzieren
+summary: How to get unstuck when the task is too big: the five-minute test, slicing techniques (vertical, worst-case, happy-path, fake-the-hard-part, strip a feature), and time-boxing the slice.
+---
+
 # Narrow scope — when the bite is too big
 
 Stuck because what's on the plate is too much. Symptoms:

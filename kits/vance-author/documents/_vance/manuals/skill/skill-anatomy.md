@@ -1,3 +1,8 @@
+---
+triggers: SKILL.md, skill frontmatter, skill body, manualPaths, triggers, referenceDocs, loadMode inline on_demand, pebble skill body, defaultActiveSkills, kit inherits, skill struktur, skill anti-patterns
+summary: The shape of a SKILL.md — folder identity, frontmatter fields (title/description/version/triggers/tools/manualPaths/referenceDocs), the Pebble-templated body structure, cross-skill design, and skill anti-patterns.
+---
+
 # Skill Anatomy — the shape of a SKILL.md
 
 A skill is a Markdown file with YAML frontmatter, plus its

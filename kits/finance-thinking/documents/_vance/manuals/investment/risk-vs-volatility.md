@@ -1,3 +1,8 @@
+---
+triggers: risiko, volatilität, volatility, risk tolerance, risikotoleranz, drawdown, marktrisiko, market risk, sequence-of-returns, liquiditätsrisiko, permanent loss, zeithorizont
+summary: Distinguishes measurable volatility from the risk of permanent loss, and breaks down market, concentration, inflation, liquidity, sequence and behavioural risk types.
+---
+
 # Risk vs. Volatility — different concepts
 
 Common usage conflates the two. They're related but

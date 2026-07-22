@@ -1,3 +1,8 @@
+---
+triggers: workflow anatomy, hactar workflow yaml, start states, parameters, bounds, allowedTools, cascade resolution, frozen snapshot, loader validation, YAML 1.2 booleans, _vance/workflows, definitionYaml
+summary: The anatomy of a Hactar workflow document — top-level fields, states, parameters, bounds, allowedTools cascade, cascade resolution, frozen-snapshot semantics, loader validation rules, and the YAML 1.2 boolean quirk.
+---
+
 # Workflow Anatomy
 
 A Hactar workflow is a YAML document under

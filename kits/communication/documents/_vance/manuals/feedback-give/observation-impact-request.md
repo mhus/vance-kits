@@ -1,3 +1,8 @@
+---
+triggers: oir frame, sbi modell, situation behaviour impact, beobachtung wirkung bitte, feedback struktur, feedback formulieren, konkretes feedback, sandwich vermeiden, ich-botschaft, feedback beispiele, request formulieren, feedback ohne interpretation
+summary: The Observation-Impact-Request (a.k.a. SBI) structure for feedback — how to state what you saw, the effect it had, and an optional request, with worked examples and formats by medium.
+---
+
 # Observation, Impact, Request — the OIR frame
 
 The most reliable structure for feedback. Three parts;

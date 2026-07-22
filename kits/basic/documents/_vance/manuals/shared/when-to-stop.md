@@ -1,3 +1,8 @@
+---
+triggers: wann aufhören, when to stop, close the pass, kein verdict erzwingen, halt vs close, insufficient information, forcing function, denk-durchgang beenden, manufactured certainty, false precision, abschlusssignale
+summary: Skill-agnostic guidance on when a structured-thinking pass is done, when to keep going, and when to halt without a verdict rather than manufacturing false certainty.
+---
+
 # When to Stop — closing a thinking pass without forcing a verdict
 
 Skill-agnostic guidance. The temptation in any structured-thinking
