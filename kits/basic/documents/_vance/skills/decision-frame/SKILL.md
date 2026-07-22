@@ -22,8 +22,8 @@ triggers:
   - type: PATTERN
     pattern: "(?i)\\b(was|which|welche[ns]?)\\b.*\\b(better|besser|sinnvoll|sinnvoller)\\b"
 manualPaths:
-  - manuals/decision
-  - manuals/shared
+  - _vance/manuals/decision
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

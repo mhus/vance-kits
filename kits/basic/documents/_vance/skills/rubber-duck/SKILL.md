@@ -20,8 +20,8 @@ triggers:
       - sounding board
       - klangbrett
 manualPaths:
-  - manuals/rubber-duck
-  - manuals/shared
+  - _vance/manuals/rubber-duck
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

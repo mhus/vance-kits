@@ -20,8 +20,8 @@ triggers:
       - look over
       - schau drüber
 manualPaths:
-  - manuals/review
-  - manuals/shared
+  - _vance/manuals/review
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read

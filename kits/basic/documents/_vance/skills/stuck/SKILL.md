@@ -20,8 +20,8 @@ triggers:
       - keine ahnung
       - weiß nicht weiter
 manualPaths:
-  - manuals/stuck
-  - manuals/shared
+  - _vance/manuals/stuck
+  - _vance/manuals/shared
 tools:
   - manual_list
   - manual_read
