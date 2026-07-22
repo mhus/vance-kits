@@ -256,7 +256,7 @@ params:
       result: { type: string }
     required: [result]
   postActions:
-    - kind: doc_create_text
+    - kind: doc_create
       pathTemplate: "outputs/${slug}.md"
       contentSource: result
 ```
@@ -300,7 +300,7 @@ loops:
       requiresAny: [score >= 0.8, iterations >= 3]
 postActions:
   - phase: outline
-    kind: doc_create_text
+    kind: doc_create
     ...
 ```
 
@@ -327,8 +327,8 @@ allowedToolsRemove:
   tool labels (`@read-only`, `@write`, `@executive`,
   `@side-effect`).
 - **Add then remove**: removed wins. So
-  `allowedToolsAdd: [doc_create_text]` +
-  `allowedToolsRemove: [@write]` removes `doc_create_text`
+  `allowedToolsAdd: [doc_create]` +
+  `allowedToolsRemove: [@write]` removes `doc_create`
   if it's labelled `@write`.
 
 Plus profile-specific overlays:
@@ -438,7 +438,7 @@ session (rare).
 ### `allowedToolsRemove: [@side-effect]` then add specific
 write tools back
 
-`@side-effect` ⊃ `doc_create_text`. The remove wins. Either
+`@side-effect` ⊃ `doc_create`. The remove wins. Either
 remove specific tools instead of the bundle, or accept the
 bundle removal.
 

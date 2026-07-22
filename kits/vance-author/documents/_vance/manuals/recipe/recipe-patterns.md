@@ -108,14 +108,14 @@ promptPrefix: |
         "title":  "..."
       }
 
-  No doc_create_text calls. No persistence. Output only.
+  No doc_create calls. No persistence. Output only.
 ```
 
 **When to deviate:**
 
 - Worker needs side effects (file writes): set
   `params.postActions:` instead of letting the worker call
-  `doc_create_text`. Engine-driven side effects are
+  `doc_create`. Engine-driven side effects are
   reliable; worker-driven aren't.
 - Reply doesn't need structure: drop `outputSchema`, set
   `validation: false`, accept free-text. Rare.
@@ -151,7 +151,7 @@ loops:
         - { iterations: gte: 3 }
 postActions:
   - phase: writer
-    kind: doc_create_text
+    kind: doc_create
     pathTemplate: "outputs/${name}.md"
     contentSource: writer.outputs.text
 ```
@@ -226,7 +226,7 @@ params:
         items: { type: object, ... }
     required: [sections]
 postActions:
-  - kind: doc_create_text
+  - kind: doc_create
     perItem: sections
     pathTemplate: "outputs/${item.slug}.md"
     contentSource: item.content
@@ -240,7 +240,7 @@ promptPrefix: |
 
 The `postActions` block iterates over `sections` and creates
 one document per item. The worker never touches
-`doc_create_text` directly.
+`doc_create` directly.
 
 ## Pattern: read-only investigator
 

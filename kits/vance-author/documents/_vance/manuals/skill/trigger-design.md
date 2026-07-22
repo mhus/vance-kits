@@ -226,7 +226,7 @@ is for ambient behaviour.
 ### Skill that should only activate manually
 
 Leave `triggers` empty. Skill activates only via
-`/skill <name>` or `process.skill_activate(...)`.
+`/skill <name>` (there is no script-side activation API).
 
 ```yaml
 triggers: []   # or omit the field entirely

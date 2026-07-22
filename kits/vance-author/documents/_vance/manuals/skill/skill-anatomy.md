@@ -265,7 +265,7 @@ adds prompt overhead. Tighten triggers.
 
 ### `tools:` adding the kitchen sink
 
-`tools: [doc_create_text, web_fetch, process_create, ...]`
+`tools: [doc_create, web_fetch, process_create, ...]`
 — the skill is additive; if it always needs all these,
 they probably belong in the recipe, not the skill.
 
