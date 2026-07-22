@@ -19,7 +19,7 @@ tools:
   # Without this whitelist the active worker's effectiveAllowedTools
   # would filter the calls out before they reach the dispatcher.
   - process_run
-  - doc_write_text
+  - doc_create
 scripts:
   - name: write
     target: BRAIN
@@ -76,7 +76,7 @@ it can stay consistent.
 
 ## Rules
 
-- Never call `doc_write_text` yourself — the script owns persistence.
+- Never call `doc_create` yourself — the script owns persistence.
 - Never write the chapter bodies yourself in your reply — that's the
   job of the sub-workers spawned by the script. Your reply is just
   the marker.

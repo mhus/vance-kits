@@ -7,7 +7,7 @@
  * @description Pro/Contra essay chapter-loop orchestrator
  * @version     1.0.0
  * @timeout     30m
- * @requiresTools process_run, doc_write_text
+ * @requiresTools process_run, doc_create
  */
 // Orchestrator script. Receives:
 //   { topic, styleNotes, sources, pros, contras }
@@ -17,7 +17,8 @@
 // <phases>-block pattern — every step sees what already exists).
 //
 // Persists every chapter and the assembled final-essay via
-// doc_write_text. Returns a marker that the E2E test pins on.
+// doc_create (upsert: create-or-overwrite by path). Returns a
+// marker that the E2E test pins on.
 
 (function () {
     var CHAPTER_ORDER = ['einleitung', 'pro', 'contra', 'vergleich', 'fazit'];
@@ -40,8 +41,8 @@
     // sub-worker that calls doc_read on essay/sources.md gets a
     // populated file.
     var rqContent = '# Forschungsfrage\n\n' + topic + '\n';
-    vance.tools.call('doc_write_text', {
-        path: 'essay/research-question.md', content: rqContent
+    vance.tools.call('doc_create', {
+        path: 'essay/research-question.md', kind: 'text', content: rqContent
     });
 
     var sourcesLines = ['# Quellen\n'];
@@ -54,8 +55,8 @@
                 : '- ' + title);
     }
     var sourcesContent = sourcesLines.join('\n') + '\n';
-    vance.tools.call('doc_write_text', {
-        path: 'essay/sources.md', content: sourcesContent
+    vance.tools.call('doc_create', {
+        path: 'essay/sources.md', kind: 'text', content: sourcesContent
     });
 
     // ─── 2. Chapter-loop. Each iteration spawns a fresh Ford
@@ -158,8 +159,8 @@
         // worker (or a manual inspector) can read it via doc_read.
         var nn = (c < 9 ? '0' : '') + (c + 1);
         var chapterPath = 'essay/chapters/' + nn + '-' + chapter + '.md';
-        vance.tools.call('doc_write_text', {
-            path: chapterPath, content: reply + '\n'
+        vance.tools.call('doc_create', {
+            path: chapterPath, kind: 'text', content: reply + '\n'
         });
         filesWritten.push(chapterPath);
         totalChars += reply.length;
@@ -172,8 +173,8 @@
         finalParts.push(chapters[CHAPTER_ORDER[f]].trim());
     }
     var finalContent = finalParts.join('\n\n---\n\n') + '\n';
-    vance.tools.call('doc_write_text', {
-        path: 'essay/final-essay.md', content: finalContent
+    vance.tools.call('doc_create', {
+        path: 'essay/final-essay.md', kind: 'text', content: finalContent
     });
     totalChars += finalContent.length;
 
