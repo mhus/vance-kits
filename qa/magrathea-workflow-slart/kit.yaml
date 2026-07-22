@@ -1,0 +1,19 @@
+name: magrathea-workflow-slart
+description: |
+  Slartibartfast-Test-Kit for the Magrathea-architect path. Contains
+  only manuals — no recipes, no workflows — because Slartibartfast
+  generates the Magrathea workflow (a state-machine document under
+  _vance/workflows/) at runtime from the review-publish/PROCESS.md and
+  review-publish/CRITERIA.md evidence.
+
+  The manuals are deliberately domain-oriented (what our article
+  review-and-publish process looks like, when a draft is publishable),
+  NOT structure-oriented. The workflow *shape* knowledge (task types,
+  transitions, gates, retries) is engine-bundled self-knowledge
+  (manuals/slartibartfast/magrathea-architect/SHAPE.md). Slartibartfast
+  must read the domain manuals, derive acceptance criteria and
+  subgoals, and shape a workflow with an agent draft step, a human
+  approval gate, a revise-loop with a bound, and a terminal — that the
+  Magrathea subsystem can later run via workflow_start.
+version: "1.0"
+hasEncryptedSecrets: false
