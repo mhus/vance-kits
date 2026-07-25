@@ -40,7 +40,7 @@ modes:
   NORMAL:
     allowedToolsDefer:             # listed but hidden from LLM
       - doc_read
-      - process_create
+      - process_spawn
       - ...
   EXPLORING:
     allowedToolsRemove:
@@ -70,7 +70,7 @@ promptPrefix: |
 
 A worker that takes input, does one thing, returns
 structured output. The orchestrator (arthur or marvin) spawns
-it via `process_create`. Prefer the **explicit-recipe path**
+it via `process_spawn`. Prefer the **explicit-recipe path**
 (`recipe: "my-worker"`); the selector-routed mode (no `recipe`
 param) is now trigger-gated and falls back to the tenant
 fallback recipe (default `hactar`) when no trigger fires —

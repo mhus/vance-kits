@@ -3,7 +3,7 @@ description: |
   Third variant of the school-essay kit. Like school-essay-script-kit
   the orchestration sits in a JavaScript skill-script — but unlike
   v1 the drafting of each chapter is delegated to its own Ford
-  sub-worker via process_run. Each sub-worker is fed:
+  sub-worker via process_spawn. Each sub-worker is fed:
 
     - the topic + sources (shared context),
     - the user-stated style constraints,

@@ -6,7 +6,7 @@ description: |
    2. EXPAND_FROM_DOC node — pro Item in outline.md ein chapter_loop
    3. WORKER aggregator    — doc_concat + inbox_post
 
-  Aufruf: process_create(engine="marvin", recipe="essay-pipeline").
+  Aufruf: process_spawn(engine="marvin", recipe="essay-pipeline").
 engine: marvin
 params:
   rootTaskKind: PLAN

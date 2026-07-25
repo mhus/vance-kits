@@ -21,7 +21,7 @@ authoritative.
   delegates chaotically.
 - **What it does:** main session-chat orchestrator. Talks to
   the user, delegates real work to worker-recipes via
-  `process_create`. The recommended path is to **name the
+  `process_spawn`. The recommended path is to **name the
   recipe explicitly** (`recipe: "analyze"` or similar) — the
   selector-routed mode without a recipe param now only fires
   on trigger keywords (engine name / recipe name / declared
@@ -143,7 +143,7 @@ authoritative.
   the accepted script as a fenced code block.
 - **Pick when:** the user goal is open-ended and benefits
   from an automation script; also the default value of
-  `routing.fallback.recipe` (used when `process_create` is
+  `routing.fallback.recipe` (used when `process_spawn` is
   called in selector-routed mode and no trigger fires).
 - **Won't fit when:** the user wants a written reply (use
   ford / arthur); the work is conversational; the goal

@@ -7,11 +7,11 @@
  * @description Pro/Contra essay chapter-loop orchestrator
  * @version     1.0.0
  * @timeout     30m
- * @requiresTools process_run, doc_create
+ * @requiresTools process_spawn, doc_create
  */
 // Orchestrator script. Receives:
 //   { topic, styleNotes, sources, pros, contras }
-// Spawns one Ford sub-worker per chapter via process_run, each one
+// Spawns one Ford sub-worker per chapter via process_spawn, each one
 // fed the topic + sources + pros/contras + styleNotes + a recap of
 // all previously-drafted chapters (mirrors the Slart/Vogon
 // <phases>-block pattern — every step sees what already exists).
@@ -60,13 +60,13 @@
     });
 
     // ─── 2. Chapter-loop. Each iteration spawns a fresh Ford
-    // sub-worker via process_run. The worker's steerContent is
+    // sub-worker via process_spawn. The worker's steerContent is
     // built so it sees:
     //   - topic + style requirements
     //   - all sources (verbatim list)
     //   - all pro/contra bullets
     //   - a recap of every previously-drafted chapter
-    // process_run blocks until the worker's turn finishes; the
+    // process_spawn blocks until the worker's turn finishes; the
     // ASSISTANT reply comes back in result.reply.
 
     var chapters = {};            // {einleitung: "...", pro: "...", ...}
@@ -133,11 +133,11 @@
         vance.log.info('school-essay-script-loop: spawning chapter worker',
                 { chapter: chapter, sequence: (c + 1) + '/5' });
 
-        var result = vance.tools.call('process_run', {
+        var result = vance.tools.call('process_spawn', {
             name: 'chapter-' + chapter,
-            goal: 'Schreibe Kapitel ' + chapter + ' zum Thema "' + topic + '"',
+            task: steerForChapter(chapter),
             recipe: 'ford',
-            steerContent: steerForChapter(chapter),
+            wait: true,
             timeoutSeconds: 180
         });
 

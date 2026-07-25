@@ -211,11 +211,11 @@ the failure modes the protocol doesn't.]
   `manual_read('protocol')` and fail.
 - **Imperatives that conflict with the engine** — telling
   the engine to spawn via a code path it doesn't use. The
-  selector-routed `process_create` (no recipe param) is now
+  selector-routed `process_spawn` (no recipe param) is now
   trigger-gated and falls back to the tenant default
   recipe; skills for an arthur-engine that wants a specific
   worker should say so explicitly via
-  `process_create(recipe='X')` instead of expecting magical
+  `process_spawn(recipe='X')` instead of expecting magical
   routing. Fit the engine's conventions.
 
 ## Cross-skill design
@@ -265,7 +265,7 @@ adds prompt overhead. Tighten triggers.
 
 ### `tools:` adding the kitchen sink
 
-`tools: [doc_create, web_fetch, process_create, ...]`
+`tools: [doc_create, web_fetch, process_spawn, ...]`
 — the skill is additive; if it always needs all these,
 they probably belong in the recipe, not the skill.
 

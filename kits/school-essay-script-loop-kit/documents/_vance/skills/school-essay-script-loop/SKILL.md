@@ -18,7 +18,7 @@ tools:
   # The orchestrator script reaches for these via vance.tools.call(...).
   # Without this whitelist the active worker's effectiveAllowedTools
   # would filter the calls out before they reach the dispatcher.
-  - process_run
+  - process_spawn
   - doc_create
 scripts:
   - name: write
@@ -64,7 +64,7 @@ it can stay consistent.
    ```
 
    The script then spawns one Ford sub-worker per chapter
-   (Einleitung, Pro, Contra, Vergleich, Fazit) via `process_run`.
+   (Einleitung, Pro, Contra, Vergleich, Fazit) via `process_spawn`.
    Each sub-worker receives the topic, sources, pros/contras,
    styleNotes, **and** a short recap of all previously-drafted
    chapters so it can stay consistent.
