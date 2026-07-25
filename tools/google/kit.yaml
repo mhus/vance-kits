@@ -12,7 +12,7 @@ description: |
 
   After apply:
 
-    documents/oauth/google.yaml                — provider with the
+    documents/_vance/oauth/google.yaml                — provider with the
                                                   chosen user-scopes
     documents/server-tools/gmail_rest.yaml     — requires: mail
     documents/server-tools/calendar_rest.yaml  — requires: calendar

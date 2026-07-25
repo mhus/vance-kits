@@ -1,6 +1,6 @@
 # Slack Web API pack — works with the user's OAuth v2 token.
 #
-# Requires the `oauth/slack.yaml` provider (sibling file in this kit)
+# Requires the `_vance/oauth/slack.yaml` provider (sibling file in this kit)
 # to be configured AND the user to have completed the Connect flow in
 # Web-UI → Connected Accounts → slack. Per-user state lives in
 # user-settings under oauth.slack.* (access_token, refresh_token if

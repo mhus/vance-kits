@@ -13,7 +13,7 @@ description: |
 
   Was das Kit anlegt (nach erfolgreichem `tool_template_apply`):
 
-    documents/oauth/atlassian.yaml          — OAuth 3LO Provider mit
+    documents/_vance/oauth/atlassian.yaml          — OAuth 3LO Provider mit
                                               echter clientId
     documents/server-tools/jira_rest.yaml   — REST-Pack: 7 curated
                                               Operationen (getCurrentUser,

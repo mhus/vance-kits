@@ -12,7 +12,7 @@ description: |
   What lands after a successful `tool_template_apply`, depending on
   the user's feature selection:
 
-    documents/oauth/atlassian.yaml          — OAuth 3LO Provider with
+    documents/_vance/oauth/atlassian.yaml          — OAuth 3LO Provider with
                                               the chosen scopes union
     documents/server-tools/jira_rest.yaml      (only when 'jira' selected)
     documents/server-tools/confluence_rest.yaml (only when 'confluence' selected)

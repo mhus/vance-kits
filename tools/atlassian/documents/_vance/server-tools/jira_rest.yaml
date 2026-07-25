@@ -1,6 +1,6 @@
 # Jira REST API pack — works with the user's OAuth 3LO token.
 #
-# Requires the sibling `oauth/atlassian.yaml` provider to be configured
+# Requires the sibling `_vance/oauth/atlassian.yaml` provider to be configured
 # AND the user to have completed the Connect flow in Web-UI → Connected
 # Accounts → atlassian. Per-user state lives in user-settings under
 # oauth.atlassian.* (access_token, refresh_token, cloud_id, site_url, …).

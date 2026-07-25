@@ -63,7 +63,7 @@ derived:
 documents:
   # The OAuth provider is always installed — only the scopes vary.
   # Listed REST packs are kept iff the matching feature is selected;
-  # documents NOT listed here (currently: just oauth/atlassian.yaml)
+  # documents NOT listed here (currently: just _vance/oauth/atlassian.yaml)
   # are installed unconditionally.
   - { path: _vance/server-tools/jira_rest.yaml,       requires: jira }
   - { path: _vance/server-tools/confluence_rest.yaml, requires: confluence }

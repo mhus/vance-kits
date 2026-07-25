@@ -13,7 +13,7 @@ description: |
 
   What lands after a successful apply (depending on feature selection):
 
-    documents/oauth/slack.yaml          — OAuth provider with the
+    documents/_vance/oauth/slack.yaml          — OAuth provider with the
                                           chosen user-scopes
     documents/server-tools/slack_rest.yaml — REST pack: curated subset
                                               of the ~150 Slack Web API

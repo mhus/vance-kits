@@ -1,6 +1,6 @@
 # Gmail Web API pack — works with the user's OAuth 2.0 user-token.
 #
-# Requires the sibling `oauth/google.yaml` provider and the user to
+# Requires the sibling `_vance/oauth/google.yaml` provider and the user to
 # have completed the Connect flow with the `gmail.modify` scope (set
 # by the template's derived oauth_scopes when feature `mail` is
 # selected).
