@@ -84,9 +84,9 @@ derived:
         - https://www.googleapis.com/auth/drive.metadata.readonly
 
 documents:
-  - { path: server-tools/gmail_rest.yaml,    requires: mail }
-  - { path: server-tools/calendar_rest.yaml, requires: calendar }
-  - { path: server-tools/drive_rest.yaml,    requires: drive }
+  - { path: _vance/server-tools/gmail_rest.yaml,    requires: mail }
+  - { path: _vance/server-tools/calendar_rest.yaml, requires: calendar }
+  - { path: _vance/server-tools/drive_rest.yaml,    requires: drive }
 
 postInstall:
   kind: oauth-connect
