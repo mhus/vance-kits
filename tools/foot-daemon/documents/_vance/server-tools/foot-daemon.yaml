@@ -26,7 +26,7 @@ promptHint: |
 
   {{var:description}}
 
-  Tools available (call via `find_tools(query="foot-daemon")` then
+  Tools available (call via `tool_list(prefix="foot-daemon")` then
   `invoke_tool`):
 
   - `foot-daemon__client_exec_run` — shell on the daemon's host. Long-
@@ -34,7 +34,7 @@ promptHint: |
     / `*__client_exec_tail`.
   - `foot-daemon__client_fs_read` / `_fs_write` — file IO on the daemon.
   - additional sub-tools depend on what the daemon announces. Use
-    `find_tools(query="foot-daemon")` for the full current list.
+    `tool_list(prefix="foot-daemon")` for the full current list.
 
   Per-invocation timeout: {{var:timeoutSeconds}} seconds (long-running
   exec via the polling pattern is unaffected).

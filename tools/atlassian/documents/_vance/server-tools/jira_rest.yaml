@@ -51,7 +51,7 @@ parameters:
   # Atlassian's search endpoint is POST-but-read-only. Without this
   # override it inherits the POST→[write,side-effect] default and lands
   # in conversational engines' deferred bucket — invisible to the model
-  # until find_tools discovers it.
+  # until tool_list discovers it.
   labelOverrides:
     searchAndReconsileIssuesUsingJqlPost:
       - read-only
@@ -60,7 +60,7 @@ promptHint: |
   ## Jira (REST API)
 
   An Atlassian Jira workspace is connected via the REST API (NOT MCP).
-  Available tools (call via `find_tools(query="jira")` then `invoke_tool`):
+  Available tools (call via `tool_list(prefix="jira")` then `invoke_tool`):
 
   - `jira_rest__getCurrentUser` — your own Atlassian user (no params)
   - `jira_rest__searchAndReconsileIssuesUsingJqlPost` — JQL search.

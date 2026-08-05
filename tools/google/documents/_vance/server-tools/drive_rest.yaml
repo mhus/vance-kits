@@ -49,7 +49,7 @@ promptHint: |
   has explicitly shared with the app (e.g. via the Drive picker, or
   files created by previous Vance turns).
 
-  Common tools (call via `find_tools(query="drive")` then `invoke_tool`):
+  Common tools (call via `tool_list(prefix="drive")` then `invoke_tool`):
 
   Search files:
   - `drive_rest__drive_files_list` —

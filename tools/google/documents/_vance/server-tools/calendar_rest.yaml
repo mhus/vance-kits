@@ -45,7 +45,7 @@ promptHint: |
   one calendar at a time — `primary` is a magic id that means the
   user's main calendar, or pass a specific id from `calendarList.list`.
 
-  Common tools (call via `find_tools(query="calendar")` then `invoke_tool`):
+  Common tools (call via `tool_list(prefix="calendar")` then `invoke_tool`):
 
   Discover calendars:
   - `calendar_rest__calendar_calendarList_list` — no required args.

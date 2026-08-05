@@ -47,7 +47,7 @@ promptHint: |
   ## Confluence (REST API v2)
 
   An Atlassian Confluence workspace is connected via REST.
-  Available tools (call via `find_tools(query="confluence")` then `invoke_tool`):
+  Available tools (call via `tool_list(prefix="confluence")` then `invoke_tool`):
 
   - `confluence_rest__getSpaces` — list visible spaces (no params)
   - `confluence_rest__getPages` — list pages; query-param: `spaceId`,

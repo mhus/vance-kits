@@ -39,7 +39,7 @@ parameters:
 promptHint: |
   ## IMAP mailbox
 
-  Access to an IMAP mailbox. Call via `find_tools(query="imap")` →
+  Access to an IMAP mailbox. Call via `tool_list(prefix="imap")` →
   `invoke_tool`.
 
   Read (always available):

@@ -95,7 +95,7 @@ For local dev, point `source.url` at the workspace path
 
 Eddie:
 
-1. `find_tools(query="tool_template")` → finds `tool_template_list / describe / apply`
+1. `tool_list(prefix="tool_template")` → finds `tool_template_list / describe / apply`
 2. `invoke_tool(tool_template_list, {})` → catalog
 3. `invoke_tool(tool_template_describe, {name: "atlassian"})` → input schema; sees `features` as a multi-select with choices `[jira, confluence]`
 4. ASK_USER for clientId + clientSecret + which products (Jira / Confluence / both)

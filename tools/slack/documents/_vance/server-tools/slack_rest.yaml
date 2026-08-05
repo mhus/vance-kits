@@ -113,7 +113,7 @@ promptHint: |
 
   A Slack workspace is connected via the user's xoxp-token. Calls
   appear as the user in Slack's audit log. Available tools (call via
-  `find_tools(query="slack")` then `invoke_tool`):
+  `tool_list(prefix="slack")` then `invoke_tool`):
 
   Messaging:
   - `slack_rest__chat_postMessage` — body: `{"channel":"C…|@user|#name",

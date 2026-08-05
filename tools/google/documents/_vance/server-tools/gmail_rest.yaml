@@ -71,7 +71,7 @@ promptHint: |
   per-user paths use `userId: "me"` — the connected user IS the
   identity, no impersonation supported.
 
-  Common tools (call via `find_tools(query="gmail")` then `invoke_tool`):
+  Common tools (call via `tool_list(prefix="gmail")` then `invoke_tool`):
 
   Read:
   - `gmail_rest__gmail_users_messages_list` —
