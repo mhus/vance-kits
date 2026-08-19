@@ -1,0 +1,61 @@
+name: translation
+description: |
+  Übersetzungs-Endpunkt für Fremdsysteme — ein HTTP-POST von außen,
+  eine Übersetzung in derselben Antwort.
+
+  Gedacht für Dienste, die viel Text in wechselnden Sprachen sammeln
+  und ihn in einer Zielsprache brauchen (erster Konsument: Hrafnagud,
+  ein Nachrichten-Sammler). Der Aufrufer braucht dafür weder
+  Service-Account noch JWT noch Token-Refresh: ein Bearer-Token und
+  ein POST reichen.
+
+  Architektur — drei Dokumente, eine Kette:
+
+    _vance/events/translate-article.yaml    Event, synchron, Bearer-Auth
+    _vance/scripts/translate-article.js     ruft vance.llm.call auf
+    _vance/recipes/article-translate.yaml   LightLlm-Config-Profil
+
+  Der Event ist eine `script:`-Action und damit per Default synchron —
+  das Skript läuft zu Ende und sein Rückgabewert kommt als `output`
+  in der HTTP-Antwort zurück. Kein Process-Spawn, kein Lane-Lock,
+  kein Polling.
+
+  Aufruf:
+
+    curl -X POST \
+      -H "Authorization: Bearer <token>" \
+      -H "Content-Type: application/json" \
+      -d '{"text": "The council approved the plan.", "targetLang": "de"}' \
+      https://<brain>/brain/<tenant>/event/<project>/translate-article
+
+    → {"event": "translate-article",
+       "workflowName": "script:_vance/scripts/translate-article.js",
+       "output": {"value": "Der Rat hat den Plan beschlossen."}}
+
+  Payload-Felder:
+    text        — Quelltext, beliebige Sprache (Pflicht)
+    targetLang  — BCP-47-Primärsubtag der Zielsprache; Default aus dem
+                  Setting `translation.defaultTargetLang`
+
+  Modellwahl über den Alias in `params.model` des Recipes
+  (`default:fast`). Wer für Übersetzung ein anderes Modell will,
+  ändert den Alias in den Settings — nicht das Recipe.
+
+  ## Token vor dem ersten Einsatz ändern
+
+  Der Event trägt den Token **inline** (`auth.token`). Das ist für
+  eine interne Installation in Ordnung und macht das Kit
+  sofort lauffähig, hat aber zwei Folgen, die man kennen sollte:
+  jede Installation dieses Kits teilt denselben Token, und er steht
+  im Klartext in einem Dokument, das Operatoren editieren.
+
+  Für alles, was von außen erreichbar ist, stattdessen:
+
+    auth:
+      tokenSetting: translation.token
+
+  und den Wert als PASSWORD-Setting in der Cascade ablegen. Die
+  Setting-Referenz ist genau dafür da — siehe
+  specification/public/events.md §5.2.
+version: "1.0"
+hasEncryptedSecrets: false

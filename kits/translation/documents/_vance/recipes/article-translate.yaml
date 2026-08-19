@@ -1,0 +1,53 @@
+# Zielpfad im Projekt: _vance/recipes/article-translate.yaml
+# (NICHT `documents/_vance/...` — `_vance` ist ein eigener Root-Folder
+# parallel zu `documents/`. RecipeLoader sucht hart unter `_vance/recipes/`.)
+#
+# LightLlm-Recipe (kein spawnable Worker). Wird vom Skript
+# _vance/scripts/translate-article.js per vance.llm.call aufgerufen.
+
+description: |
+  Übersetzt einen Text in eine geforderte Zielsprache. Rückgabe ist
+  reiner Text, keine Struktur — deshalb `vance.llm.call` und nicht
+  `callForJson`.
+
+  Pebble-Variablen:
+    text        — Quelltext, in beliebiger Sprache
+    targetLang  — BCP-47-Primärsubtag der Zielsprache (de, en, ja, …)
+
+engine: jeltz
+internal: true
+params:
+  model: default:fast
+  maxAttempts: 1
+  # Übersetzung ist keine kreative Aufgabe: niedrige Temperatur, damit
+  # derselbe Text nicht bei jedem Aufruf anders herauskommt.
+  temperature: 0.1
+promptPrefix: |
+  You are a translator. Translate the text below into the target
+  language.
+
+  ## Target language
+
+  {{ targetLang }}
+
+  ## Text
+
+  {{ text }}
+
+  ## Rules
+
+  - Reply with the translation and nothing else — no preamble, no
+    explanation, no quotes around it, no markdown fences. The reply is
+    consumed by a program, not read by a person.
+  - Translate the whole text. Do not summarise, shorten or comment on
+    it, however long it is.
+  - Keep proper nouns, numbers, dates and units as they are.
+  - Preserve the register of the source: a news lede stays a news lede,
+    a headline stays a headline. Do not add politeness the original
+    does not have.
+  - If the text is already in the target language, return it unchanged.
+  - If the text is empty or is not translatable prose, return it
+    unchanged rather than explaining that you cannot translate it.
+tags:
+  - internal
+  - translation

@@ -1,0 +1,42 @@
+# Zielpfad im Projekt: _vance/events/translate-article.yaml
+#
+# Synchroner Übersetzungs-Endpunkt für Fremdsysteme. Erreichbar unter
+#   POST /brain/{tenant}/event/{project}/translate-article
+# JWT-frei — die Absicherung ist der Bearer-Token unten.
+
+description: |
+  Übersetzt {"text": "...", "targetLang": "de"} und gibt die
+  Übersetzung in derselben Antwort unter output.value zurück.
+
+script:
+  source: document
+  path: _vance/scripts/translate-article.js
+  # Ein Modell-Aufruf ist nach HTTP-Maßstäben langsam. Das begrenzt die
+  # synchrone Wartezeit; einen zusätzlichen Event-Timeout gibt es nicht,
+  # weil hier auf nichts anderes gewartet wird.
+  timeoutSeconds: 120
+
+# GET würde für einen Aufruf mit Body keinen Sinn ergeben.
+methods: [POST]
+
+auth:
+  # Inline-Literal: macht das Kit sofort lauffähig, teilt aber denselben
+  # Token über alle Installationen und steht im Klartext in einem
+  # editierbaren Dokument. Vor jedem Einsatz ändern — und für alles, was
+  # von außerhalb des eigenen Netzes erreichbar ist, stattdessen
+  #   tokenSetting: translation.token
+  # verwenden und den Wert als PASSWORD-Setting hinterlegen.
+  token: "change-me-translation-token"
+
+# Nicht gesetzt und das ist Absicht:
+#
+#   async:            script-Actions sind per Default synchron, und genau
+#                     das ist hier der Zweck.
+#   runAs:            das Skript ruft nur ein Modell und liest ein
+#                     Setting — es braucht keine fremde Identität. Ohne
+#                     runAs bleibt der Output auch für event_fire
+#                     sichtbar, ein Agent kann den Endpunkt also selbst
+#                     ausprobieren.
+tags:
+  - translation
+  - integration
