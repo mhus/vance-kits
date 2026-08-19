@@ -12,7 +12,7 @@ description: |
   Architektur — drei Dokumente, eine Kette:
 
     _vance/events/translate-article.yaml    Event, synchron, Bearer-Auth
-    _vance/scripts/translate-article.js     ruft vance.llm.call auf
+    _vance/scripts/translate-article.js     ruft vance.llm.callForJsonWithModel
     _vance/recipes/article-translate.yaml   LightLlm-Config-Profil
 
   Der Event ist eine `script:`-Action und damit per Default synchron —
@@ -33,7 +33,8 @@ description: |
     → {"event": "translate-article",
        "workflowName": "script:_vance/scripts/translate-article.js",
        "output": {"title": "Rat beschliesst Plan",
-                  "summary": "Die Abstimmung beendete eine dreijaehrige Debatte."}}
+                  "summary": "Die Abstimmung beendete eine dreijaehrige Debatte.",
+                  "model": "cortecs:deepseek-v4-pro"}}
 
   Payload-Felder:
     title       — Titel, beliebige Sprache (Pflicht)
@@ -45,6 +46,13 @@ description: |
   Volumen dominiert der Recipe-Prompt die Token-Rechnung — grob das
   Fünffache des Artikeltexts —, zwei Aufrufe würden also die teure
   Hälfte verdoppeln, um nichts zu sparen.
+
+  Die Antwort nennt zusätzlich das Modell, das geantwortet hat
+  (`model`, kann `null` sein). Das ist aus dem Recipe nicht ableitbar:
+  `params.model` ist ein Alias, und eine Fallback-Kette kann ein anderes
+  Modell einsetzen. Wer die Übersetzung archiviert, braucht den Wert, um
+  zwei Läufe später vergleichen zu können — und muss `null` als
+  "unbekannt" ablegen statt als vermutetes Modell.
 
   Modellwahl über den Alias in `params.model` des Recipes
   (`default:fast`). Wer für Übersetzung ein anderes Modell will,

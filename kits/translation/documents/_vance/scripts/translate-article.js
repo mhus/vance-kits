@@ -1,58 +1,49 @@
 /**
- * translation kit / translate-article.js
+ * translation kit / scripts/translate-article.js
  *
- * @description Übersetzt Titel und Teaser des Event-Payloads per LightLlm
- * @version     2.0.0
+ * @description Translates title and teaser via LightLlmService
+ * @version     2.1.0
  * @timeout     120s
  */
-// Wird von _vance/events/translate-article.yaml als synchrone
-// script:-Action aufgerufen. Der POST-Body des Aufrufers liegt unter
-// `args.payload` — der Event-Layer hängt ihn dort unausgepackt ein.
+// The whole chain in a few lines: the POST body arrives under
+// `args.payload`, `vance.llm.callForJsonWithModel` is ScriptLightLlmApi →
+// LightLlmService (so the recipe must be `internal: true`, model aliases
+// and the setting cascade apply), and the returned object becomes the
+// event response's `output`.
 //
-// Rückgabe ist ein Objekt {title, summary}; ScriptOutcomeMapper reicht es
-// als `output` der HTTP-Antwort durch (bei einem Objekt ohne Wrapper-
-// Pattern also unverändert, nicht unter `value`).
+// One call for both fields: at realistic volume the recipe prompt
+// dominates the token bill, so a second call would double the expensive
+// half to save nothing.
 //
-// callForJson statt call: das Recipe verlangt strukturierte Ausgabe, und
-// Jeltz' Schema-Loop fasst nach, wenn das Modell kein sauberes JSON
-// liefert. Titel und Teaser gehen in EINEM Aufruf raus — bei realem
-// Volumen dominiert der Prompt die Kosten, zwei Aufrufe würden also die
-// teure Hälfte verdoppeln.
+// `...WithModel` rather than plain `callForJson` because the caller
+// archives what comes back. Which model answered is not derivable from
+// the recipe — `params.model` is an alias, and a fallback may have
+// stepped in — so it has to travel with the answer or it is lost.
 //
-// IIFE, weil der Executor den Wert des letzten Ausdrucks nimmt — ein
-// `return` auf oberster Ebene ist in GraalJS ein SyntaxError.
+// IIFE because the executor takes the value of the last expression — a
+// bare top-level `return` is a SyntaxError in GraalJS.
 
 (function () {
     var payload = (args && args.payload) ? args.payload : {};
     var title = payload.title || "";
     var summary = payload.summary || "";
-
-    // Zielsprache: Payload gewinnt, sonst das Projekt-Setting, sonst
-    // Deutsch. `vance.settings` ist nullable (null, wenn kein
-    // SettingService verdrahtet ist) — ein fehlender Setting-Zugriff darf
-    // die Übersetzung nicht kippen, die Sprache hat ja einen Default.
-    var targetLang = payload.targetLang
-        || (vance.settings ? vance.settings.get("translation.defaultTargetLang", "de") : "de");
+    var targetLang = payload.targetLang || "de";
 
     if (!title) {
-        // Kein Titel ist kein Fehler, sondern ein leeres Ergebnis — ein
-        // Aufrufer mit einem titellosen Eintrag soll keine 502 bekommen.
-        return { title: "", summary: "" };
+        return { title: "", summary: "", model: null };
     }
 
-    vance.log.info("translate-article", {
-        targetLang: targetLang,
-        titleChars: title.length,
-        summaryChars: summary.length
-    });
-
-    var result = vance.llm.callForJson(
+    var answer = vance.llm.callForJsonWithModel(
         "article-translate",
         "Translate the title and teaser into " + targetLang + ".",
         { title: title, summary: summary, targetLang: targetLang });
 
+    var result = answer.result || {};
     return {
         title: result.title || "",
-        summary: result.summary || ""
+        summary: result.summary || "",
+        // May be null. A consumer must store that as unknown rather than
+        // substituting the model it assumed.
+        model: answer.model || null
     };
 })();
