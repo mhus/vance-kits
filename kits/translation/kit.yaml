@@ -25,17 +25,26 @@ description: |
     curl -X POST \
       -H "Authorization: Bearer <token>" \
       -H "Content-Type: application/json" \
-      -d '{"text": "The council approved the plan.", "targetLang": "de"}' \
+      -d '{"title": "Council approves plan",
+           "summary": "The vote ended a three-year debate.",
+           "targetLang": "de"}' \
       https://<brain>/brain/<tenant>/event/<project>/translate-article
 
     → {"event": "translate-article",
        "workflowName": "script:_vance/scripts/translate-article.js",
-       "output": {"value": "Der Rat hat den Plan beschlossen."}}
+       "output": {"title": "Rat beschliesst Plan",
+                  "summary": "Die Abstimmung beendete eine dreijaehrige Debatte."}}
 
   Payload-Felder:
-    text        — Quelltext, beliebige Sprache (Pflicht)
+    title       — Titel, beliebige Sprache (Pflicht)
+    summary     — Teaser; darf leer sein
     targetLang  — BCP-47-Primärsubtag der Zielsprache; Default aus dem
                   Setting `translation.defaultTargetLang`
+
+  Titel und Teaser gehen in EINEM Modell-Aufruf raus. Bei realistischem
+  Volumen dominiert der Recipe-Prompt die Token-Rechnung — grob das
+  Fünffache des Artikeltexts —, zwei Aufrufe würden also die teure
+  Hälfte verdoppeln, um nichts zu sparen.
 
   Modellwahl über den Alias in `params.model` des Recipes
   (`default:fast`). Wer für Übersetzung ein anderes Modell will,
