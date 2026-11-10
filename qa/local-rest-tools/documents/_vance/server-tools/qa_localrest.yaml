@@ -5,6 +5,7 @@ enabled: true
 primary: false
 defaultDeferred: false
 labels:
+  - worker      # release to the Ford/Frankie worker pool (server-tools.md §15)
   - qa
   - external
   - rest:qa_localrest
